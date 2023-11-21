@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@cashier/auth": ["libs/auth/src/index.ts"],
+      "@cashier/components": ["libs/components/src/index.ts"],
+      "@cashier/context": ["libs/context/src/index.ts"],
+      "@cashier/theme": ["libs/theme/src/index.ts"],
+      "@cashier/utils": ["libs/utils/src/index.ts"],
+      "@cashier/widget-builder": ["libs/widget-builder/src/index.ts"],
+      "@cashier/widget-instance": ["libs/widget-instance/src/index.ts"],
+      "i18n": ["libs/i18n/src/index.ts"],
+      "users": ["libs/users/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
