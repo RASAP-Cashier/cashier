@@ -7,9 +7,9 @@ import { Footer, PageTitleWrapper } from '@cashier/components';
 import { PageHeader } from './_components';
 import { Container } from '@mui/material';
 
-export function WidgetBuilderPage(props) {
-  const location = useLocation();
-  const widgetSettings = getWidgetSettings(location?.state?.id);
+export function WidgetBuilderPage() {
+  const { state }: { state: { id?: number } } = useLocation();
+  const widgetSettings = getWidgetSettings(state?.id);
 
   return (
     <>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Theme } from '@mui/material';
 import { LightTheme } from './schemes/light-theme';
 

@@ -1228,4 +1228,4 @@ export const LightTheme = createTheme({
     'none',
     'none'
   ]
-});
+} as any);

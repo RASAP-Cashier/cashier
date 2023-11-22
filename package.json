@@ -5,9 +5,9 @@
   "scripts": {
     "start:cashier-admin:dev": "yarn nx serve cashier-admin development",
     "start:widget:dev": "yarn nx serve widget development",
-    "build:cashier-admin": "yarn nx build cashier-admin",
+    "build:cashier-admin": "yarn nx build cashier-admin production",
     "build:widget": "yarn nx build widget",
-    "sb:cashier-admin": "yarn nx storybook cashier-admin",
+    "sb:cashier-admin": "yarn nx storybook cashier-admin production",
     "sb:widget": "yarn nx storybook widget",
     "nx-gen-lib": "yarn nx g @nx/react:library"
   },

@@ -1,6 +1,6 @@
 import { IWidgetSettings } from '@cashier/widget-instance';
 
-export function getWidgetSettings(userId: number): IWidgetSettings {
+export function getWidgetSettings(userId?: number): IWidgetSettings {
   // TODO
   return {
     brandColor: 'red',

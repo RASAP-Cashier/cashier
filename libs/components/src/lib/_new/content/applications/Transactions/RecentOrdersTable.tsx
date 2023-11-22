@@ -188,7 +188,7 @@ export const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) 
                 <InputLabel>Status</InputLabel>
                 <Select
                   value={filters.status || 'all'}
-                  onChange={handleStatusChange}
+                  onChange={handleStatusChange as any}
                   label="Status"
                   autoWidth
                 >
