@@ -1,2 +1,3 @@
-export * from './lib/theme';
-export * from './lib/theme-dark';
+export * from './lib/theme-provider';
+export * from './lib/base';
+export * from './lib/schemes/light-theme';

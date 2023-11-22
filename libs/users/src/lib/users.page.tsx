@@ -66,7 +66,9 @@ const rows: Data[] = Array.from({ length: 200 }, (_, index) => {
   return createData(index, ...randomSelection);
 });
 
-export function UsersPage() {
+export function UsersPage(props) {
+  const { appRoutes } = props;
+
   const navigate = useNavigate();
 
   const [rememberMe, setRememberMe] = useState(false);
@@ -123,7 +125,7 @@ export function UsersPage() {
 
   return (
     <BasicLayout image={bgImage}>
-      <SideNav/>
+      <SideNav appRoutes={appRoutes}/>
       <MDBox style={{ marginLeft: 270, height: 400 }}>
         <TableVirtuoso
           data={rows}

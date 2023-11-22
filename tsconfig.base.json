@@ -3,6 +3,8 @@
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -22,8 +24,8 @@
       "@cashier/utils": ["libs/utils/src/index.ts"],
       "@cashier/widget-builder": ["libs/widget-builder/src/index.ts"],
       "@cashier/widget-instance": ["libs/widget-instance/src/index.ts"],
-      "i18n": ["libs/i18n/src/index.ts"],
-      "users": ["libs/users/src/index.ts"]
+      "@cashier/i18n": ["libs/i18n/src/index.ts"],
+      "@cashier/users": ["libs/users/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

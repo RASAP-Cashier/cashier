@@ -1,17 +1,17 @@
-import * as React from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { App } from "./app/app";
-import { MaterialUIControllerProvider } from "../../../libs/context/src/lib/app-context";
+import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter } from 'react-router-dom';
+import 'nprogress/nprogress.css';
+import App from './app/app';
+import { SidebarProvider } from '@cashier/components';
+import ReactDOM from 'react-dom';
 
-const root = createRoot(
-  document.getElementById('root') as HTMLElement
-);
-
-root.render(
-  <BrowserRouter>
-    <MaterialUIControllerProvider>
-      <App />
-    </MaterialUIControllerProvider>
-  </BrowserRouter>
+ReactDOM.render(
+  <HelmetProvider>
+    <SidebarProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </SidebarProvider>
+  </HelmetProvider>,
+  document.getElementById('root')
 );
