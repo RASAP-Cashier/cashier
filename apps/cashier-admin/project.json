@@ -9,7 +9,10 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/cashier-admin"
+        "outputPath": "dist/apps/cashier-admin",
+        "progress": true,
+        "buildLibsFromSource": true,
+        "memoryLimit": 1024
       },
       "configurations": {
         "development": {
