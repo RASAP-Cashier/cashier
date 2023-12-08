@@ -76,16 +76,16 @@ export const Text: FC<TextProps> = ({
   );
 };
 
-Text.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  color: PropTypes.oneOf([
-    'primary',
-    'secondary',
-    'error',
-    'warning',
-    'success',
-    'info',
-    'black'
-  ])
-};
+// Text.propTypes = {
+//   children: PropTypes.node,
+//   className: PropTypes.string,
+//   color: PropTypes.oneOf([
+//     'primary',
+//     'secondary',
+//     'error',
+//     'warning',
+//     'success',
+//     'info',
+//     'black'
+//   ])
+// };

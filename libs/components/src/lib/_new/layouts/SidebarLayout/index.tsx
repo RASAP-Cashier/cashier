@@ -1,8 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Box, alpha, lighten, useTheme } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-
-import Sidebar from './Sidebar';
+import { Sidebar } from './sidebar/sidebar';
 import Header from './Header';
 
 interface SidebarLayoutProps {

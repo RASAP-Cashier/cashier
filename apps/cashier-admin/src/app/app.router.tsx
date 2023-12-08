@@ -12,8 +12,6 @@ const Loader = (Component) => (props) =>
 
 // Pages
 
-const Overview = Loader(lazy(() => import('../../../../libs/components/src/lib/_new/content/overview')));
-
 // Dashboards
 
 const Crypto = Loader(lazy(() => import('../../../../libs/components/src/lib/_new/content/dashboards/Crypto')));
@@ -90,11 +88,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: '/',
-        element: <Overview />
-      },
-      {
-        path: 'overview',
-        element: <Navigate to="/" replace />
+        element: <Navigate to="dashboards/crypto" replace />
       },
       {
         path: 'status',
