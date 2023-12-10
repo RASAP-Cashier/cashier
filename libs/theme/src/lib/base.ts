@@ -2,7 +2,7 @@ import React from 'react';
 import { Theme } from '@mui/material';
 import { LightTheme } from './schemes/light-theme';
 import { ThemeName } from './theme.interface';
-import { DefaultTheme } from './schemes/default-theme';
+import { DefaultTheme } from './schemes/default/default-theme';
 
 export function themeCreator(theme: ThemeName): Theme {
   return themeMap[theme];

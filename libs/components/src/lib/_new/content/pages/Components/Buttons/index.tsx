@@ -1,17 +1,9 @@
 import { Helmet } from 'react-helmet-async';
-import { PageTitle, PageTitleWrapper, Footer } from '../../../../components';
-import {
-  Button,
-  Container,
-  IconButton,
-  Grid,
-  Card,
-  CardHeader,
-  CardContent,
-  Divider
-} from '@mui/material';
+import { Footer, PageTitle, PageTitleWrapper } from '../../../../components';
+import { Button, Card, CardContent, CardHeader, Container, Divider, Grid, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { ButtonC, ButtonType } from '../../../../../button';
 
 function Buttons() {
   return (
@@ -36,61 +28,19 @@ function Buttons() {
         >
           <Grid item xs={12}>
             <Card>
-              <CardHeader title="Contained Buttons" />
-              <Divider />
+              <CardHeader title="Contained Buttons"/>
+              <Divider/>
               <CardContent>
-                <Button sx={{ margin: 1 }} variant="contained">
-                  Default
-                </Button>
-                <Button sx={{ margin: 1 }} variant="contained" color="primary">
-                  Primary
-                </Button>
-                <Button
-                  sx={{ margin: 1 }}
-                  variant="contained"
-                  color="secondary"
-                >
-                  Secondary
-                </Button>
-                <Button sx={{ margin: 1 }} variant="contained" disabled>
-                  Disabled
-                </Button>
-                <Button
-                  sx={{ margin: 1 }}
-                  variant="contained"
-                  color="primary"
-                  href="#contained-buttons"
-                >
-                  Link
-                </Button>
+                <ButtonC type={ButtonType.Error} text="Reject" styles={{ margin: 1 }}/>
+                <ButtonC type={ButtonType.Success} text="Approve" styles={{ margin: 1 }}/>
+                <ButtonC disabled={true} text="Disabled" styles={{ margin: 1 }}/>
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12}>
             <Card>
-              <CardHeader title="Text Buttons" />
-              <Divider />
-              <CardContent>
-                <Button sx={{ margin: 1 }}>Default</Button>
-                <Button sx={{ margin: 1 }} color="primary">
-                  Primary
-                </Button>
-                <Button sx={{ margin: 1 }} color="secondary">
-                  Secondary
-                </Button>
-                <Button sx={{ margin: 1 }} disabled>
-                  Disabled
-                </Button>
-                <Button sx={{ margin: 1 }} href="#text-buttons" color="primary">
-                  Link
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              <CardHeader title="Outlined Buttons" />
-              <Divider />
+              <CardHeader title="Outlined Buttons"/>
+              <Divider/>
               <CardContent>
                 <Button variant="outlined" sx={{ margin: 1 }}>
                   Default
@@ -117,8 +67,8 @@ function Buttons() {
           </Grid>
           <Grid item xs={12}>
             <Card>
-              <CardHeader title="Sizes" />
-              <Divider />
+              <CardHeader title="Sizes"/>
+              <Divider/>
               <CardContent>
                 <div>
                   <div>
@@ -190,16 +140,16 @@ function Buttons() {
                       sx={{ margin: 1 }}
                       size="small"
                     >
-                      <ArrowDownwardIcon fontSize="inherit" />
+                      <ArrowDownwardIcon fontSize="inherit"/>
                     </IconButton>
                     <IconButton aria-label="delete" sx={{ margin: 1 }}>
-                      <DeleteIcon fontSize="small" />
+                      <DeleteIcon fontSize="small"/>
                     </IconButton>
                     <IconButton aria-label="delete" sx={{ margin: 1 }}>
-                      <DeleteIcon />
+                      <DeleteIcon/>
                     </IconButton>
                     <IconButton aria-label="delete" sx={{ margin: 1 }}>
-                      <DeleteIcon fontSize="large" />
+                      <DeleteIcon fontSize="large"/>
                     </IconButton>
                   </div>
                 </div>
@@ -208,7 +158,7 @@ function Buttons() {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
+      <Footer/>
     </>
   );
 }
