@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import { RouteObject } from 'react-router';
 import { BaseLayout, SidebarLayout, SuspenseLoader } from '@cashier/components';
+import { SignInPage } from '@cashier/auth';
 
 const Loader = (Component) => (props) =>
   (
@@ -81,14 +82,18 @@ const StatusMaintenance = Loader(
   lazy(() => import('../../../../libs/components/src/lib/_new/content/pages/Status/Maintenance'))
 );
 
-const routes: RouteObject[] = [
+export const appRoutes: RouteObject[] = [
   {
-    path: '',
+    path: '/',
     element: <BaseLayout />,
     children: [
       {
         path: '/',
         element: <Navigate to="dashboards/crypto" replace />
+      },
+      {
+        path: 'sign-in',
+        element: <SignInPage/>,
       },
       {
         path: 'status',
@@ -225,5 +230,3 @@ const routes: RouteObject[] = [
     ]
   }
 ];
-
-export default routes;

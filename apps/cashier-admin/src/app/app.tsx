@@ -1,20 +1,39 @@
-import { useRoutes } from 'react-router-dom';
-import router from './app.router';
+import { useNavigate, useRoutes } from 'react-router-dom';
+import { Box, CssBaseline } from '@mui/material';
+import { useRootStore } from '@cashier/auth';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@cashier/theme';
+import { appRoutes } from './app.router';
+import { useEffect } from 'react';
 
-function App() {
-  const content = useRoutes(router);
+export const App = () => {
+  const { userStore, authStore } = useRootStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authStore.isAuth) {
+      navigate('/sign-in');
+    }
+    else if (authStore.isAuth && !userStore?.currentUser?.id) {
+      userStore.getUser().then(response => {
+        if (!response) {
+          navigate('/sign-in');
+        }
+      });
+    }
+  }, [authStore.isAuth, navigate, userStore?.currentUser?.id]);
+
+  const content = useRoutes(appRoutes);
 
   return (
-    <ThemeProvider>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <CssBaseline />
-        {content}
-      </LocalizationProvider>
-    </ThemeProvider>
+    <Box id="app" height="100%">
+      <ThemeProvider>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <CssBaseline/>
+          {content}
+        </LocalizationProvider>
+      </ThemeProvider>
+    </Box>
   );
-}
-export default App;
+};

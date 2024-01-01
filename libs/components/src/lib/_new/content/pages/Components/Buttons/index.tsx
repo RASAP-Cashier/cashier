@@ -33,7 +33,7 @@ function Buttons() {
               <CardContent>
                 <ButtonC type={ButtonType.Error} text="Reject" styles={{ margin: 1 }}/>
                 <ButtonC type={ButtonType.Success} text="Approve" styles={{ margin: 1 }}/>
-                <ButtonC disabled={true} text="Disabled" styles={{ margin: 1 }}/>
+                <ButtonC type={ButtonType.Error} disabled={true} text="Disabled" styles={{ margin: 1 }}/>
               </CardContent>
             </Card>
           </Grid>

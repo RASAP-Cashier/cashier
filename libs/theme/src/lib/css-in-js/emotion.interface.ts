@@ -15,8 +15,8 @@ export type IWithClassesProps<T> = {
   classes?: T;
 };
 
-declare module '@wt-nx/wt-client/theme' {
-  export type Theme = ITheme;
-
-  export function useTheme(): ITheme;
-}
+// declare module '@wt-nx/wt-client/theme' {
+//   export type Theme = ITheme;
+//
+//   export function useTheme(): ITheme;
+// }
