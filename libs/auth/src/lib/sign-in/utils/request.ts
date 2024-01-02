@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { getToken, removeToken } from './auth';
 
-const BASE_API_URL = '';
-
 export const apiService = axios.create({
-  baseURL: BASE_API_URL,
+  baseURL: process.env.BASE_API_URL,
   timeout: 5000,
-});
+} as any);
 
 apiService.interceptors.request.use(
   config => {

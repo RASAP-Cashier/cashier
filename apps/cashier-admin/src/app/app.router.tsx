@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import { RouteObject } from 'react-router';
 import { BaseLayout, SidebarLayout, SuspenseLoader } from '@cashier/components';
-import { SignInPage } from '@cashier/auth';
+import { SignInPage, SignUpPage } from '@cashier/auth';
 
 const Loader = (Component) => (props) =>
   (
@@ -94,6 +94,10 @@ export const appRoutes: RouteObject[] = [
       {
         path: 'sign-in',
         element: <SignInPage/>,
+      },
+      {
+        path: 'sign-up',
+        element: <SignUpPage/>,
       },
       {
         path: 'status',
