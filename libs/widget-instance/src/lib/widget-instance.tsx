@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
-import { IWidgetInstanceProps } from './widget-instance.interface';
 import { PaymentDetails } from './_components/payment-details';
 import { YouPayBy } from './_components/you-pay-by';
 import { BillingInfo } from './_components/billing-info';
 import { Amount } from './_components/amount';
 import { Copyright } from '@mui/icons-material';
+import { useWidgetSettingsStore } from './_stores';
+import { observer } from 'mobx-react';
 
-export function WidgetInstance(props: IWidgetInstanceProps) {
-  const { settings } = props;
+export const WidgetInstance = observer(() => {
+  const { widgetSettings } = useWidgetSettingsStore();
 
-  console.log(settings);
+  console.log(widgetSettings);
 
   return (
     <Grid container style={{
-      color: settings.brandColor,
+      color: widgetSettings.brandColors,
     }}>
       <Grid item xs={12}>
         <Box p={3}>
@@ -43,4 +44,4 @@ export function WidgetInstance(props: IWidgetInstanceProps) {
       </Grid>
     </Grid>
   );
-}
+});

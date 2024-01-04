@@ -27,6 +27,7 @@
     "i18next-http-backend": "2.2.1",
     "mobx": "6.10.2",
     "mobx-react": "9.0.2",
+    "mui-color-input": "^2.0.1",
     "nprogress": "0.2.0",
     "numeral": "2.0.6",
     "prop-types": "15.8.1",

@@ -21,13 +21,13 @@ export class AuthStore {
   }
   async login(authDto: any) {
     try {
-      // const result = await auth(authDto);
-      // TODO temp for test
-      const result = {
-        data: {
-          access_token: 'qweqefknwovbnaeo'
-        }
-      }
+      const result = await auth(authDto);
+      // // TODO temp for test
+      // const result = {
+      //   data: {
+      //     access_token: 'qweqefknwovbnaeo'
+      //   }
+      // }
       this.setAccessToken(result.data.access_token);
       setToken(result.data.access_token);
       return result.data.access_token;

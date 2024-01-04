@@ -1920,6 +1920,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ctrl/tinycolor@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "@ctrl/tinycolor@npm:4.0.2"
+  checksum: 4f04f28a5163a12d7692a3dbb017f7ea5659c0bb1c2b60b274aa873c9b91b0a5f81773f26aa62d8b0663f99979edfadb833c937a53ccc831d8243b6facb9b708
+  languageName: node
+  linkType: hard
+
 "@date-io/core@npm:^2.17.0":
   version: 2.17.0
   resolution: "@date-io/core@npm:2.17.0"
@@ -16562,6 +16569,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mui-color-input@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "mui-color-input@npm:2.0.1"
+  dependencies:
+    "@ctrl/tinycolor": "npm:^4.0.2"
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@mui/material": ^5.0.0
+    "@types/react": ^18.0.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 089a80c6691ec1597c141ca06320a8a3b61845ed5286ff46fb83fc81a6c901dc454817d6ea93b9d36ed2e5983954b1c81e1d2525adb5bcbc2dcc22fcadd08347
+  languageName: node
+  linkType: hard
+
 "multicast-dns@npm:^7.2.5":
   version: 7.2.5
   resolution: "multicast-dns@npm:7.2.5"
@@ -19748,6 +19774,7 @@ __metadata:
     jsdom: "npm:~22.1.0"
     mobx: "npm:6.10.2"
     mobx-react: "npm:9.0.2"
+    mui-color-input: "npm:^2.0.1"
     nprogress: "npm:0.2.0"
     numeral: "npm:2.0.6"
     nx: "npm:17.0.2"
