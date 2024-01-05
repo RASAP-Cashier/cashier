@@ -12,7 +12,7 @@
         "outputPath": "dist/apps/cashier-admin",
         "progress": true,
         "buildLibsFromSource": true,
-        "memoryLimit": 2028
+        "memoryLimit": 1536
       },
       "configurations": {
         "development": {
