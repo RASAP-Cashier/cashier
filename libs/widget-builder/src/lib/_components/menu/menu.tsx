@@ -14,7 +14,7 @@ const MenuContainer = styled(Box)(
 export const Menu = () => {
   return (
     <MenuContainer elevation={0} sx>
-      <Grid container xs={12} direction="row" p={3}>
+      <Grid container direction="row" p={3}>
         <BrandColorsRow/>
       </Grid>
     </MenuContainer>

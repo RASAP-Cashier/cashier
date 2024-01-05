@@ -5,11 +5,14 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider } from '@cashier/theme';
 import { appRoutes } from './app.router';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { initI18n } from '@cashier/i18n';
+import { I18nextProvider } from 'react-i18next';
 
 export const App = () => {
   const { userStore, authStore } = useRootStore();
   const navigate = useNavigate();
+  const i18next = initI18n();
 
   useEffect(() => {
     if (!authStore.isAuth) {
@@ -31,7 +34,11 @@ export const App = () => {
       <ThemeProvider>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <CssBaseline/>
-          {content}
+          <I18nextProvider i18n={i18next}>
+            <>
+              {content}
+            </>
+          </I18nextProvider>
         </LocalizationProvider>
       </ThemeProvider>
     </Box>

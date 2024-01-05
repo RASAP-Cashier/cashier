@@ -12,13 +12,13 @@ export function WidgetBuilderPage() {
   const [previewMode, setPreviewMode] = useState<boolean>(false);
 
   return (
-    <Grid container xs={12} direction="row" columnSpacing={{ xs: 8 }}>
+    <Grid container direction="row" columnSpacing={{ xs: 8 }}>
       <Grid item xs={3}>
         <Menu />
       </Grid>
       <Grid container item xs direction={'column'}x>
         <Grid item xs>
-          <Box maxWidth style={{
+          <Box style={{
             display: 'flex',
             flex: 1,
             justifyContent: 'flex-end',
@@ -37,7 +37,7 @@ export function WidgetBuilderPage() {
           </Box>
         </Grid>
         <Grid item xs>
-          <Card maxWidth style={{
+          <Card style={{
             display: 'flex',
             flexDirection: 'column',
             flex: 1,
@@ -51,7 +51,7 @@ export function WidgetBuilderPage() {
           </Card>
         </Grid>
         <Grid item xs>
-          <Box maxWidth style={{
+          <Box style={{
             display: 'flex',
             flex: 1,
             justifyContent: 'flex-end',

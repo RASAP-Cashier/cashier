@@ -20,7 +20,7 @@ export const Amount = (props: IAmountProps) => {
           id="amount"
           select
           label="USD"
-          value={'$ 2,499.0'}
+          value={'9'}
           onChange={onNewCardChange}
           helperText=""
         >

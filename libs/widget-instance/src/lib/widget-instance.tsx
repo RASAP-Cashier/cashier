@@ -7,9 +7,11 @@ import { Amount } from './_components/amount';
 import { Copyright } from '@mui/icons-material';
 import { useWidgetSettingsStore } from './_stores';
 import { observer } from 'mobx-react';
+import { useTranslation } from 'react-i18next'
 
-export const WidgetInstance = observer(() => {
+export const WidgetInstance = observer((props) => {
   const { widgetSettings } = useWidgetSettingsStore();
+  const [t] = useTranslation();
 
   console.log(widgetSettings);
 

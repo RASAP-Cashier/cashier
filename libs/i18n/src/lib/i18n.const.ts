@@ -1,11 +1,12 @@
 import type { ILocales } from './i18n.interface';
 import defaultI18nDictionary from './localization/en.json';
+import ruDictionary from './localization/ru.json';
 import { Language } from './i18n.interface';
 import { InitOptions } from 'i18next/typescript/options';
 
 export const i18nDefaultNS = 'default';
 
-export const defaultLanguage = Language.en;
+export const defaultLanguage = Language.ru;
 
 export const i18nextDefaultOptions: InitOptions<object> = {
   fallbackLng: Language.en,
@@ -25,8 +26,11 @@ export const i18nextDefaultOptions: InitOptions<object> = {
   keySeparator: false as false | string,
   lng: defaultLanguage,
   resources: {
-    [defaultLanguage]: {
+    [Language.en]: {
       [i18nDefaultNS]: defaultI18nDictionary,
+    },
+    [Language.ru]: {
+      [i18nDefaultNS]: ruDictionary,
     },
   },
 };
