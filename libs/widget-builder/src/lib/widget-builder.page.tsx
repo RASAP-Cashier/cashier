@@ -16,7 +16,7 @@ export function WidgetBuilderPage() {
       <Grid item xs={3}>
         <Menu />
       </Grid>
-      <Grid container item xs direction={'column'}x>
+      <Grid container item xs direction={'column'}>
         <Grid item xs>
           <Box style={{
             display: 'flex',

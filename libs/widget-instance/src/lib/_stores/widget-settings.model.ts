@@ -77,12 +77,12 @@ export class WidgetSettingsModel {
   }
 
   @action
-  public updateSettings<T>(key: keyof IWidgetSettings, value: T) {
-    this[key] = value as any;
+  public updateSettings(key: keyof IWidgetSettings, value) {
+    this[key] = value as any as never;
   }
 
   @action
   public loadFromServer<T>(key: keyof IWidgetSettings, value: T) {
-    this[key] = value as any;
+    this[key] = value as any as never;
   }
 }

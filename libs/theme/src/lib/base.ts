@@ -9,7 +9,7 @@ export function themeCreator(theme: ThemeName): Theme {
 }
 
 declare module '@mui/material/styles' {
-  interface Theme {
+  export interface Theme {
     colors: {
       gradients: {
         blue1: string;
@@ -128,7 +128,7 @@ declare module '@mui/material/styles' {
     };
   }
 
-  interface ThemeOptions {
+  export interface ThemeOptions {
     colors: {
       gradients: {
         blue1: string;

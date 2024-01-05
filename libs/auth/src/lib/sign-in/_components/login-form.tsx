@@ -8,7 +8,7 @@ export const LoginForm = () => {
     const isEmailValid = !!formState.email;
     const isPasswordValid = !!formState.password;
 
-    return isEmailValid & isPasswordValid;
+    return isEmailValid && isPasswordValid;
   }, [formState.email, formState.password]);
 
   return (

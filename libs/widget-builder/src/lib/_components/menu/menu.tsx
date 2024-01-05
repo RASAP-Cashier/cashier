@@ -13,7 +13,7 @@ const MenuContainer = styled(Box)(
 
 export const Menu = () => {
   return (
-    <MenuContainer elevation={0} sx>
+    <MenuContainer>
       <Grid container direction="row" p={3}>
         <BrandColorsRow/>
       </Grid>

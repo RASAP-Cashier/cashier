@@ -5,9 +5,9 @@ import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 
 const CardCc = styled(Card)(
-  ({ theme }) => `
-     border: 1px solid ${theme.colors.alpha.black[30]};
-     background: ${theme.colors.alpha.black[5]};
+  (props: any) => `
+     border: 1px solid ${props.theme.colors.alpha.black[30]};
+     background: ${props.theme.colors.alpha.black[5]};
      box-shadow: none;
 `,
 );

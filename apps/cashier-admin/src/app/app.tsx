@@ -18,14 +18,14 @@ export const App = () => {
     if (!authStore.isAuth) {
       navigate('/sign-in');
     }
-    else if (authStore.isAuth && !userStore?.currentUser?.id) {
+    else if (authStore.isAuth && !userStore?.user?.id) {
       userStore.getUser().then(response => {
         if (!response) {
           navigate('/sign-in');
         }
       });
     }
-  }, [authStore.isAuth, navigate, userStore?.currentUser?.id]);
+  }, [authStore.isAuth, navigate, userStore?.user?.id]);
 
   const content = useRoutes(appRoutes);
 

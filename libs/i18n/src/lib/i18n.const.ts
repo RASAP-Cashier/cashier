@@ -10,7 +10,6 @@ export const defaultLanguage = Language.ru;
 
 export const i18nextDefaultOptions: InitOptions<object> = {
   fallbackLng: Language.en,
-  fallbackOnNull: true,
   defaultNS: i18nDefaultNS,
   debug: false,
   interpolation: {
@@ -20,7 +19,7 @@ export const i18nextDefaultOptions: InitOptions<object> = {
     order: [],
   },
   react: {
-    wait: true, // special options for react-i18next
+    // wait: true, // special options for react-i18next
   },
   nsSeparator: false as false | string,
   keySeparator: false as false | string,
