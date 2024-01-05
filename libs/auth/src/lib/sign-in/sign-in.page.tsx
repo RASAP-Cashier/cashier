@@ -30,9 +30,6 @@ export function SignInPage() {
           Sign in
         </Typography>
         <LoginForm />
-        <Link to={'/sign-up'}>
-          Sign up
-        </Link>
         <Divider sx={{ my: 4 }} />
         <Box sx={{ textAlign: 'center' }}>
           <Tooltip arrow placement="top" title="Facebook">
