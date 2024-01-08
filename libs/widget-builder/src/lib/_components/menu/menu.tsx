@@ -1,6 +1,5 @@
 import { Box, Grid, styled } from '@mui/material';
 import * as React from 'react';
-import { BrandColorsRow } from './_components/brand-colors-row';
 
 const MenuContainer = styled(Box)(
   ({ theme }) => `
@@ -15,7 +14,7 @@ export const Menu = () => {
   return (
     <MenuContainer>
       <Grid container direction="row" p={3}>
-        <BrandColorsRow/>
+        {'TODO implement'}
       </Grid>
     </MenuContainer>
   );

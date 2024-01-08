@@ -1,21 +1,41 @@
 import * as React from 'react';
+import { Box, TextField } from '@mui/material';
+import { BlockTitle } from '../block-title';
 import { IBillingInfoProps } from './billing-info.interface';
-import { Box, Divider, Typography } from '@mui/material';
-import { BoxTitle } from '../box-title';
 
 export const BillingInfo = (props: IBillingInfoProps) => {
+  const { cornerRadius, fieldColor, lineColor } = props;
+  const fieldStyles = {
+    backgroundColor: fieldColor,
+    cornerRadius,
+    borderColor: lineColor,
+  };
+
   return (
     <Box p={3}>
-      <BoxTitle title="Billing Info"/>
-      <Box>
-        <Typography variant="body1" fontWeight="normal">
-          Customer name
-        </Typography>
-      </Box>
-      <Divider/>
-      <Box p={3}>
-
-      </Box>
+      <BlockTitle title="Billing Info"/>
+      <TextField
+        style={fieldStyles}
+        margin="normal"
+        value={''}
+        required
+        fullWidth
+        id="name"
+        label="Name"
+        name="name"
+        autoFocus
+      />
+      <TextField
+        style={fieldStyles}
+        margin="normal"
+        value={''}
+        required
+        fullWidth
+        id="middle-name"
+        label="Middle Name"
+        name="middle-name"
+        autoFocus
+      />
     </Box>
   );
 };

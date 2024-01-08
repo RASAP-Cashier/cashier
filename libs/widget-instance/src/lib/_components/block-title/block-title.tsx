@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Box, Typography } from '@mui/material';
 
-interface IBoxTitleProps {
+interface IBlockTitleProps {
   title: string;
 }
 
-export const BoxTitle = (props: IBoxTitleProps) => {
+export const BlockTitle = (props: IBlockTitleProps) => {
   const { title } = props;
 
   return (

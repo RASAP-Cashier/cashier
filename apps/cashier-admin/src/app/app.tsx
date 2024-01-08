@@ -6,13 +6,13 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider } from '@cashier/theme';
 import { appRoutes } from './app.router';
 import React, { useEffect } from 'react';
-import { initI18n } from '@cashier/i18n';
+import { getI18next } from '@cashier/i18n';
 import { I18nextProvider } from 'react-i18next';
 
 export const App = () => {
   const { userStore, authStore } = useRootStore();
   const navigate = useNavigate();
-  const i18next = initI18n();
+  const i18next = getI18next();
 
   useEffect(() => {
     if (!authStore.isAuth) {

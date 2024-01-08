@@ -1,3 +1,7 @@
-export type IBillingInfoProps = {
-  // TODO implement
-};
+import { IColor } from '@cashier/widget-instance';
+
+export interface IBillingInfoProps {
+  cornerRadius: number;
+  fieldColor: IColor;
+  lineColor: IColor;
+}

@@ -1,49 +1,70 @@
 import * as React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
-import { PaymentDetails } from './_components/payment-details';
-import { YouPayBy } from './_components/you-pay-by';
-import { BillingInfo } from './_components/billing-info';
-import { Amount } from './_components/amount';
-import { Copyright } from '@mui/icons-material';
-import { useWidgetSettingsStore } from './_stores';
+import { useCallback } from 'react';
+import { Grid } from '@mui/material';
+import { PaymentMethods } from './_components/payment-methods';
+import { useWidgetSettingsStore, WidgetLayout } from './_stores';
 import { observer } from 'mobx-react';
-import { useTranslation } from 'react-i18next'
+import { CardDetails } from './_components/card-details';
+import { BillingInfo } from './_components/billing-info';
+import { IWidgetInstanceProps } from './widget-instance.interface';
+import { useI18nStore } from '@cashier/i18n';
+import { Summary } from './_components/summary';
 
-export const WidgetInstance = observer((props) => {
-  const { widgetSettings } = useWidgetSettingsStore();
-  const [t] = useTranslation();
+export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
+  const { lang, currency, colorMode } = props;
+  const widgetSettingsStore = useWidgetSettingsStore();
+  const i18nStore = useI18nStore();
 
-  console.log(widgetSettings);
+  useCallback(() => {
+    lang && (i18nStore.lang = lang);
+  }, [lang, i18nStore]);
 
-  return (
-    <Grid container style={{
-      color: widgetSettings.brandColors,
-    }}>
-      <Grid item xs={12}>
-        <Box p={3}>
-          <Typography variant="h5" component="h5">
-            Payment Details
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item xs={12}>
-        <PaymentDetails/>
-      </Grid>
-      <Grid item xs={6}>
-        <YouPayBy/>
-      </Grid>
-      <Grid item xs={6}>
-        <Amount/>
-      </Grid>
-      <Grid item xs={6}>
-        <BillingInfo/>
-      </Grid>
-      <Grid item xs={12}>
+  useCallback(() => {
+    colorMode && (widgetSettingsStore.colorMode = colorMode);
+  }, [colorMode, widgetSettingsStore]);
 
-      </Grid>
-      <Grid item xs={12}>
-        <Copyright/>
-      </Grid>
-    </Grid>
-  );
+  useCallback(() => {
+    currency && (widgetSettingsStore.currency = currency);
+  }, [currency, widgetSettingsStore]);
+
+  const {
+    font, fontSize, backgroundColor, buttonTextColor, buttonBackgroundColor, cornerRadius, fieldColor, lineColor,
+    textColor,
+  } = widgetSettingsStore.styles;
+
+  console.log(textColor);
+
+  switch (widgetSettingsStore.layout) {
+    case WidgetLayout.Separate: {
+      return null;
+    }
+
+    case WidgetLayout.Single:
+    default: {
+      return (
+        <Grid container style={{
+          fontFamily: font,
+          fontSize,
+          backgroundColor,
+          color: textColor,
+          width: '100%',
+          height: 600
+        }}>
+          <Grid container item xs={6} direction="column">
+            <PaymentMethods/>
+            <CardDetails/>
+            <BillingInfo cornerRadius={cornerRadius} fieldColor={fieldColor} lineColor={lineColor}/>
+          </Grid>
+          <Grid container item xs={6} direction="column">
+            <Summary currency={widgetSettingsStore.currency}
+                     buttonText={widgetSettingsStore.buttonText}
+                     buttonTextColor={buttonTextColor}
+                     buttonBackgroundColor={buttonBackgroundColor}
+                     companyLogo={widgetSettingsStore.companyLogo}
+            />
+          </Grid>
+        </Grid>
+      );
+    }
+  }
 });

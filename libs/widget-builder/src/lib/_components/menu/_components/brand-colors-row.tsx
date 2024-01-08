@@ -2,7 +2,6 @@ import { Box, Grid, styled, Typography } from '@mui/material';
 import * as React from 'react';
 import { MuiColorInput } from 'mui-color-input';
 import { observer } from 'mobx-react';
-import { useWidgetSettingsStore } from '@cashier/widget-instance';
 
 const LeftColumn = styled(Box)(
   ({ theme }) => `
@@ -20,12 +19,6 @@ const RightColumn = styled(Box)(
 );
 
 export const BrandColorsRow = observer(() => {
-  const { widgetSettings } = useWidgetSettingsStore();
-
-  const onWidgetSettingsChange = React.useCallback((newValue) => {
-    widgetSettings.updateSettings('brandColors', newValue);
-  }, [widgetSettings]);
-
   return (
     <>
       <Grid item xs={6}>
@@ -37,7 +30,7 @@ export const BrandColorsRow = observer(() => {
       </Grid>
       <Grid item xs={6}>
         <RightColumn>
-          <MuiColorInput value={widgetSettings.brandColors} onChange={onWidgetSettingsChange} format={'hex'} />
+          <MuiColorInput value={''} onChange={() => null} format={'hex'}/>
         </RightColumn>
       </Grid>
     </>

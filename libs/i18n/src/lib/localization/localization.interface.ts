@@ -1,3 +1,9 @@
 export type ILocalization = {
-  test: string;
+  'widget.paymentMethod': string;
+  "widget.paymentMethodsTitle": string;
+  "widget.cardDetailsTitle": string;
+  "widget.summaryTitle": string;
+  "widget.amount": string;
+  "widget.shipping": string;
+  "widget.tax": string;
 }

@@ -1,3 +1,8 @@
 {
-  "test": "тест ру"
+  "widget.paymentMethodsTitle": "Choose you payment method",
+  "widget.cardDetailsTitle": "Card Details",
+  "widget.summaryTitle": "Summary",
+  "widget.amount": "Amount",
+  "widget.shipping": "Shipping",
+  "widget.tax": "Tax"
 }

@@ -4,7 +4,7 @@
     "rootDir": ".",
     "sourceMap": true,
     "noImplicitAny": false,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,

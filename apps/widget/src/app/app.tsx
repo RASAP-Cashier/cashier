@@ -3,7 +3,7 @@ import { WidgetInstance } from '@cashier/widget-instance';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider } from '@cashier/theme';
-import { initI18n } from '@cashier/i18n';
+import { getI18next } from '@cashier/i18n';
 import { I18nextProvider } from 'react-i18next';
 import React from 'react';
 
@@ -12,7 +12,7 @@ const StyledApp = styled.div`
 `;
 
 export function App() {
-  const i18next = initI18n();
+  const i18next = getI18next();
 
   return (
     <ThemeProvider>
