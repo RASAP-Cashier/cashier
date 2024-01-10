@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { useCallback } from 'react';
-import { Grid } from '@mui/material';
-import { PaymentMethods } from './_components/payment-methods';
 import { useWidgetSettingsStore, WidgetLayout } from './_stores';
 import { observer } from 'mobx-react';
-import { CardDetails } from './_components/card-details';
-import { BillingInfo } from './_components/billing-info';
 import { IWidgetInstanceProps } from './widget-instance.interface';
 import { useI18nStore } from '@cashier/i18n';
+import { Box } from '@mui/material';
+import { SeparateLayout } from './_components/separate-layout';
+import { SingleLayout } from './_components/single-layout';
+import { BillingInfo } from './_components/billing-info';
 import { Summary } from './_components/summary';
+import { CardDetails } from './_components/card-details';
 
 export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
   const { lang, currency, colorMode } = props;
@@ -28,43 +29,37 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
   }, [currency, widgetSettingsStore]);
 
   const {
-    font, fontSize, backgroundColor, buttonTextColor, buttonBackgroundColor, cornerRadius, fieldColor, lineColor,
-    textColor,
+    font, fontSize, backgroundColor,
+    textColor, cornerRadius, fieldColor, lineColor, buttonBackgroundColor, buttonTextColor,
   } = widgetSettingsStore.styles;
 
-  console.log(textColor);
-
-  switch (widgetSettingsStore.layout) {
-    case WidgetLayout.Separate: {
-      return null;
-    }
-
-    case WidgetLayout.Single:
-    default: {
-      return (
-        <Grid container style={{
-          fontFamily: font,
-          fontSize,
-          backgroundColor,
-          color: textColor,
-          width: '100%',
-          height: 600
-        }}>
-          <Grid container item xs={6} direction="column">
-            <PaymentMethods/>
-            <CardDetails/>
-            <BillingInfo cornerRadius={cornerRadius} fieldColor={fieldColor} lineColor={lineColor}/>
-          </Grid>
-          <Grid container item xs={6} direction="column">
-            <Summary currency={widgetSettingsStore.currency}
-                     buttonText={widgetSettingsStore.buttonText}
-                     buttonTextColor={buttonTextColor}
-                     buttonBackgroundColor={buttonBackgroundColor}
-                     companyLogo={widgetSettingsStore.companyLogo}
-            />
-          </Grid>
-        </Grid>
-      );
-    }
-  }
+  return (
+    <Box style={{
+      fontFamily: font,
+      fontSize,
+      backgroundColor,
+      color: textColor,
+      width: '100%',
+      height: 600,
+    }}>
+      {
+        widgetSettingsStore.layout === WidgetLayout.Separate
+          ? <SeparateLayout
+            step1Component={
+              <>
+                <CardDetails/>
+                <BillingInfo cornerRadius={cornerRadius} fieldColor={fieldColor} lineColor={lineColor}/>
+              </>
+            }
+            step2Component={
+              <>
+                <Summary currency={widgetSettingsStore.currency} buttonText={widgetSettingsStore.buttonText}
+                         buttonBackgroundColor={buttonBackgroundColor} buttonTextColor={buttonTextColor}/>
+              </>
+            }
+          />
+          : <SingleLayout/>
+      }
+    </Box>
+  );
 });
