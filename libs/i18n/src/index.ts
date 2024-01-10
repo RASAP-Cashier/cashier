@@ -4,3 +4,4 @@ export * from './lib/l10n';
 export * from './lib/i18n.interface';
 export * from './lib/_helpers/get-lang-dictionary';
 export * from './lib/_stores';
+export * from './lib/localization/localization.interface';

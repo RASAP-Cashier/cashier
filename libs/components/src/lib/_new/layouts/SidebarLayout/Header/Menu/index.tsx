@@ -16,13 +16,13 @@ const ListWrapper = styled(Box)(
         .MuiTouchRipple-root {
             display: none;
         }
-        
+
         .MuiListItem-root {
             transition: ${theme.transitions.create(['color', 'fill'])};
-            
+
             &.MuiListItem-indicators {
                 padding: ${theme.spacing(1, 2)};
-            
+
                 .MuiListItemText-root {
                     .MuiTypography-root {
                         &:before {
@@ -44,9 +44,9 @@ const ListWrapper = styled(Box)(
                 &.active,
                 &:active,
                 &:hover {
-                
+
                     background: transparent;
-                
+
                     .MuiListItemText-root {
                         .MuiTypography-root {
                             &:before {
@@ -89,7 +89,7 @@ function HeaderMenu() {
             classes={{ root: 'MuiListItem-indicators' }}
             button
             component={NavLink}
-            to="/components/buttons"
+            to="/technical/components/buttons"
           >
             <ListItemText
               primaryTypographyProps={{ noWrap: true }}
@@ -100,7 +100,7 @@ function HeaderMenu() {
             classes={{ root: 'MuiListItem-indicators' }}
             button
             component={NavLink}
-            to="/components/forms"
+            to="/technical/components/forms"
           >
             <ListItemText
               primaryTypographyProps={{ noWrap: true }}
@@ -131,13 +131,13 @@ function HeaderMenu() {
         <MenuItem sx={{ px: 3 }} component={NavLink} to="/overview">
           Overview
         </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/tabs">
+        <MenuItem sx={{ px: 3 }} component={NavLink} to="/technical/components/tabs">
           Tabs
         </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/cards">
+        <MenuItem sx={{ px: 3 }} component={NavLink} to="/technical/components/cards">
           Cards
         </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/modals">
+        <MenuItem sx={{ px: 3 }} component={NavLink} to="/technical/components/modals">
           Modals
         </MenuItem>
       </Menu>

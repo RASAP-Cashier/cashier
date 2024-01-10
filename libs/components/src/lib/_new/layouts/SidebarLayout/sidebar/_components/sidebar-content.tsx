@@ -1,6 +1,6 @@
 import { Scrollbar } from '../../../../components';
 import { Box, useTheme } from '@mui/material';
-import SidebarMenu from './sidebar-menu';
+import { SidebarMenu } from './sidebar-menu';
 
 export const SidebarContent = () => {
   const theme = useTheme();

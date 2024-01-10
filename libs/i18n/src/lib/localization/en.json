@@ -1,4 +1,7 @@
 {
+  "sidebar.transactions": "Transactions",
+  "sidebar.technical": "Technical",
+  "sidebar.sign-out": "Sign Out",
   "widget.paymentMethodsTitle": "Choose you payment method",
   "widget.cardDetailsTitle": "Card Details",
   "widget.summaryTitle": "Summary",
