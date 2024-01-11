@@ -1,5 +1,10 @@
-import { alpha, createTheme, lighten, darken } from '@mui/material';
+import { alpha, createTheme, darken, lighten } from '@mui/material';
 import '@mui/lab/themeAugmentation';
+import { ITheme, ThemeName } from '../theme.interface';
+import { themeFonts } from '../_base/fonts';
+import { themePaletteLight } from '../_base/palette';
+import { getThemeButtons } from '../_components/buttons';
+import { themeSpacings } from '../_base/spacings';
 
 const themeColors = {
   primary: '#5569ff',
@@ -128,9 +133,23 @@ const colors = {
     dark: darken(themeColors.info, 0.2)
   }
 };
+const baseThemeData = {
+  fonts: themeFonts,
+  spacings: themeSpacings,
+  palette: themePaletteLight,
+};
 
-export const LightTheme = createTheme({
+const ThemeLightNew: ITheme = {
+  name: ThemeName.Light,
+  ...baseThemeData,
+  components: {
+    buttons: getThemeButtons(baseThemeData)
+  }
+}
+
+export const ThemeLight = createTheme({
   // direction: i18n.dir(),
+  new: ThemeLightNew,
   colors: {
     gradients: {
       blue1: colors.gradients.blue1,

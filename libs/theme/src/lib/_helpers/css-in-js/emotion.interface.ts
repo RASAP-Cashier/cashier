@@ -1,5 +1,5 @@
 import type { SerializedStyles } from '@emotion/react';
-import type { ITheme } from '../theme.interface';
+import type { ITheme } from '../../theme.interface';
 
 export type { SerializedStyles } from '@emotion/react';
 export type { CSSObject } from '@emotion/serialize';

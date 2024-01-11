@@ -1,6 +1,11 @@
+export const $fontFamilyNormal = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"';
+export const $fontFamilyMedium = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"';
+export const $fontFamilyBold = '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"';
+
 export const $fontWeightMedium = 500;
 export const $fontWeightNormal = 400;
 export const $fontWeightBold = 600;
+export const $lineSpacing7 = '7px';
 export const $lineSpacing10 = '10px';
 export const $lineSpacing12 = '12px';
 export const $lineSpacing11 = '11px';
@@ -19,6 +24,8 @@ export const $lineSpacing37 = '37px';
 
 export const $fontStyleNormal = 'normal';
 export const $characterSpacing0 = 0;
+export const $fontSize6 = 6;
+export const $fontSize7 = 7;
 export const $fontSize8 = 8;
 export const $fontSize9 = 9;
 export const $fontSize10 = 10;
