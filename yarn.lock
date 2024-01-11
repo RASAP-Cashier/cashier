@@ -10888,6 +10888,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"enum-values@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "enum-values@npm:1.2.1"
+  checksum: e7777a2b74f6b61c9a6a494fbfb34782f3b16979b81fe33afe434cf88bc4ba27cffa6bee60b5029a0efcc8ef9b36b1909d42b1964b7b5f9aa720857709e8cd72
+  languageName: node
+  linkType: hard
+
 "env-paths@npm:^2.2.0":
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
@@ -19760,6 +19767,7 @@ __metadata:
     apexcharts: "npm:3.35.3"
     clsx: "npm:1.1.1"
     date-fns: "npm:2.28.0"
+    enum-values: "npm:^1.2.1"
     eslint: "npm:~8.46.0"
     eslint-config-prettier: "npm:9.0.0"
     eslint-plugin-import: "npm:2.27.5"
