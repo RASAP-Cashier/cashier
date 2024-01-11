@@ -12,7 +12,7 @@ export const Summary = (props: ISummaryProps) => {
 
   return (
     <Box p={3}>
-      <BlockTitle title={t('widget.summaryTitle')}/>
+      <BlockTitle titleKey={t('widget.summaryTitle')}/>
       <Box>
         <Typography variant="body1">
           {currency + t('widget.amount')}

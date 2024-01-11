@@ -1,3 +1,6 @@
+import React from 'react';
+
 export interface ISingleLayoutProps {
-  // TODO
+  leftColumnComponent: React.ReactNode;
+  rightColumnComponent: React.ReactNode;
 }

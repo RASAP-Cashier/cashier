@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useWidgetSettingsStore, WidgetFont } from '@cashier/widget-instance';
 import { observer } from 'mobx-react';
-import { MenuItemRow } from './menu-item-row';
+import { MenuItemRow } from './item/menu-item-row';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { ChangeEvent } from 'react';

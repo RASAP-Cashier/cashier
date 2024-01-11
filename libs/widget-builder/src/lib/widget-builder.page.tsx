@@ -1,61 +1,29 @@
 import * as React from 'react';
 import { useState } from 'react';
-// import { useLocation } from 'react-router-dom';
-import { Box, Card, Grid, styled, Typography } from '@mui/material';
-import Switch from '@mui/material/Switch';
-import { WidgetInstance } from '@cashier/widget-instance';
-import { Menu } from './_components';
+import { Card, Grid } from '@mui/material';
+import { getWidgetConfig, WidgetInstance } from '@cashier/widget-instance';
+import { WidgetBuilderHeader, WidgetBuilderMenu } from './_components';
+import { withClasses } from './widget-builder.page.css';
 
 export function WidgetBuilderPage() {
-  // const { state }: { state: { id?: number } } = useLocation();
-  const widgetUrl = 'http://localhost:4201';
+  const { url: widgetUrl } = getWidgetConfig();
   const [previewMode, setPreviewMode] = useState<boolean>(false);
+  const classes = withClasses();
 
   return (
-    <Grid container direction="row" columnSpacing={{ xs: 8 }}>
-      <Grid item xs={3}>
-        <Menu />
+    <Grid container direction={'row'} className={classes.container}>
+      <Grid item xs={12}>
+        <WidgetBuilderHeader previewMode={previewMode} setPreviewMode={setPreviewMode}/>
       </Grid>
-      <Grid container item xs direction={'column'}>
-        <Grid item xs>
-          <Box style={{
-            display: 'flex',
-            flex: 1,
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            paddingTop: 40,
-          }}>
-            <Typography variant="h5" component="h5" pr={10}>
-              Reset
-            </Typography>
-            <Typography variant="h5" component="h5" pr={10}>
-              Save
-            </Typography>
-            <Switch
-              checked={previewMode}
-              onChange={() => setPreviewMode(!previewMode)}
-            />
-            <Typography variant="h5" component="h5">
-              {previewMode
-                ? 'Preview Mode'
-                : 'Edit Mode'}
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid item xs>
-          <Card style={{
-            display: 'flex',
-            flexDirection: 'column',
-            flex: 1,
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            minHeight: 600,
-          }}>
-            {!previewMode && <WidgetInstance />}
-            {previewMode &&
-              <iframe src={widgetUrl} width="100%" height="600" frameBorder="0">Browser not compatible.</iframe>}
-          </Card>
-        </Grid>
+      <Grid item className={classes.menuColumn}>
+        <WidgetBuilderMenu/>
+      </Grid>
+      <Grid container item xs direction={'column'} className={classes.widgetColumn}>
+        <Card className={classes.instanceContainer}>
+          {!previewMode && <WidgetInstance/>}
+          {previewMode &&
+            <iframe src={widgetUrl} width="100%" height="600" frameBorder="0">Browser not compatible.</iframe>}
+        </Card>
       </Grid>
     </Grid>
   );

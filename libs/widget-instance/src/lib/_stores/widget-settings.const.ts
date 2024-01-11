@@ -35,13 +35,13 @@ export const DefaultWidgetSettings: IWidgetSettings = {
       font: WidgetFont.Inter,
       fontSize: WidgetFontSize.Size16,
       cornerRadius: WidgetCornerRadius.Radius7,
-      textColor: 'red',
-      backgroundColor: 'grey',
-      fieldColor: 'green',
-      lineColor: 'yellow',
-      iconColor: 'yellow',
-      buttonBackgroundColor: 'aqua',
-      buttonTextColor: 'blue'
+      backgroundColor: '#F6F6F6',
+      textColor: '#000000',
+      fieldColor: '#FFFFFF',
+      lineColor: '#E9E6EF',
+      iconColor: '#4723AD',
+      buttonBackgroundColor: '#4723AD',
+      buttonTextColor: '#FFFFFF'
     },
   },
 };

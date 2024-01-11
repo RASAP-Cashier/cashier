@@ -1,10 +1,10 @@
-import { Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { observer } from 'mobx-react';
-import { MenuSubtitle } from '../menu-subtitle';
 import { ILocalization } from '@cashier/i18n';
+import { withClasses } from './menu-item-row.css';
 
 export const MenuItemRow = observer((props: {
   titleKey: keyof ILocalization;
@@ -12,17 +12,18 @@ export const MenuItemRow = observer((props: {
 }) => {
   const [t] = useTranslation();
   const { titleKey, control } = props;
+  const classes = withClasses();
 
   return (
-    <>
-      <Grid item xs={6}>
-        <MenuSubtitle text={t(titleKey)}/>
-      </Grid>
-      <Grid item xs={6}>
+    <Box className={classes.container}>
+      <Box className={classes.title}>
+        {t(titleKey)}
+      </Box>
+      <Box className={classes.control}>
         <FormControlLabel
           control={control}
         />
-      </Grid>
-    </>
+      </Box>
+    </Box>
   );
 });

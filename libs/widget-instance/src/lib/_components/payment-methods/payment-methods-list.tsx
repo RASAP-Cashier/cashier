@@ -3,14 +3,14 @@ import { Box, Grid } from '@mui/material';
 import { BlockTitle } from '../block-title';
 import { useTranslation } from 'react-i18next';
 
-export const PaymentMethods = () => {
+export const PaymentMethodsList = () => {
   const [t] = useTranslation();
 
   return (
     <Box p={3}>
-      <BlockTitle title={t('widget.paymentMethodsTitle')}/>
+      <BlockTitle titleKey={t('widget.paymentMethodsTitle')}/>
       <Grid container spacing={1}>
-        Slider
+        List
       </Grid>
     </Box>
   );

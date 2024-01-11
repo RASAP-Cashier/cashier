@@ -19,7 +19,7 @@ export const CardDetails = () => {
     <Box p={3}>
       <CardCc sx={{ px: 2, pt: 2, pb: 1 }}>
         <Box display="flex" alignItems="center">
-          <BlockTitle title={t('widget.cardDetailsTitle')}/>
+          <BlockTitle titleKey={t('widget.cardDetailsTitle')}/>
           <CreditCardOutlinedIcon/>
         </Box>
         <Box

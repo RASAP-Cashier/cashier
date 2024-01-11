@@ -1,6 +1,6 @@
-import { CSSObject } from '../../_helpers/css-in-js/emotion.interface';
+import { CSSProperties } from '@mui/styles/withStyles/withStyles';
 
-export type IFontMixin = Partial<Pick<CSSObject,
+export type IFontMixin = Partial<Pick<CSSProperties,
   'fontFamily' | 'fontStyle' | 'fontWeight' | 'fontSize' | 'lineHeight' | 'letterSpacing' | 'textTransform'>>;
 
 export interface IThemeFonts {

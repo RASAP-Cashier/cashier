@@ -3,7 +3,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { useWidgetSettingsStore, WidgetLayout } from '@cashier/widget-instance';
 import { observer } from 'mobx-react';
-import { MenuItemRow } from './menu-item-row';
+import { MenuItemRow } from './item/menu-item-row';
 
 export const MenuLayoutRow = observer(() => {
   const widgetSettingsStore = useWidgetSettingsStore();

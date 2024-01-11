@@ -149,7 +149,7 @@ const ThemeLightNew: ITheme = {
 
 export const ThemeLight = createTheme({
   // direction: i18n.dir(),
-  new: ThemeLightNew,
+  base: ThemeLightNew,
   colors: {
     gradients: {
       blue1: colors.gradients.blue1,

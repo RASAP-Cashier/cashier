@@ -13,7 +13,7 @@ export const BillingInfo = (props: IBillingInfoProps) => {
 
   return (
     <Box p={3}>
-      <BlockTitle title="Billing Info"/>
+      <BlockTitle titleKey="Billing Info"/>
       <TextField
         style={fieldStyles}
         margin="normal"
