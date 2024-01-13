@@ -1,11 +1,11 @@
-import { CssBaseline } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider } from '@cashier/theme';
-import { WidgetInstance } from '@cashier/widget-instance';
+import { CssBaseline } from '@mui/material';
 import React from 'react';
 import { getI18next } from '@cashier/i18n';
 import { I18nextProvider } from 'react-i18next';
+import { WidgetInstance } from '@cashier/widget-instance';
 
 export function App() {
   const i18next = getI18next();

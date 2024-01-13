@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ThemeProvider as ThemeProviderMaterial } from '@mui/material/styles';
-import { getTheme } from './get-theme';
+import { ThemeProvider as ThemeProviderMaterial } from '@mui/styles';
 import { StylesProvider } from '@mui/styles';
+import { getTheme } from './get-theme';
 import { ThemeName } from './theme.interface';
 
 export const ThemeContext = React.createContext(

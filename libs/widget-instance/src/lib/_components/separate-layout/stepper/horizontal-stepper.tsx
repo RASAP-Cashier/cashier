@@ -1,14 +1,13 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
 import { IHorizontalStepperProps } from './horizontal-stepper.interface';
 import { withClasses } from './horizontal-stepper.css';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import EastIcon from '@mui/icons-material/East';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Link } from '@mui/material';
 
-export default function HorizontalStepper(props: IHorizontalStepperProps) {
+export function HorizontalStepper(props: IHorizontalStepperProps) {
   const { steps } = props;
 
   const [activeStep, setActiveStep] = React.useState(0);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ISeparateLayoutProps } from './separate-layout.interface';
-import HorizontalStepper from './stepper/horizontal-stepper';
+import { HorizontalStepper } from './stepper/horizontal-stepper';
 import { useTranslation } from 'react-i18next';
 import { ISteps } from './stepper/horizontal-stepper.interface';
 import { SingleLayout } from '../single-layout';

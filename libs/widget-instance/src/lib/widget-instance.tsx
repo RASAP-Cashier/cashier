@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 import { useWidgetSettingsStore, WidgetLayout } from './_stores';
-import { observer } from 'mobx-react';
 import { IWidgetInstanceProps } from './widget-instance.interface';
 import { useI18nStore } from '@cashier/i18n';
-import { Box } from '@mui/material';
 import { SeparateLayout } from './_components/separate-layout';
 import { SingleLayout } from './_components/single-layout';
 import { BillingInfo } from './_components/billing-info';
@@ -13,8 +11,9 @@ import { CardDetails } from './_components/card-details';
 import { withClasses } from './widget-instance.css';
 import { PaymentMethodsList } from './_components/payment-methods';
 import { PaymentMethodsSlider } from './_components/payment-methods/payment-methods-slider';
+import { Box } from '@mui/material';
 
-export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
+export const WidgetInstance = (props: IWidgetInstanceProps) => {
   const { lang, currency, colorMode } = props;
   const widgetSettingsStore = useWidgetSettingsStore();
   const i18nStore = useI18nStore();
@@ -87,4 +86,4 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
       }
     </Box>
   );
-});
+};
