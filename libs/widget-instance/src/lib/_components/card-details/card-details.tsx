@@ -1,37 +1,60 @@
 import * as React from 'react';
-import { Box, Card, styled, Typography } from '@mui/material';
+import { Box, Card, TextField, Grid } from '@mui/material';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import { BlockTitle } from '../block-title';
 import { useTranslation } from 'react-i18next';
-
-const CardCc = styled(Card)(
-  (props: any) => `
-     border: 1px solid ${props.theme.colors.alpha.black[30]};
-     background: ${props.theme.colors.alpha.black[5]};
-     box-shadow: none;
-`,
-);
+import { withClasses } from './card-details.css';
 
 export const CardDetails = () => {
   const [t] = useTranslation();
+  const classes = withClasses();
 
   return (
-    <Box p={3}>
-      <CardCc sx={{ px: 2, pt: 2, pb: 1 }}>
-        <Box display="flex" alignItems="center">
+    <Card>
+      <Box className={classes.container}>
+        <Box className={classes.titleContainer}>
           <BlockTitle titleKey={t('widget.cardDetailsTitle')}/>
-          <CreditCardOutlinedIcon/>
+          <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/>
         </Box>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Typography variant="body1" fontWeight="normal">
-            Visa, Mastercard, AMEX, UnionPay, Discover
-          </Typography>
-        </Box>
-      </CardCc>
-    </Box>
+        <Grid container className={classes.contentContainer}>
+          <Grid item xs={12} className={classes.longBlock}>
+            <TextField
+              value={''}
+              required
+              fullWidth
+              placeholder={t('Card Number')}
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={6} className={classes.shortBlockLeft} pr={1}>
+            <TextField
+              value={''}
+              required
+              fullWidth
+              placeholder={t('MM / YYYY')}
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={6} className={classes.shortBlockRight} pl={1}>
+            <TextField
+              value={''}
+              required
+              fullWidth
+              placeholder={t('CVC')}
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              value={''}
+              required
+              fullWidth
+              placeholder={t('Cardholder Name')}
+              autoFocus
+            />
+          </Grid>
+        </Grid>
+      </Box>
+    </Card>
   );
 };

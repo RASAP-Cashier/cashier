@@ -10,13 +10,6 @@ export const withClasses = makeWithClasses((theme) => ({
     width: theme.base.spacings.$unit * 72,
   },
   widgetColumn: {
-  },
-  instanceContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
     height: maxWidgetHeight,
   },
 }))

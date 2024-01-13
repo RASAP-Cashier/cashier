@@ -3,6 +3,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
 import { IHorizontalStepperProps } from './horizontal-stepper.interface';
+import { withClasses } from './horizontal-stepper.css';
+import EastIcon from '@mui/icons-material/East';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { Link } from '@mui/material';
 
 export default function HorizontalStepper(props: IHorizontalStepperProps) {
   const { steps } = props;
@@ -31,36 +35,37 @@ export default function HorizontalStepper(props: IHorizontalStepperProps) {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
+  const [t] = useTranslation();
+  const classes = withClasses();
+
   return (
-    <Box sx={{ width: '100%' }}>
-      {steps[activeStep].component}
+    <Box>
       <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
         {
           activeStep !== 0 &&
           <Button
-            color="inherit"
-            disabled={activeStep === 0}
             onClick={handleBack}
-            sx={{ mr: 1 }}
+            className={classes.button}
           >
-            Back
+            <KeyboardBackspaceIcon /> {t('Back')}
           </Button>
         }
         <Box sx={{ flex: '1 1 auto' }}/>
         {
           isStepOptional(activeStep) && (
-            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-              Skip
+            <Button onClick={handleSkip} className={classes.button}>
+              {t('Skip')}
             </Button>
           )
         }
         {
           activeStep !== Object.keys(steps).length - 1 &&
-          <Button onClick={handleNext}>
-            Next
+          <Button onClick={handleNext} className={classes.button}>
+            {t('Next')} <EastIcon />
           </Button>
         }
       </Box>
+      {steps[activeStep].component}
     </Box>
   );
 }

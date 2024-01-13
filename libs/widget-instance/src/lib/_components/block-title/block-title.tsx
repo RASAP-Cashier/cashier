@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { withClasses } from './block-title.css';
 
 interface IBlockTitleProps {
   titleKey: string;
@@ -9,14 +10,11 @@ interface IBlockTitleProps {
 export const BlockTitle = (props: IBlockTitleProps) => {
   const { titleKey } = props;
   const [t] = useTranslation();
+  const classes = withClasses();
 
   return (
-    <Box p={1} style={{
-      marginBottom: 5,
-    }}>
-      <Typography variant="h5" component="h5">
-        {t(titleKey)}
-      </Typography>
+    <Box className={classes.container}>
+      {t(titleKey)}
     </Box>
   );
 };

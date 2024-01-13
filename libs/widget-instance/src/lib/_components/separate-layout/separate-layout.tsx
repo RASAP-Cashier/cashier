@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { ISeparateLayoutProps } from './separate-layout.interface';
-import HorizontalStepper from './horizontal-stepper';
+import HorizontalStepper from './stepper/horizontal-stepper';
 import { useTranslation } from 'react-i18next';
-import { ISteps } from './horizontal-stepper.interface';
-import { PaymentMethodsSlider } from '../payment-methods/payment-methods-slider';
-import { CardDetails } from '../card-details';
-import { BillingInfo } from '../billing-info';
-import { Summary } from '../summary';
+import { ISteps } from './stepper/horizontal-stepper.interface';
 import { SingleLayout } from '../single-layout';
+import { Card, Box } from '@mui/material';
+import { withClasses } from './separate-layout.css';
 
 export const SeparateLayout = (props: ISeparateLayoutProps) => {
   const { step1Component, step2LeftColumnComponent, step2RightColumnComponent } = props;
   const [t] = useTranslation();
+  const classes = withClasses();
 
   const steps: ISteps = {
     0: {
@@ -19,9 +18,11 @@ export const SeparateLayout = (props: ISeparateLayoutProps) => {
       label: t('widget.stepperStep1') as string,
       isOptional: false,
       component: (
-        <>
-          {step1Component}
-        </>
+        <Card>
+          <Box className={classes.step1Container}>
+            {step1Component}
+          </Box>
+        </Card>
       ),
     },
     1: {

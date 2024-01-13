@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Card, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { getWidgetConfig, WidgetInstance } from '@cashier/widget-instance';
 import { WidgetBuilderHeader, WidgetBuilderMenu } from './_components';
 import { withClasses } from './widget-builder.page.css';
@@ -19,11 +19,9 @@ export function WidgetBuilderPage() {
         <WidgetBuilderMenu/>
       </Grid>
       <Grid container item xs direction={'column'} className={classes.widgetColumn}>
-        <Card className={classes.instanceContainer}>
-          {!previewMode && <WidgetInstance/>}
-          {previewMode &&
-            <iframe src={widgetUrl} width="100%" height="600" frameBorder="0">Browser not compatible.</iframe>}
-        </Card>
+        {!previewMode && <WidgetInstance/>}
+        {previewMode &&
+          <iframe src={widgetUrl} width="100%" height="600" frameBorder="0">Browser not compatible.</iframe>}
       </Grid>
     </Grid>
   );
