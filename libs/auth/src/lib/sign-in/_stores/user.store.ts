@@ -1,26 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { RootStore } from '.';
-import { fetchCurrentUser } from '../api/user';
-
-export enum UserRoles {
-  Admin = 'admin',
-  User = 'user',
-}
-
-export type UserType = {
-  confirmationHash?: string;
-  email: string;
-  firstName: string;
-  id: number;
-  isActive?: boolean;
-  isEmailVerified?: boolean;
-  lastName: string;
-  photo?: string;
-  roles?: UserRoles[];
-};
+import { IUser } from '../../usres.interface';
+import { UsersService } from '../../users.service';
 
 export class UserStore {
-  private currentUser: UserType = {
+  private currentUser: IUser = {
     id: 0,
     firstName: '',
     lastName: '',
@@ -38,11 +22,10 @@ export class UserStore {
     makeAutoObservable(this);
   }
 
-  public async getUser() {
+  public async getUser(): Promise<boolean> {
     try {
       runInAction(async () => {
-        const userResponse = await fetchCurrentUser();
-        this.currentUser = userResponse.data;
+        this.currentUser = await UsersService.getInstance().getCurrentUser();
       });
       return true;
     } catch (error) {

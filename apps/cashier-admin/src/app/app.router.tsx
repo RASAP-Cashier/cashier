@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Navigate } from 'react-router-dom';
 import { RouteObject } from 'react-router';
 import { BaseLayout, SidebarLayout, SuspenseLoader } from '@cashier/components';
-import { SignInPage, SignUpPage } from '@cashier/auth';
+import { AuthClientRoutes, SignInPage, SignUpPage } from '@cashier/auth';
 
 const Loader = (Component) => (props) =>
   (
@@ -94,11 +94,11 @@ export const appRoutes: RouteObject[] = [
         element: <Navigate to={defaultAuthenticatedRoute} replace/>,
       },
       {
-        path: 'sign-in',
+        path: AuthClientRoutes.SignIn,
         element: <SignInPage/>,
       },
       {
-        path: 'sign-up',
+        path: AuthClientRoutes.SignUp,
         element: <SignUpPage/>,
       },
       {

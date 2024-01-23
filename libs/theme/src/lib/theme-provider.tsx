@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { ThemeProvider as ThemeProviderMaterial } from '@mui/styles';
-import { StylesProvider } from '@mui/styles';
+import { ThemeProvider as ThemeProviderMaterial } from '@mui/material';
 import { getTheme } from './get-theme';
+import { StylesProvider } from '@mui/styles';
 import { ThemeName } from './theme.interface';
 
-export const ThemeContext = React.createContext(
-  (themeName: string): void => {
+export const ThemeContext = React.createContext({
+  setThemeName: (themeName: string): void => {
     // Not implemented yet
-  }
-);
+  },
+  theme: {}
+});
+
+export const useTheme = () => React.useContext(ThemeContext).theme;
 
 const ThemeProviderWrapper: React.FC = (props) => {
   const curThemeName = localStorage.getItem('appTheme') as ThemeName || ThemeName.Light;
@@ -19,9 +22,11 @@ const ThemeProviderWrapper: React.FC = (props) => {
     _setThemeName(themeName as ThemeName);
   };
 
+  console.log(theme);
+
   return (
     <StylesProvider injectFirst>
-      <ThemeContext.Provider value={setThemeName}>
+      <ThemeContext.Provider value={{ setThemeName, theme }}>
         <ThemeProviderMaterial theme={theme}>{props.children}</ThemeProviderMaterial>
       </ThemeContext.Provider>
     </StylesProvider>

@@ -1,1 +1,2 @@
-export * from './lib/libs-utils';
+export * from './lib/singleton';
+export * from './lib/request';

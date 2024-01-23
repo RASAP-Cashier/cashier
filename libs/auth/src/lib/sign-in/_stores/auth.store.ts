@@ -1,41 +1,29 @@
 import { makeAutoObservable } from 'mobx';
-import { RootStore } from '.';
-import { getToken, removeToken, setToken } from '../utils/auth';
-import { auth } from '../api';
+import { RootStore } from './root.store';
+import { AuthService } from '../../auth.service';
 
 export class AuthStore {
-  accessToken = '';
-
-  private rootStore;
-  constructor(rootStore: RootStore) {
+  constructor(private readonly rootStore: RootStore) {
     this.rootStore = rootStore;
+
     makeAutoObservable(this);
   }
 
-  get isAuth() {
-    return getToken() ? true : false;
+  public get isAuth() {
+    return AuthService.getInstance().isAuth;
   }
 
-  setAccessToken(token: string) {
-    this.accessToken = token;
-  }
-  async login(authDto: any) {
+  public async signIn(authDto: any) {
     try {
-      const result = await auth(authDto);
-      // // TODO temp for test
-      // const result = {
-      //   data: {
-      //     access_token: 'qweqefknwovbnaeo'
-      //   }
-      // }
-      this.setAccessToken(result.data.access_token);
-      setToken(result.data.access_token);
-      return result.data.access_token;
-    } catch (error) { /* empty */ }
+      return await AuthService.getInstance().signIn(authDto);
+    } catch (error) {
+      // TODO implement
+    }
   }
 
-  logout() {
-    removeToken();
+  public signOut() {
+    AuthService.getInstance().signOut();
+
     this.rootStore.userStore.clearUser();
   }
 }

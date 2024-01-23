@@ -19,7 +19,12 @@ export function WidgetBuilderPage() {
         <WidgetBuilderMenu/>
       </Grid>
       <Grid container item xs direction={'column'} className={classes.widgetColumn}>
-        {!previewMode && <WidgetInstance/>}
+        {!previewMode && <WidgetInstance merchantInfo={{
+          amount: 1500,
+          tax: 50,
+          vat: 10,
+          currency: '$'
+        }}/>}
         {previewMode &&
           <iframe src={widgetUrl} width="100%" height="600" frameBorder="0">Browser not compatible.</iframe>}
       </Grid>

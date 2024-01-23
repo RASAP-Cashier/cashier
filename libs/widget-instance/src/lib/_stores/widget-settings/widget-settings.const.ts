@@ -7,7 +7,7 @@ import {
   WidgetLayout,
   WidgetPaymentMethodsViewType,
 } from './widget-settings.interface';
-import { defaultCurrency } from '../widget-instance.const';
+import { defaultCurrency } from '../../widget-instance.const';
 
 export const DefaultWidgetSettings: IWidgetSettings = {
   paymentMethodsViewType: WidgetPaymentMethodsViewType.Minimal,

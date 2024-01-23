@@ -2,6 +2,7 @@ import React from 'react';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { IWidgetSettings, IWidgetStylesSettings, WidgetColorMode } from './widget-settings.interface';
 import { DefaultWidgetSettings } from './widget-settings.const';
+import { WidgetInstanceService } from '../../widget-instance.service';
 
 class WidgetStylesSettings implements IWidgetStylesSettings {
   @observable
@@ -41,6 +42,9 @@ class WidgetStylesSettings implements IWidgetStylesSettings {
 
 class WidgetSettingsStore implements IWidgetSettings {
   @observable
+  public isLoading = false;
+
+  @observable
   public colorMode = DefaultWidgetSettings.colorMode;
 
   @observable
@@ -59,7 +63,7 @@ class WidgetSettingsStore implements IWidgetSettings {
   public layout = DefaultWidgetSettings.layout;
 
   @observable
-  private allColorModesStyles = {
+  public allColorModesStyles = {
     [WidgetColorMode.Dark]: new WidgetStylesSettings(WidgetColorMode.Dark),
     [WidgetColorMode.Light]: new WidgetStylesSettings(WidgetColorMode.Light),
   };
@@ -84,8 +88,33 @@ class WidgetSettingsStore implements IWidgetSettings {
   }
 
   @action
-  public loadFromServer<T>(key: keyof IWidgetSettings, value: T) {
-    this[key] = value as any as never;
+  public async loadFromServer(userId: number) {
+    this.isLoading = true;
+    const widgetSettingsFromServer = await WidgetInstanceService.getInstance().LoadSettings({
+      userId,
+    });
+    this.isLoading = false;
+
+    this.colorMode = widgetSettingsFromServer.colorMode || this.colorMode;
+    this.currency = widgetSettingsFromServer.currency || this.currency;
+    this.companyLogo = widgetSettingsFromServer.companyLogo || this.companyLogo;
+    this.paymentMethodsViewType = widgetSettingsFromServer.paymentMethodsViewType || this.paymentMethodsViewType;
+    this.buttonText = widgetSettingsFromServer.buttonText || this.buttonText;
+    this.layout = widgetSettingsFromServer.layout || this.layout;
+  }
+
+  @action
+  public async saveToServer() {
+    this.isLoading = true;
+    await WidgetInstanceService.getInstance().SaveSettings({
+      colorMode: this.colorMode,
+      currency: this.currency,
+      companyLogo: this.companyLogo,
+      paymentMethodsViewType: this.paymentMethodsViewType,
+      buttonText: this.buttonText,
+      layout: this.layout,
+    });
+    this.isLoading = false;
   }
 }
 
