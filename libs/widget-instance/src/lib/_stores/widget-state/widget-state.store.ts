@@ -22,6 +22,21 @@ class WidgetStateStore implements IWidgetStateStore {
   }
 
   @action
+  public updateMerchantInfo(merchantInfo: IMerchantInfo) {
+    this.merchantInfo = merchantInfo;
+  }
+
+  @action
+  public updateCardInfo(cardInfo: ICardInfo) {
+    this.cardInfo = cardInfo;
+  }
+
+  @action
+  public updateBillingInfo(billingInfo: IBillingInfo) {
+    this.billingInfo = billingInfo;
+  }
+
+  @action
   public async pay() {
     this.isLoading = true;
     await WidgetInstanceService.getInstance().Pay({

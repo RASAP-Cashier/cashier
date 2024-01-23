@@ -6,7 +6,7 @@ import { withClasses } from './menu-group-title-row.css';
 import { Box } from '@mui/material';
 
 export const MenuGroupTitleRow = observer((props: {
-  titleKey: keyof ILocalization;
+  titleKey: string; // keyof ILocalization;
 }) => {
   const [t] = useTranslation();
   const { titleKey } = props;

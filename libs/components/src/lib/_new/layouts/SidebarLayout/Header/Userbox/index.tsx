@@ -72,7 +72,7 @@ function HeaderUserbox() {
   const navigate = useNavigate();
 
   const logout = (): void => {
-    authStore.logout();
+    authStore.signOut();
     navigate('/sign-in');
   };
 

@@ -1,8 +1,9 @@
-import { ICurrency } from '@cashier/widget-instance';
+import type { ICurrency } from '../../_stores';
 
 export type ISummaryProps = {
   currency: ICurrency;
   buttonText: string;
   buttonBackgroundColor: string;
   buttonTextColor: string;
+  companyLogo?: string;
 };

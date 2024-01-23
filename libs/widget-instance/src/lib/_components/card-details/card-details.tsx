@@ -4,10 +4,21 @@ import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import { BlockTitle } from '../block-title';
 import { useTranslation } from 'react-i18next';
 import { withClasses } from './card-details.css';
+import { useWidgetStateStore } from '../../_stores';
+import { observer } from 'mobx-react';
 
-export const CardDetails = () => {
+export const CardDetails = observer(() => {
   const [t] = useTranslation();
   const classes = withClasses();
+  const widgetStateStore = useWidgetStateStore();
+  const { cardInfo } = widgetStateStore;
+
+  const handleChange = React.useCallback((key, value) => {
+    widgetStateStore.updateCardInfo({
+      ...cardInfo,
+      [key]: value.target.value,
+    });
+  }, [cardInfo]);
 
   return (
     <Card>
@@ -16,45 +27,42 @@ export const CardDetails = () => {
           <BlockTitle titleKey={t('widget.cardDetailsTitle')}/>
           <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/>
         </Box>
-        <Grid container className={classes.contentContainer}>
+        <Grid container>
           <Grid item xs={12} className={classes.longBlock}>
             <TextField
-              value={''}
+              value={cardInfo.cardNumber} // TODO доавить маску на номер карты
+              onChange={(value) => handleChange('cardNumber', value)}
               required
               fullWidth
               placeholder={t('Card Number')}
-              autoFocus
             />
           </Grid>
           <Grid item xs={6} className={classes.shortBlockLeft} pr={1}>
             <TextField
-              value={''}
+              value={cardInfo.date?.toString()} // TODO доавить маску на дату + формат для вывода
               required
               fullWidth
               placeholder={t('MM / YYYY')}
-              autoFocus
             />
           </Grid>
           <Grid item xs={6} className={classes.shortBlockRight} pl={1}>
             <TextField
-              value={''}
+              value={cardInfo.CVC} // TODO доавить маску на CVC
               required
               fullWidth
               placeholder={t('CVC')}
-              autoFocus
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              value={''}
+              value={cardInfo.cardHolderName}
               required
               fullWidth
               placeholder={t('Cardholder Name')}
-              autoFocus
             />
           </Grid>
         </Grid>
       </Box>
     </Card>
   );
-};
+});

@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import {
   Box,
-  Typography,
+  Button,
   Container,
   Divider,
-  OutlinedInput,
-  IconButton,
-  Tooltip,
   FormControl,
+  FormHelperText,
+  IconButton,
   InputAdornment,
-  Button,
-  FormHelperText
+  OutlinedInput,
+  Tooltip,
+  Typography,
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { LogoSign } from '../../../../components';
@@ -20,7 +20,6 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import MailTwoToneIcon from '@mui/icons-material/MailTwoTone';
-import Status500 from '../Status500';
 
 const MainContent = styled(Box)(
   () => `
@@ -31,31 +30,31 @@ const MainContent = styled(Box)(
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`
+`,
 );
 
 const TypographyH1 = styled(Typography)(
   ({ theme }) => `
   font-size: ${theme.typography.pxToRem(75)};
-`
+`,
 );
 
 const TypographyH3 = styled(Typography)(
   ({ theme }) => `
   color: ${theme.colors.alpha.black[50]};
-`
+`,
 );
 
 const OutlinedInputWrapper = styled(OutlinedInput)(
   ({ theme }) => `
     background-color: ${theme.colors.alpha.white[100]};
-`
+`,
 );
 
 const ButtonNotify = styled(Button)(
   ({ theme }) => `
     margin-right: -${theme.spacing(1)};
-`
+`,
 );
 
 function StatusComingSoon() {
@@ -68,7 +67,7 @@ function StatusComingSoon() {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
+        seconds: Math.floor((difference / 1000) % 60),
       };
     }
 
@@ -83,7 +82,7 @@ function StatusComingSoon() {
     }, 1000);
   });
 
-  const timerComponents = [];
+  const timerComponents: any[] = [];
 
   Object.keys(timeLeft).forEach((interval) => {
     if (!timeLeft[interval]) {
@@ -92,8 +91,8 @@ function StatusComingSoon() {
 
     timerComponents.push(
       <Box textAlign="center" px={3}>
-        <TypographyH1 variant="h1">{timeLeft[interval]}</TypographyH1>
-        <TypographyH3 variant="h3">{interval}</TypographyH3>
+          <TypographyH1 variant="h1">{timeLeft[interval]}</TypographyH1>
+          <TypographyH3 variant="h3">{interval}</TypographyH3>
       </Box>
     );
   });
@@ -105,7 +104,7 @@ function StatusComingSoon() {
       </Helmet>
       <MainContent>
         <Container maxWidth="md">
-          <LogoSign />
+          <LogoSign/>
           <Box textAlign="center" mb={3}>
             <Container maxWidth="xs">
               <Typography variant="h1" sx={{ mt: 4, mb: 2 }}>
@@ -129,7 +128,9 @@ function StatusComingSoon() {
           </Box>
 
           <Box display="flex" justifyContent="center">
-            {timerComponents.length ? timerComponents : <>Time's up!</>}
+            {timerComponents.length
+              ? timerComponents
+              : <>Time's up!</>}
           </Box>
 
           <Container maxWidth="sm">
@@ -147,7 +148,7 @@ function StatusComingSoon() {
                   }
                   startAdornment={
                     <InputAdornment position="start">
-                      <MailTwoToneIcon />
+                      <MailTwoToneIcon/>
                     </InputAdornment>
                   }
                 />
@@ -155,21 +156,21 @@ function StatusComingSoon() {
                   We'll email you once our website is launched!
                 </FormHelperText>
               </FormControl>
-              <Divider sx={{ my: 4 }} />
+              <Divider sx={{ my: 4 }}/>
               <Box sx={{ textAlign: 'center' }}>
                 <Tooltip arrow placement="top" title="Facebook">
                   <IconButton color="primary">
-                    <FacebookIcon />
+                    <FacebookIcon/>
                   </IconButton>
                 </Tooltip>
                 <Tooltip arrow placement="top" title="Twitter">
                   <IconButton color="primary">
-                    <TwitterIcon />
+                    <TwitterIcon/>
                   </IconButton>
                 </Tooltip>
                 <Tooltip arrow placement="top" title="Instagram">
                   <IconButton color="primary">
-                    <InstagramIcon />
+                    <InstagramIcon/>
                   </IconButton>
                 </Tooltip>
               </Box>

@@ -65,7 +65,7 @@ class AuthServiceInner {
 
     this.setToken(response.data.access_token);
 
-    return this.getToken();
+    return this.getToken() as string;
   }
 
   public signOut() {

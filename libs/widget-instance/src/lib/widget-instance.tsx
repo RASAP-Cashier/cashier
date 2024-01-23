@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useCallback } from 'react';
-import { useWidgetSettingsStore, WidgetLayout } from './_stores';
+import { useCallback, useMemo } from 'react';
+import { useWidgetSettingsStore, useWidgetStateStore, WidgetLayout } from './_stores';
 import { IWidgetInstanceProps } from './widget-instance.interface';
 import { useI18nStore } from '@cashier/i18n';
 import { SeparateLayout } from './_components/separate-layout';
@@ -15,10 +15,16 @@ import { Box } from '@mui/material';
 import { observer } from 'mobx-react';
 
 export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
-  const { lang, currency, colorMode } = props;
+  const { lang, colorMode, merchantInfo } = props;
+  const { currency } = merchantInfo;
   const widgetSettingsStore = useWidgetSettingsStore();
+  const widgetStateStore = useWidgetStateStore();
   const i18nStore = useI18nStore();
   const classes = withClasses();
+
+  useMemo(() => {
+    widgetStateStore.updateMerchantInfo(merchantInfo);
+  }, [merchantInfo]);
 
   useCallback(() => {
     lang && (i18nStore.lang = lang);

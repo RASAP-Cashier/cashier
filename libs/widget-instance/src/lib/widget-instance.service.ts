@@ -5,7 +5,7 @@ import { IWidgetSettingsServer } from '@cashier/widget-instance';
 class WidgetInstanceServiceInner {
   public async LoadSettings(params: any): Promise<IWidgetSettingsServer> {
     const response = await RequestService.getInstance().getAxiosInstance()({
-      url: WidgetInstanceRoutes.Pay,
+      url: WidgetInstanceRoutes.LoadSettings,
       method: 'get',
       data: params,
     });

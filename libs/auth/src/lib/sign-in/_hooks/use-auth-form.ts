@@ -17,7 +17,7 @@ export const useAuthForm = () => {
 
   const handleSubmit: FormEventHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    authStore.login(formState).then((data) => {
+    authStore.signIn(formState).then((data) => {
       navigate('/');
     });
   };

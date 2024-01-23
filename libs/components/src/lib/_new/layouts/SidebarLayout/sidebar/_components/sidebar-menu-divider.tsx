@@ -9,4 +9,4 @@ const DividerWrapper = styled(Divider)(
 `,
 );
 
-export const SideMenuDivider = () => <DividerWrapper component="div" />
+export const SideMenuDivider = () => <DividerWrapper />

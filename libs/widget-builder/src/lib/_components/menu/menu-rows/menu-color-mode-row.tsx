@@ -24,9 +24,10 @@ export const MenuColorModeRow = observer(() => {
       titleKey={t('Dark Mode')}
       control={
         <FormControlLabel
+          label={''}
           control={
             <Switch
-              checked={widgetSettingsStore.colorMode === ThemeName.Dark}
+              checked={widgetSettingsStore.colorMode === WidgetColorMode.Dark}
               onChange={handleChange}
             />
           }

@@ -7,7 +7,7 @@ import { ILocalization } from '@cashier/i18n';
 import { withClasses } from './menu-item-row.css';
 
 export const MenuItemRow = observer((props: {
-  titleKey: keyof ILocalization;
+  titleKey: string; // keyof ILocalization;
   control: React.ReactElement;
 }) => {
   const [t] = useTranslation();
@@ -21,6 +21,7 @@ export const MenuItemRow = observer((props: {
       </Box>
       <Box className={classes.control}>
         <FormControlLabel
+          label={''}
           control={control}
         />
       </Box>

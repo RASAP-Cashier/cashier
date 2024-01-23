@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { withClasses } from './block-title.css';
 
 interface IBlockTitleProps {
-  titleKey: string;
+  titleKey: string; // keyof ILocalization;
 }
 
 export const BlockTitle = (props: IBlockTitleProps) => {

@@ -91,7 +91,7 @@ export const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) 
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
   const [filters, setFilters] = useState<Filters>({
-    status: null
+    status: undefined
   });
 
   const statusOptions = [
@@ -114,10 +114,10 @@ export const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) 
   ];
 
   const handleStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    let value = null;
+    let value;
 
     if (e.target.value !== 'all') {
-      value = e.target.value;
+      value = e.target.value as string;
     }
 
     setFilters((prevFilters) => ({

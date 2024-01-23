@@ -1,5 +1,5 @@
 import { makeWithClasses } from '@cashier/theme';
-import { maxWidgetHeight, maxWidgetWidth } from '@cashier/widget-instance';
+import { maxWidgetHeight } from '@cashier/widget-instance';
 
 export const withClasses = makeWithClasses((theme) => ({
   container: {

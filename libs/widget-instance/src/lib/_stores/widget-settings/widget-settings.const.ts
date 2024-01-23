@@ -11,7 +11,7 @@ import { defaultCurrency } from '../../widget-instance.const';
 
 export const DefaultWidgetSettings: IWidgetSettings = {
   paymentMethodsViewType: WidgetPaymentMethodsViewType.Minimal,
-  layout: WidgetLayout.Separate,
+  layout: WidgetLayout.Single,
   companyLogo: undefined,
   buttonText: 'PAY',
 

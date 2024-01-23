@@ -1,13 +1,20 @@
-import { IMerchantInfo } from '@cashier/widget-instance';
+import { IMerchantInfo } from '../../widget-instance.interface';
 
 export type IBillingInfo = {
+  phoneNumber?: string;
+  postCode?: string;
+  state?: string;
+  city?: string;
+  country?: string;
   street?: string;
-  // TODO implement
+  address?: string;
 };
 
 export type ICardInfo = {
+  cardNumber?: string;
+  date?: Date;
+  CVC?: string;
   cardHolderName?: string;
-  // TODO implement
 };
 
 

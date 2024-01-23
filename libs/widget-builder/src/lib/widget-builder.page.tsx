@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Grid } from '@mui/material';
-import { getWidgetConfig, WidgetInstance } from '@cashier/widget-instance';
+import { getWidgetConfig, WidgetColorMode, WidgetInstance } from '@cashier/widget-instance';
 import { WidgetBuilderHeader, WidgetBuilderMenu } from './_components';
 import { withClasses } from './widget-builder.page.css';
+import { Language } from '@cashier/i18n';
 
 export function WidgetBuilderPage() {
   const { url: widgetUrl } = getWidgetConfig();
@@ -20,7 +21,7 @@ export function WidgetBuilderPage() {
           <WidgetBuilderMenu/>
         </Grid>
         <Grid container item xs={9} direction={'column'} className={classes.widgetColumn}>
-          {!previewMode && <WidgetInstance merchantInfo={{
+          {!previewMode && <WidgetInstance lang={Language.en} colorMode={WidgetColorMode.Light} merchantInfo={{
             amount: 1500,
             tax: 50,
             vat: 10,

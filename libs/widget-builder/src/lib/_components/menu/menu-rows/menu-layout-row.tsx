@@ -23,6 +23,7 @@ export const MenuLayoutRow = observer(() => {
       titleKey={t('Separate Page')}
       control={
         <FormControlLabel
+          label={''}
           control={
             <Switch
               checked={widgetSettingsStore.layout === WidgetLayout.Separate}

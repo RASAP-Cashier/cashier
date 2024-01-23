@@ -15,7 +15,7 @@ export interface ISingletonWithInit<T, P> {
 }
 
 export function singletonWithInit<T, P>(
-  clazz: { new (params: P): T },
+  clazz: { new (params?: P): T },
   callbacks?: ISingletonWithInitCallbacks<P>,
 ): ISingletonWithInit<T, P> {
   let instance: T;
@@ -28,24 +28,24 @@ export function singletonWithInit<T, P>(
         throw Error(`Not initialized: ${clazz?.name}`);
       }
 
-      isFunction(callbacks?.getInstanceCallback) && callbacks.getInstanceCallback();
+      isFunction(callbacks?.getInstanceCallback) && callbacks?.getInstanceCallback();
       return instance;
     },
-    init: (params: P) => {
+    init: (params?: P) => {
       if (instance) {
         throw Error(`Already initialized: ${clazz?.name}`);
       }
 
-      isFunction(callbacks?.initCallback) && callbacks.initCallback(params);
+      isFunction(callbacks?.initCallback) && callbacks?.initCallback(params);
       instance = new clazz(params);
       return instance;
     },
-    tryInit: (params: P) => {
+    tryInit: (params?: P) => {
       if (instance) {
         return instance;
       }
 
-      isFunction(callbacks?.tryInitCallback) && callbacks.tryInitCallback(params);
+      isFunction(callbacks?.tryInitCallback) && callbacks?.tryInitCallback(params);
       instance = new clazz(params);
       return instance;
     },

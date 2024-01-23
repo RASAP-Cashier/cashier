@@ -4,11 +4,17 @@ import { Button, Divider, Grid, Link, SvgIcon } from '@mui/material';
 import { BlockTitle } from '../block-title';
 import { useTranslation } from 'react-i18next';
 import { withClasses } from './summary.css';
+import { useWidgetStateStore } from '../../_stores';
 
 export const Summary = (props: ISummaryProps) => {
   const { currency, buttonText, buttonBackgroundColor, buttonTextColor, companyLogo } = props;
   const [t] = useTranslation();
   const classes = withClasses();
+  const widgetStateStore = useWidgetStateStore();
+
+  const pay = React.useCallback(() => {
+    widgetStateStore.pay();
+  }, [widgetStateStore.pay]);
 
   return (
     <Grid>
@@ -41,7 +47,7 @@ export const Summary = (props: ISummaryProps) => {
           </Grid>
         </Grid>
         <Grid item xs={12} className={classes.row} pt={1} pb={1}>
-          <Divider pt={1} pb={1}/>
+          <Divider />
         </Grid>
         <Grid item xs={12} className={classes.totalRow}>
           <Grid item xs={6}>
@@ -55,7 +61,8 @@ export const Summary = (props: ISummaryProps) => {
           <Button size="large" fullWidth style={{
             color: buttonTextColor,
             backgroundColor: buttonBackgroundColor,
-          }}>
+          }}
+          onClick={pay}>
             {buttonText}
           </Button>
         </Grid>
