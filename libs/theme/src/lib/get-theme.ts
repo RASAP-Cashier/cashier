@@ -2,6 +2,7 @@ import { Theme } from '@mui/material';
 import { ThemeLight } from './schemes/theme.light';
 import { ThemeName } from './theme.interface';
 import type { IMUITheme } from '@cashier/theme';
+import { ThemeDark } from './schemes/theme.dark';
 
 export function getTheme(theme: ThemeName): Theme {
   return themeMap[theme];
@@ -17,4 +18,5 @@ declare module '@mui/material/styles' {
 
 const themeMap: { [key: string]: Theme } = {
   [ThemeName.Light]: ThemeLight,
+  [ThemeName.Dark]: ThemeDark,
 };

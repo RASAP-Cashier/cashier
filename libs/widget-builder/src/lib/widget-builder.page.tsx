@@ -15,18 +15,20 @@ export function WidgetBuilderPage() {
       <Grid item xs={12}>
         <WidgetBuilderHeader previewMode={previewMode} setPreviewMode={setPreviewMode}/>
       </Grid>
-      <Grid item className={classes.menuColumn}>
-        <WidgetBuilderMenu/>
-      </Grid>
-      <Grid container item xs direction={'column'} className={classes.widgetColumn}>
-        {!previewMode && <WidgetInstance merchantInfo={{
-          amount: 1500,
-          tax: 50,
-          vat: 10,
-          currency: '$'
-        }}/>}
-        {previewMode &&
-          <iframe src={widgetUrl} width="100%" height="600" frameBorder="0">Browser not compatible.</iframe>}
+      <Grid item xs={12} className={classes.widgetWrapper}>
+        <Grid item xs={3} className={classes.menuColumn}>
+          <WidgetBuilderMenu/>
+        </Grid>
+        <Grid container item xs={9} direction={'column'} className={classes.widgetColumn}>
+          {!previewMode && <WidgetInstance merchantInfo={{
+            amount: 1500,
+            tax: 50,
+            vat: 10,
+            currency: '$'
+          }}/>}
+          {previewMode &&
+            <iframe src={widgetUrl} width="100%" height="600" frameBorder="0">Browser not compatible.</iframe>}
+        </Grid>
       </Grid>
     </Grid>
   );

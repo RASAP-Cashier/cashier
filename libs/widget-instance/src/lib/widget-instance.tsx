@@ -12,8 +12,9 @@ import { withClasses } from './widget-instance.css';
 import { PaymentMethodsList } from './_components/payment-methods';
 import { PaymentMethodsSlider } from './_components/payment-methods/payment-methods-slider';
 import { Box } from '@mui/material';
+import { observer } from 'mobx-react';
 
-export const WidgetInstance = (props: IWidgetInstanceProps) => {
+export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
   const { lang, currency, colorMode } = props;
   const widgetSettingsStore = useWidgetSettingsStore();
   const i18nStore = useI18nStore();
@@ -25,11 +26,11 @@ export const WidgetInstance = (props: IWidgetInstanceProps) => {
 
   useCallback(() => {
     colorMode && (widgetSettingsStore.colorMode = colorMode);
-  }, [colorMode, widgetSettingsStore]);
+  }, [colorMode, widgetSettingsStore.colorMode]);
 
   useCallback(() => {
     currency && (widgetSettingsStore.currency = currency);
-  }, [currency, widgetSettingsStore]);
+  }, [currency, widgetSettingsStore.currency]);
 
   const {
     font, fontSize, backgroundColor,
@@ -37,12 +38,7 @@ export const WidgetInstance = (props: IWidgetInstanceProps) => {
   } = widgetSettingsStore.styles;
 
   return (
-    <Box className={classes.container} style={{
-      fontFamily: font,
-      fontSize,
-      backgroundColor,
-      color: textColor,
-    }}>
+    <Box className={classes.container}>
       {
         widgetSettingsStore.layout === WidgetLayout.Separate
           ? <SeparateLayout
@@ -86,4 +82,4 @@ export const WidgetInstance = (props: IWidgetInstanceProps) => {
       }
     </Box>
   );
-};
+});

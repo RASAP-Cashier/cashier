@@ -7,6 +7,7 @@ import { MenuFontRow } from './menu-rows/menu-font-row';
 import { MenuFontSizeRow } from './menu-rows/menu-font-size-row';
 import { MenuCornerRadiusRow } from './menu-rows/menu-corner-radius-row';
 import { withClasses } from './widget-builder-menu.css';
+import { MenuColorModeRow } from './menu-rows/menu-color-mode-row';
 
 export const WidgetBuilderMenu = observer(() => {
   const classes = withClasses();
@@ -16,6 +17,7 @@ export const WidgetBuilderMenu = observer(() => {
       <MenuGroupTitleRow titleKey={'Payment Method Page'}/>
       <MenuLayoutRow/>
       <MenuGroupTitleRow titleKey={'Style and Branding'}/>
+      <MenuColorModeRow/>
       <MenuFontRow/>
       <MenuFontSizeRow/>
       <MenuCornerRadiusRow/>

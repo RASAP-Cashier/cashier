@@ -23,12 +23,12 @@ export const DefaultWidgetSettings: IWidgetSettings = {
       font: WidgetFont.Inter,
       fontSize: WidgetFontSize.Size16,
       cornerRadius: WidgetCornerRadius.Radius7,
-      backgroundColor: '#F6F6F6',
-      textColor: '#000000',
-      fieldColor: '#FFFFFF',
-      lineColor: '#E9E6EF',
-      iconColor: '#4723AD',
-      buttonBackgroundColor: '#4723AD',
+      backgroundColor: '#070707',
+      textColor: '#fcfbfb',
+      fieldColor: '#161616',
+      lineColor: '#282829',
+      iconColor: '#a48ee4',
+      buttonBackgroundColor: '#a48ee4',
       buttonTextColor: '#FFFFFF'
     },
     [WidgetColorMode.Light]: {
