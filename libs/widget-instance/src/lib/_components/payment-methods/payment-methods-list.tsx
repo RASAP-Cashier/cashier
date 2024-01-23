@@ -22,8 +22,8 @@ export const PaymentMethodsList = observer(() => {
             {t('Stripe')}
           </Button>
         </Grid>
-        <Grid item xs={12} className={classes.listItem} onClick={handleChange}>
-          <Button variant="outlined" fullWidth>
+        <Grid item xs={12} className={classes.listItem}>
+          <Button variant="outlined" fullWidth onClick={handleChange}>
             {t('Checkout')}
           </Button>
         </Grid>

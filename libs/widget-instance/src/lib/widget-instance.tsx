@@ -33,8 +33,8 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
   }, [currency, widgetSettingsStore.currency]);
 
   const {
-    font, fontSize, backgroundColor,
-    textColor, cornerRadius, fieldColor, lineColor, buttonBackgroundColor, buttonTextColor,
+    cornerRadius, fieldColor, lineColor,
+    buttonBackgroundColor, buttonTextColor,
   } = widgetSettingsStore.styles;
 
   return (

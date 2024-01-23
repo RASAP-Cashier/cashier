@@ -1,4 +1,20 @@
 import { makeWithClasses } from '@cashier/theme';
+import { CSSProperties } from '@mui/styles';
+
+export const slideItemStyles: CSSProperties = {
+  textAlign: 'center',
+  fontSize: '18px',
+  background: '#fff',
+  display: 'flex',
+  borderRadius: 10,
+  padding: 10,
+  border: '1px solid #000',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: 50,
+  width: 70,
+  marginBottom: 20,
+};
 
 export const withClasses = makeWithClasses((theme) => ({
   container: {
@@ -7,8 +23,7 @@ export const withClasses = makeWithClasses((theme) => ({
     flexDirection: 'column',
     width: '100%',
   },
-  listContainer: {
-  },
+  listContainer: {},
   sliderContainer: {
     display: 'flex',
     flex: 1,
@@ -19,4 +34,5 @@ export const withClasses = makeWithClasses((theme) => ({
   listItem: {
     paddingTop: theme.base.spacings.$unit,
   },
+  slideItem: slideItemStyles,
 }));
