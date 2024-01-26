@@ -5,7 +5,8 @@ import { CssBaseline } from '@mui/material';
 import React from 'react';
 import { getI18next, Language } from '@cashier/i18n';
 import { I18nextProvider } from 'react-i18next';
-import { WidgetColorMode, WidgetInstance } from '@cashier/widget-instance';
+import { WidgetInstance } from '@cashier/widget/client/feature';
+import { WidgetColorMode } from '@cashier/widget/cs';
 
 export function App() {
   const i18next = getI18next();

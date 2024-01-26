@@ -1,0 +1,28 @@
+### Send SIGNUP request
+POST http://51.20.67.184:3000/auth/signup
+Content-Type: application/json
+
+{
+  "firstName": "dramwork",
+  "lastName": "dramwork",
+  "password": "dramwork",
+  "email": "dramwork5@gmail.com"
+}
+
+### Send LOGIN request
+http://16.171.235.249:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "alexP@releaseasap.com",
+  "password": "test1234"
+}
+
+### Send LOGIN request
+http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "alexP@releaseasap.com",
+  "password": "test1234"
+}
