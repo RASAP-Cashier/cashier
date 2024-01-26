@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { useCallback, useMemo } from 'react';
-import { useWidgetSettingsStore, useWidgetStateStore } from '@cashier/widget/client/logic';
+import {
+  useWidgetSettingsStore,
+  useWidgetStateStore,
+} from '@cashier/widget/client/logic';
 import { IWidgetInstanceProps } from './widget-instance.interface';
 import { useI18nStore } from '@cashier/i18n';
 import { SeparateLayout } from './_components/separate-layout';
@@ -25,11 +28,15 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
 
   useMemo(() => {
     widgetSettingsStore.loadFromServer(userId);
-  }, [userId]);
+  }, [userId, widgetSettingsStore]);
 
   useMemo(() => {
     widgetStateStore.updateMerchantInfo(merchantInfo);
-  }, [merchantInfo]);
+  }, [merchantInfo, widgetStateStore]);
+
+  useMemo(() => {
+    widgetSettingsStore.updateColorMode(colorMode);
+  }, []);
 
   useCallback(() => {
     lang && (i18nStore.lang = lang);
@@ -44,61 +51,73 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
   }, [currency, widgetSettingsStore.currency]);
 
   const {
-    cornerRadius, fieldColor, lineColor,
-    buttonBackgroundColor, buttonTextColor,
+    cornerRadius,
+    fieldColor,
+    lineColor,
+    buttonBackgroundColor,
+    buttonTextColor,
   } = widgetSettingsStore.styles;
 
   if (widgetSettingsStore.isLoading) {
-    return (
-      <Box className={classes.container}>
-        {'...LOADING'}
-      </Box>
-    );
+    return <Box className={classes.container}>{'...LOADING'}</Box>;
   }
 
   return (
     <Box className={classes.container}>
-      {
-        widgetSettingsStore.layout === WidgetLayout.Separate
-          ? <SeparateLayout
-            step1Component={
-              <>
-                <PaymentMethodsList/>
-              </>
-            }
-            step2LeftColumnComponent={
-              <>
-                <CardDetails/>
-                <BillingInfo cornerRadius={cornerRadius} fieldColor={fieldColor} lineColor={lineColor}/>
-              </>
-            }
-            step2RightColumnComponent={
-              <>
-                <Summary currency={widgetSettingsStore.currency} buttonText={widgetSettingsStore.buttonText}
-                         buttonBackgroundColor={buttonBackgroundColor} buttonTextColor={buttonTextColor}/>
-              </>
-            }
-          />
-          : <SingleLayout
-            leftColumnComponent={
-              <>
-                <PaymentMethodsSlider/>
-                <CardDetails/>
-                <BillingInfo cornerRadius={cornerRadius} fieldColor={fieldColor} lineColor={lineColor}/>
-              </>
-            }
-            rightColumnComponent={
-              <>
-                <Summary currency={widgetSettingsStore.currency}
-                         buttonText={widgetSettingsStore.buttonText}
-                         buttonTextColor={buttonTextColor}
-                         buttonBackgroundColor={buttonBackgroundColor}
-                         companyLogo={widgetSettingsStore.companyLogo}
-                />
-              </>
-            }
-          />
-      }
+      {widgetSettingsStore.settings.layout === WidgetLayout.Separate ? (
+        <SeparateLayout
+          step1Component={
+            <>
+              <PaymentMethodsList />
+            </>
+          }
+          step2LeftColumnComponent={
+            <>
+              <CardDetails />
+              <BillingInfo
+                cornerRadius={cornerRadius}
+                fieldColor={fieldColor}
+                lineColor={lineColor}
+              />
+            </>
+          }
+          step2RightColumnComponent={
+            <>
+              <Summary
+                currency={widgetSettingsStore.currency}
+                buttonText={widgetSettingsStore.buttonText}
+                buttonBackgroundColor={buttonBackgroundColor}
+                buttonTextColor={buttonTextColor}
+              />
+            </>
+          }
+        />
+      ) : (
+        <SingleLayout
+          leftColumnComponent={
+            <>
+              <PaymentMethodsSlider />
+              <CardDetails />
+              <BillingInfo
+                cornerRadius={cornerRadius}
+                fieldColor={fieldColor}
+                lineColor={lineColor}
+              />
+            </>
+          }
+          rightColumnComponent={
+            <>
+              <Summary
+                currency={widgetSettingsStore.currency}
+                buttonText={widgetSettingsStore.buttonText}
+                buttonTextColor={buttonTextColor}
+                buttonBackgroundColor={buttonBackgroundColor}
+                companyLogo={widgetSettingsStore.companyLogo}
+              />
+            </>
+          }
+        />
+      )}
     </Box>
   );
 });

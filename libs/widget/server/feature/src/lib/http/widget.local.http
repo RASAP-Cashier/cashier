@@ -7,3 +7,10 @@ Content-Type: application/json
 
 ### Send Get Widget Settings request
 GET http://localhost:3000/widget/settings?userId=1
+
+### Send Pay request
+POST http://localhost:3000/widget/pay
+Content-Type: application/json
+
+{
+}

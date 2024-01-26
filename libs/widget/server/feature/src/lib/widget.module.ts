@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { WidgetService } from './widget.service';
+import { WidgetService } from '../../../logic/src/lib/widget.service';
 import { WidgetController } from './widget.controller';
 
 @Module({

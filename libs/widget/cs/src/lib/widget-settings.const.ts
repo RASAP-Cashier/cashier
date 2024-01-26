@@ -15,10 +15,7 @@ export const DefaultWidgetSettings: IWidgetSettings = {
   companyLogo: undefined,
   buttonText: 'PAY',
 
-  colorMode: WidgetColorMode.Light,
-  currency: 'USD',
-
-  allColorModesStyles: {
+  colorModeStyles: {
     // TODO mast change (not ready yet)
     [WidgetColorMode.Dark]: {
       font: WidgetFont.Inter,

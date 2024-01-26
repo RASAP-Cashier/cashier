@@ -3,11 +3,12 @@ import {
   CheckoutPaymentMethod,
   DefaultWidgetSettings,
   IGetWidgetSettingsParams,
-  IGetWidgetSettingsResponse,
+  IPaymentMethod,
   ISaveWidgetSettingsParams,
   ISaveWidgetSettingsResponse,
   IWidgetPayParams,
   IWidgetPayResponse,
+  IWidgetSettings,
   StripePaymentMethod,
 } from '@cashier/widget/cs';
 
@@ -16,13 +17,18 @@ export class WidgetService {
   public async getSettings(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     params: IGetWidgetSettingsParams
-  ): Promise<IGetWidgetSettingsResponse> {
+  ): Promise<IWidgetSettings> {
     // TODO implement - get data from DB
     const widgetSettings = DefaultWidgetSettings;
-    return Promise.resolve({
-      settings: widgetSettings,
-      paymentMethods: [StripePaymentMethod, CheckoutPaymentMethod],
-    });
+    return Promise.resolve(widgetSettings);
+  }
+
+  public async getPaymentMethods(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    params: IGetWidgetSettingsParams
+  ): Promise<IPaymentMethod[]> {
+    // TODO implement - get data from DB
+    return Promise.resolve([StripePaymentMethod, CheckoutPaymentMethod]);
   }
 
   public async saveSettings(

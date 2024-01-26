@@ -14,14 +14,18 @@ export function App() {
   return (
     <ThemeProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <CssBaseline/>
+        <CssBaseline />
         <I18nextProvider i18n={i18next}>
-          <WidgetInstance lang={Language.en} colorMode={WidgetColorMode.Light} merchantInfo={{
-            currency: 'USD',
-            amount: 1500,
-            tax: 10,
-            vat: 15,
-          }}/>
+          <WidgetInstance
+            merchantInfo={{
+              currency: 'USD',
+              amount: 1500,
+              tax: 10,
+              vat: 15,
+              lang: Language.en,
+              colorMode: WidgetColorMode.Light,
+            }}
+          />
         </I18nextProvider>
       </LocalizationProvider>
     </ThemeProvider>

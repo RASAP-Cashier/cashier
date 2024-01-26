@@ -1,0 +1,16 @@
+### Send Save Widget Settings request
+POST http://base-api.asapcashier-dev.com/widget/settings
+Content-Type: application/json
+
+{
+}
+
+### Send Get Widget Settings request
+GET http://base-api.asapcashier-dev.com/widget/settings?userId=1
+
+### Send Pay request
+POST http://base-api.asapcashier-dev.com/widget/pay
+Content-Type: application/json
+
+{
+}

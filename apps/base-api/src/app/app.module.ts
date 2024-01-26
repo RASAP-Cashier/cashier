@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { WidgetModule } from '@cashier/widget/server/feature';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
@@ -56,9 +54,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     UsersModule,
     WidgetModule,
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: AtGuard,

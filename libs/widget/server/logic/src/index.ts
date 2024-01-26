@@ -1,1 +1,1 @@
-export * from './lib/widget-server-logic.module';
+export * from './lib/widget.service';

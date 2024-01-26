@@ -1,5 +1,5 @@
 ### Send SIGNUP request
-POST http://51.20.67.184:3000/auth/signup
+POST http://base-api.asapcashier-dev.com/auth/signup
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Send LOGIN request
-http://16.171.235.249:3000/auth/login
+http://base-api.asapcashier-dev.com/auth/login
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ### Send LOGIN request
-http://localhost:3000/auth/login
+http://base-api.asapcashier-dev.com/auth/login
 Content-Type: application/json
 
 {

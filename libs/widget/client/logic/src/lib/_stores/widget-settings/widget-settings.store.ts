@@ -1,89 +1,52 @@
 import React from 'react';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { WidgetService } from '../../widget.service';
-import { DefaultWidgetSettings, IWidgetSettings, IWidgetStylesSettings, WidgetColorMode } from '@cashier/widget/cs';
+import {
+  DefaultWidgetSettings,
+  IWidgetSettings,
+  IWidgetStylesSettings,
+  WidgetColorMode,
+} from '@cashier/widget/cs';
+import { IWidgetSettingsStore } from './widget-settings.store.interface';
 
-class WidgetStylesSettings implements IWidgetStylesSettings {
+class WidgetSettingsStore implements IWidgetSettingsStore {
   @observable
-  public font = DefaultWidgetSettings.allColorModesStyles[this.colorMode].font;
+  public paymentMethods = [];
 
-  @observable
-  public fontSize = DefaultWidgetSettings.allColorModesStyles[this.colorMode].fontSize;
-
-  @observable
-  public cornerRadius = DefaultWidgetSettings.allColorModesStyles[this.colorMode].cornerRadius;
-
-  @observable
-  public fieldColor = DefaultWidgetSettings.allColorModesStyles[this.colorMode].fieldColor;
-
-  @observable
-  public iconColor = DefaultWidgetSettings.allColorModesStyles[this.colorMode].iconColor;
-
-  @observable
-  public lineColor = DefaultWidgetSettings.allColorModesStyles[this.colorMode].lineColor;
-
-  @observable
-  public textColor = DefaultWidgetSettings.allColorModesStyles[this.colorMode].textColor;
-
-  @observable
-  public backgroundColor = DefaultWidgetSettings.allColorModesStyles[this.colorMode].backgroundColor;
-
-  @observable
-  public buttonBackgroundColor = DefaultWidgetSettings.allColorModesStyles[this.colorMode].buttonBackgroundColor;
-
-  @observable
-  public buttonTextColor = DefaultWidgetSettings.allColorModesStyles[this.colorMode].buttonTextColor;
-
-  constructor(private colorMode: WidgetColorMode) {
-    makeObservable(this);
-  }
-}
-
-class WidgetSettingsStore implements IWidgetSettings {
   @observable
   public isLoading = true;
 
   @observable
-  public colorMode = DefaultWidgetSettings.colorMode;
+  public colorMode = WidgetColorMode.Light;
 
   @observable
-  public currency = DefaultWidgetSettings.currency;
-
-  @observable
-  public companyLogo = DefaultWidgetSettings.companyLogo;
-
-  @observable
-  public paymentMethodsViewType = DefaultWidgetSettings.paymentMethodsViewType;
-
-  @observable
-  public buttonText = DefaultWidgetSettings.buttonText;
-
-  @observable
-  public layout = DefaultWidgetSettings.layout;
-
-  @observable
-  public allColorModesStyles = {
-    [WidgetColorMode.Dark]: new WidgetStylesSettings(WidgetColorMode.Dark),
-    [WidgetColorMode.Light]: new WidgetStylesSettings(WidgetColorMode.Light),
-  };
+  public settings = DefaultWidgetSettings;
 
   constructor() {
     makeObservable(this);
   }
 
+  @action
+  public updateColorMode(value: WidgetColorMode) {
+    this.colorMode = value;
+  }
+
   @computed
   public get styles() {
-    return this.allColorModesStyles[this.colorMode];
+    return this.settings.colorModeStyles[this.colorMode];
   }
 
   @action
-  public updateBaseSettings(key: keyof Exclude<IWidgetSettings, 'styles'>, value) {
-    this[key] = value as any as never;
+  public updateBaseSettings(
+    key: keyof Exclude<IWidgetSettings, 'styles'>,
+    value
+  ) {
+    this.settings[key] = value as any as never;
   }
 
   @action
   public updateStylesSettings(key: keyof IWidgetStylesSettings, value) {
-    this.allColorModesStyles[this.colorMode][key] = value as any as never;
+    this.settings.colorModeStyles[this.colorMode][key] = value as any as never;
   }
 
   @action
@@ -96,31 +59,22 @@ class WidgetSettingsStore implements IWidgetSettings {
 
     const { settings, paymentMethods } = widgetSettingsData;
 
-    this.colorMode = settings.colorMode || this.colorMode;
-    this.currency = settings.currency || this.currency;
-    this.companyLogo = settings.companyLogo || this.companyLogo;
-    this.paymentMethodsViewType = settings.paymentMethodsViewType || this.paymentMethodsViewType;
-    this.buttonText = settings.buttonText || this.buttonText;
-    this.layout = settings.layout || this.layout;
+    this.settings = settings || this.settings;
+    this.paymentMethods = paymentMethods;
   }
 
   @action
   public async saveToServer() {
     this.isLoading = true;
-    await WidgetService.getInstance().SaveSettings({
-      colorMode: this.colorMode,
-      currency: this.currency,
-      companyLogo: this.companyLogo,
-      paymentMethodsViewType: this.paymentMethodsViewType,
-      buttonText: this.buttonText,
-      layout: this.layout,
-    });
+    await WidgetService.getInstance().SaveSettings(this.settings);
     this.isLoading = false;
   }
 }
 
 const widgetSettingsStore = new WidgetSettingsStore();
 
-export const WidgetSettingsStoreContext = React.createContext(widgetSettingsStore);
+export const WidgetSettingsStoreContext =
+  React.createContext(widgetSettingsStore);
 
-export const useWidgetSettingsStore = () => React.useContext(WidgetSettingsStoreContext);
+export const useWidgetSettingsStore = () =>
+  React.useContext(WidgetSettingsStoreContext);

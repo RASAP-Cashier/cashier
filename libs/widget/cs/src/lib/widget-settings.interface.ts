@@ -1,3 +1,5 @@
+import { Language } from '@cashier/i18n';
+
 export enum WidgetFont {
   Inter = 'Inter',
 }
@@ -56,10 +58,7 @@ export interface IWidgetSettings {
   companyLogo?: string;
   buttonText: string;
 
-  colorMode: WidgetColorMode;
-  currency: ICurrency;
-
-  allColorModesStyles: {
+  colorModeStyles: {
     [WidgetColorMode.Light]: IWidgetStylesSettings;
     [WidgetColorMode.Dark]: IWidgetStylesSettings;
   };
@@ -70,4 +69,6 @@ export type IMerchantInfo = {
   amount: number;
   tax: number;
   vat: number;
-}
+  lang: Language;
+  colorMode: WidgetColorMode;
+};

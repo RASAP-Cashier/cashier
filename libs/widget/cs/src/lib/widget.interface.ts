@@ -22,9 +22,7 @@ export type IGetWidgetSettingsResponse = {
   paymentMethods: IPaymentMethod[];
 };
 
-export type ISaveWidgetSettingsParams = {
-  // TOD
-};
+export type ISaveWidgetSettingsParams = IWidgetSettings;
 
 export type ISaveWidgetSettingsResponse = {
   // TOD

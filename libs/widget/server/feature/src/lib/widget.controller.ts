@@ -7,7 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { Public } from '@cashier/common/server/logic';
-import { WidgetService } from './widget.service';
+import { WidgetService } from '../../../logic/src/lib/widget.service';
 import {
   IGetWidgetSettingsParams,
   IGetWidgetSettingsResponse,
@@ -27,7 +27,13 @@ export class WidgetController {
   async getSettings(
     @Body() params: IGetWidgetSettingsParams
   ): Promise<IGetWidgetSettingsResponse> {
-    return this.widgetService.getSettings(params);
+    const settings = await this.widgetService.getSettings(params);
+    const paymentMethods = await this.widgetService.getPaymentMethods(params);
+
+    return {
+      paymentMethods,
+      settings,
+    };
   }
 
   @Public()

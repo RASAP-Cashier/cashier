@@ -4,7 +4,7 @@ import Switch from '@mui/material/Switch';
 import { useWidgetSettingsStore } from '@cashier/widget/client/logic';
 import { WidgetLayout } from '@cashier/widget/cs';
 import { observer } from 'mobx-react';
-import { MenuItemRow } from './item/menu-item-row';
+import { MenuItemRow } from './item';
 import { useTranslation } from 'react-i18next';
 
 export const MenuLayoutRow = observer(() => {
@@ -12,12 +12,13 @@ export const MenuLayoutRow = observer(() => {
   const widgetSettingsStore = useWidgetSettingsStore();
 
   const handleChange = React.useCallback(() => {
-    const newValue = widgetSettingsStore.layout === WidgetLayout.Separate
-      ? WidgetLayout.Single
-      : WidgetLayout.Separate;
+    const newValue =
+      widgetSettingsStore.settings.layout === WidgetLayout.Separate
+        ? WidgetLayout.Single
+        : WidgetLayout.Separate;
 
     widgetSettingsStore.updateBaseSettings('layout', newValue);
-  }, [widgetSettingsStore.layout]);
+  }, [widgetSettingsStore.settings.layout]);
 
   return (
     <MenuItemRow
@@ -27,7 +28,9 @@ export const MenuLayoutRow = observer(() => {
           label={''}
           control={
             <Switch
-              checked={widgetSettingsStore.layout === WidgetLayout.Separate}
+              checked={
+                widgetSettingsStore.settings.layout === WidgetLayout.Separate
+              }
               onChange={handleChange}
             />
           }
