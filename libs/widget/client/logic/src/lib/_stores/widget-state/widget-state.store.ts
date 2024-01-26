@@ -1,8 +1,13 @@
 import React from 'react';
-import { action, makeObservable, observable } from 'mobx';
-import { IBillingInfo, ICardInfo, IWidgetStateStore } from './widget-state.interface';
+import { action, makeObservable, observable, toJS } from 'mobx';
+import {
+  IBillingInfo,
+  ICardInfo,
+  IWidgetStateStore,
+} from './widget-state.interface';
 import { WidgetService } from '../../widget.service';
-import { IMerchantInfo } from '@cashier/widget/cs';
+import { IMerchantInfo, WidgetColorMode } from '@cashier/widget/cs';
+import { Language } from '@cashier/i18n';
 
 class WidgetStateStore implements IWidgetStateStore {
   @observable
@@ -15,7 +20,14 @@ class WidgetStateStore implements IWidgetStateStore {
   public cardInfo: ICardInfo = {};
 
   @observable
-  public merchantInfo: IMerchantInfo = { amount: 0, currency: '', tax: 0, vat: 0 };
+  public merchantInfo: IMerchantInfo = {
+    amount: 0,
+    currency: '',
+    tax: 0,
+    vat: 0,
+    colorMode: WidgetColorMode.Light,
+    lang: Language.en,
+  };
 
   constructor() {
     makeObservable(this);
@@ -40,10 +52,10 @@ class WidgetStateStore implements IWidgetStateStore {
   public async pay() {
     this.isLoading = true;
     await WidgetService.getInstance().Pay({
-      billingInfo: this.billingInfo,
-      cardInfo: this.cardInfo,
-      merchantInfo: this.merchantInfo,
-    })
+      billingInfo: toJS(this.billingInfo),
+      cardInfo: toJS(this.cardInfo),
+      merchantInfo: toJS(this.merchantInfo),
+    });
     this.isLoading = false;
   }
 }
@@ -52,4 +64,5 @@ const widgetStateStore = new WidgetStateStore();
 
 export const WidgetStateStoreContext = React.createContext(widgetStateStore);
 
-export const useWidgetStateStore = () => React.useContext(WidgetStateStoreContext);
+export const useWidgetStateStore = () =>
+  React.useContext(WidgetStateStoreContext);

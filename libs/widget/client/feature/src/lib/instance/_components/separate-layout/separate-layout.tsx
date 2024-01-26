@@ -6,20 +6,25 @@ import { ISteps } from './stepper/horizontal-stepper.interface';
 import { SingleLayout } from '../single-layout';
 import { Box, Card } from '@mui/material';
 import { withClasses } from './separate-layout.css';
-import { useWidgetSettingsStore } from '@cashier/widget/client/logic';
+import {
+  useWidgetSettingsStore,
+  useWidgetStateStore,
+} from '@cashier/widget/client/logic';
 import { observer } from 'mobx-react';
 
 export const SeparateLayout = observer((props: ISeparateLayoutProps) => {
-  const { step1Component, step2LeftColumnComponent, step2RightColumnComponent } = props;
+  const {
+    step1Component,
+    step2LeftColumnComponent,
+    step2RightColumnComponent,
+  } = props;
   const [t] = useTranslation();
   const classes = withClasses();
 
+  const widgetStateStore = useWidgetStateStore();
   const widgetSettingsStore = useWidgetSettingsStore();
-  const {
-    font, fontSize,
-    backgroundColor,
-    textColor,
-  } = widgetSettingsStore.styles;
+  const { font, fontSize, backgroundColor, textColor } =
+    widgetSettingsStore.styles(widgetStateStore.merchantInfo.colorMode);
 
   const steps: ISteps = {
     0: {
@@ -27,15 +32,15 @@ export const SeparateLayout = observer((props: ISeparateLayoutProps) => {
       label: t('widget.stepperStep1') as string,
       isOptional: false,
       component: (
-        <Card style={{
-          fontFamily: font,
-          fontSize,
-          backgroundColor,
-          color: textColor,
-        }}>
-          <Box className={classes.step1Container}>
-            {step1Component}
-          </Box>
+        <Card
+          style={{
+            fontFamily: font,
+            fontSize,
+            backgroundColor,
+            color: textColor,
+          }}
+        >
+          <Box className={classes.step1Container}>{step1Component}</Box>
         </Card>
       ),
     },
@@ -52,7 +57,5 @@ export const SeparateLayout = observer((props: ISeparateLayoutProps) => {
     },
   };
 
-  return (
-    <HorizontalStepper steps={steps}/>
-  );
+  return <HorizontalStepper steps={steps} />;
 });

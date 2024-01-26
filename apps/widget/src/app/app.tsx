@@ -17,6 +17,7 @@ export function App() {
         <CssBaseline />
         <I18nextProvider i18n={i18next}>
           <WidgetInstance
+            userId={'1'}
             merchantInfo={{
               currency: 'USD',
               amount: 1500,

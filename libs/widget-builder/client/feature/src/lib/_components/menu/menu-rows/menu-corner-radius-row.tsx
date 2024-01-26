@@ -1,20 +1,31 @@
 import * as React from 'react';
 import { ChangeEvent } from 'react';
-import { useWidgetSettingsStore } from '@cashier/widget/client/logic';
+import {
+  useWidgetSettingsStore,
+  useWidgetStateStore,
+} from '@cashier/widget/client/logic';
 import { WidgetCornerRadius } from '@cashier/widget/cs';
 import { observer } from 'mobx-react';
-import { MenuItemRow } from './item/menu-item-row';
+import { MenuItemRow } from './item';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { EnumValues } from 'enum-values';
 
 export const MenuCornerRadiusRow = observer(() => {
+  const widgetStateStore = useWidgetStateStore();
   const widgetSettingsStore = useWidgetSettingsStore();
 
-  const handleChange = React.useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    widgetSettingsStore.updateStylesSettings('cornerRadius', newValue);
-  }, [widgetSettingsStore.styles.cornerRadius]);
+  const handleChange = React.useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const newValue = event.target.value;
+      widgetSettingsStore.updateStylesSettings(
+        'cornerRadius',
+        newValue,
+        widgetStateStore.merchantInfo.colorMode
+      );
+    },
+    [widgetStateStore.merchantInfo.colorMode]
+  );
 
   return (
     <MenuItemRow
@@ -22,7 +33,10 @@ export const MenuCornerRadiusRow = observer(() => {
       control={
         <TextField
           select
-          value={widgetSettingsStore.styles.cornerRadius}
+          value={
+            widgetSettingsStore.styles(widgetStateStore.merchantInfo.colorMode)
+              .cornerRadius
+          }
           onChange={handleChange}
         >
           {EnumValues.getValues(WidgetCornerRadius).map((value) => (

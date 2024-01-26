@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   useWidgetSettingsStore,
   useWidgetStateStore,
@@ -19,36 +19,19 @@ import { observer } from 'mobx-react';
 import { WidgetLayout } from '@cashier/widget/cs';
 
 export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
-  const { lang, colorMode, merchantInfo, userId } = props;
-  const { currency } = merchantInfo;
   const widgetSettingsStore = useWidgetSettingsStore();
   const widgetStateStore = useWidgetStateStore();
   const i18nStore = useI18nStore();
   const classes = withClasses();
 
   useMemo(() => {
-    widgetSettingsStore.loadFromServer(userId);
-  }, [userId, widgetSettingsStore]);
+    widgetSettingsStore.loadFromServer(props.userId);
+  }, [props.userId, widgetSettingsStore]);
 
   useMemo(() => {
-    widgetStateStore.updateMerchantInfo(merchantInfo);
-  }, [merchantInfo, widgetStateStore]);
-
-  useMemo(() => {
-    widgetSettingsStore.updateColorMode(colorMode);
-  }, []);
-
-  useCallback(() => {
-    lang && (i18nStore.lang = lang);
-  }, [lang, i18nStore]);
-
-  useCallback(() => {
-    colorMode && (widgetSettingsStore.colorMode = colorMode);
-  }, [colorMode, widgetSettingsStore.colorMode]);
-
-  useCallback(() => {
-    currency && (widgetSettingsStore.currency = currency);
-  }, [currency, widgetSettingsStore.currency]);
+    widgetStateStore.updateMerchantInfo(props.merchantInfo);
+    i18nStore.lang = widgetStateStore.merchantInfo.lang;
+  }, [props.merchantInfo, widgetStateStore, i18nStore]);
 
   const {
     cornerRadius,
@@ -56,7 +39,7 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
     lineColor,
     buttonBackgroundColor,
     buttonTextColor,
-  } = widgetSettingsStore.styles;
+  } = widgetSettingsStore.styles(widgetStateStore.merchantInfo.colorMode);
 
   if (widgetSettingsStore.isLoading) {
     return <Box className={classes.container}>{'...LOADING'}</Box>;
@@ -84,8 +67,8 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
           step2RightColumnComponent={
             <>
               <Summary
-                currency={widgetSettingsStore.currency}
-                buttonText={widgetSettingsStore.buttonText}
+                currency={widgetStateStore.merchantInfo.currency}
+                buttonText={widgetSettingsStore.settings.buttonText}
                 buttonBackgroundColor={buttonBackgroundColor}
                 buttonTextColor={buttonTextColor}
               />
@@ -108,11 +91,11 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
           rightColumnComponent={
             <>
               <Summary
-                currency={widgetSettingsStore.currency}
-                buttonText={widgetSettingsStore.buttonText}
+                currency={widgetStateStore.merchantInfo.currency}
+                buttonText={widgetSettingsStore.settings.buttonText}
                 buttonTextColor={buttonTextColor}
                 buttonBackgroundColor={buttonBackgroundColor}
-                companyLogo={widgetSettingsStore.companyLogo}
+                companyLogo={widgetSettingsStore.settings.companyLogo}
               />
             </>
           }

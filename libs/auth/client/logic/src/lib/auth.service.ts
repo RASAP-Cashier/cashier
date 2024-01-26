@@ -11,6 +11,7 @@ class AuthServiceInner {
       .interceptors.request.use(
         (config) => {
           if (this.getToken()) {
+            config.headers = config.headers || {};
             config.headers.Authorization = `Bearer ${this.getToken()}`;
           }
           return config;

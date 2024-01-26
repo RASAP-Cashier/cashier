@@ -1,8 +1,9 @@
 import React from 'react';
-import { action, computed, makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { WidgetService } from '../../widget.service';
 import {
   DefaultWidgetSettings,
+  IPaymentMethod,
   IWidgetSettings,
   IWidgetStylesSettings,
   WidgetColorMode,
@@ -11,13 +12,10 @@ import { IWidgetSettingsStore } from './widget-settings.store.interface';
 
 class WidgetSettingsStore implements IWidgetSettingsStore {
   @observable
-  public paymentMethods = [];
+  public paymentMethods: IPaymentMethod[] = [];
 
   @observable
   public isLoading = true;
-
-  @observable
-  public colorMode = WidgetColorMode.Light;
 
   @observable
   public settings = DefaultWidgetSettings;
@@ -26,14 +24,8 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
     makeObservable(this);
   }
 
-  @action
-  public updateColorMode(value: WidgetColorMode) {
-    this.colorMode = value;
-  }
-
-  @computed
-  public get styles() {
-    return this.settings.colorModeStyles[this.colorMode];
+  public styles(colorMode: WidgetColorMode) {
+    return this.settings.colorModeStyles[colorMode];
   }
 
   @action
@@ -45,8 +37,12 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
   }
 
   @action
-  public updateStylesSettings(key: keyof IWidgetStylesSettings, value) {
-    this.settings.colorModeStyles[this.colorMode][key] = value as any as never;
+  public updateStylesSettings(
+    key: keyof IWidgetStylesSettings,
+    value,
+    colorMode: WidgetColorMode
+  ) {
+    this.settings.colorModeStyles[colorMode][key] = value as any as never;
   }
 
   @action
