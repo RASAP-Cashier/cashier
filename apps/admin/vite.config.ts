@@ -21,7 +21,19 @@ export default defineConfig(({ command, mode }) => {
       host: 'localhost',
     },
 
-    plugins: [react(), nxViteTsPaths()],
+    plugins: [
+      react({
+        babel: {
+          plugins: [
+            ['@babel/plugin-proposal-decorators', { legacy: true }],
+            [
+              '@babel/plugin-proposal-class-properties',
+              { loose: true },
+            ],
+          ],
+        },
+      }), nxViteTsPaths(),
+    ],
 
     test: {
       globals: true,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Divider, List, ListItem, styled } from '@mui/material';
+import { Box, List, styled } from '@mui/material';
 import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
 import LogoutIcon from '@mui/icons-material/Logout';
 import '@cashier/theme';
@@ -135,28 +135,26 @@ const SubMenuWrapper = styled(Box)(
 );
 
 export function SidebarMenu() {
-  return (
-    <MenuWrapper>
-      <SubMenuWrapper>
-        <List component="div">
-          <SidebarMenuItem
-            textKey={'sidebar.transactions'}
-            route={'/transactions/widget-builder'}
-            icon={<TransactionIcon/>}
-          />
-          <SidebarMenuItem
-            textKey={'sidebar.technical'}
-            route={'/technical/components'}
-            icon={<TableChartTwoToneIcon/>}
-          />
-          <SideMenuDivider />
-          <SidebarMenuItem
-            textKey={'sidebar.sign-out'}
-            route={'/sign-out'}
-            icon={<LogoutIcon/>}
-          />
-        </List>
-      </SubMenuWrapper>
-    </MenuWrapper>
-  );
+  return <MenuWrapper>
+    <SubMenuWrapper>
+      <List component="div">
+        <SidebarMenuItem
+          textKey={'sidebar.transactions'}
+          route={'/transactions/widget-builder'}
+          icon={<TransactionIcon/>}
+        />
+        <SidebarMenuItem
+          textKey={'sidebar.technical'}
+          route={'/technical/components'}
+          icon={<TableChartTwoToneIcon/>}
+        />
+        <SideMenuDivider/>
+        <SidebarMenuItem
+          textKey={'sidebar.sign-out'}
+          route={'/sign-out'}
+          icon={<LogoutIcon/>}
+        />
+      </List>
+    </SubMenuWrapper>
+  </MenuWrapper>;
 }

@@ -65,6 +65,7 @@ export interface IWidgetSettings {
 }
 
 export type IMerchantInfo = {
+  userId: string;
   currency: ICurrency;
   amount: number;
   tax: number;

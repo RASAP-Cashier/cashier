@@ -1,13 +1,27 @@
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter } from 'react-router-dom';
 import 'nprogress/nprogress.css';
-import { App } from './app/app';
-import { SidebarProvider } from '@cashier/components';
-import React, { StrictMode } from 'react';
-import { RootStoreProvider } from '@cashier/auth/client/logic';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { SuspenseLoader } from '@cashier/components';
+import React, { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
+import { RootStoreProvider } from '@cashier/auth/client/logic';
+import { BrowserRouter } from 'react-router-dom';
+import { App } from './app/app';
 
-const container = document.getElementById('root');
+const Loader = Component => props =>
+  <Suspense fallback={<SuspenseLoader/>}>
+    <Component {...props} />
+  </Suspense>;
+
+const SidebarProvider = Loader(
+  lazy(
+    () => import(
+      '@cashier/components'
+      ).then(result => ({ default: result.SidebarProvider })),
+  ),
+);
+
+const container = document.getElementById('root') || document.createElement('div');
 const root = createRoot(container);
 root.render(
   <HelmetProvider>
@@ -15,10 +29,10 @@ root.render(
       <RootStoreProvider>
         <BrowserRouter>
           <StrictMode>
-            <App />
+            <App/>
           </StrictMode>
         </BrowserRouter>
       </RootStoreProvider>
     </SidebarProvider>
-  </HelmetProvider>
+  </HelmetProvider>,
 );

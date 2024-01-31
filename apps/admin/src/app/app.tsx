@@ -18,8 +18,9 @@ export const App = () => {
   useEffect(() => {
     if (!authStore.isAuth) {
       navigate('/sign-in');
-    } else if (authStore.isAuth && !userStore?.user?.id) {
-      userStore.getUser().then((response) => {
+    }
+    else if (authStore.isAuth && !userStore?.user?.id) {
+      userStore.getUser().then(response => {
         if (!response) {
           navigate('/sign-in');
         }
@@ -29,16 +30,14 @@ export const App = () => {
 
   const content = useRoutes(appRoutes as never as RouteObject[]);
 
-  return (
-    <Box id="app" height="100%">
-      <ThemeProvider>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <CssBaseline />
-          <I18nextProvider i18n={i18next}>
-            <>{content}</>
-          </I18nextProvider>
-        </LocalizationProvider>
-      </ThemeProvider>
-    </Box>
-  );
+  return <Box id="app" height="100%">
+    <ThemeProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <CssBaseline/>
+        <I18nextProvider i18n={i18next}>
+          <>{content}</>
+        </I18nextProvider>
+      </LocalizationProvider>
+    </ThemeProvider>
+  </Box>;
 };

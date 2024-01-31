@@ -31,7 +31,7 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
   @action
   public updateBaseSettings(
     key: keyof Exclude<IWidgetSettings, 'styles'>,
-    value
+    value,
   ) {
     this.settings[key] = value as any as never;
   }
@@ -40,30 +40,38 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
   public updateStylesSettings(
     key: keyof IWidgetStylesSettings,
     value,
-    colorMode: WidgetColorMode
+    colorMode: WidgetColorMode,
   ) {
     this.settings.colorModeStyles[colorMode][key] = value as any as never;
   }
 
   @action
   public async loadFromServer(userId: string) {
-    this.isLoading = true;
+    this.toggleIsLoading(true);
     const widgetSettingsData = await WidgetService.getInstance().LoadSettings({
       userId,
     });
-    this.isLoading = false;
+    this.toggleIsLoading(false);
 
-    const { settings, paymentMethods } = widgetSettingsData;
-
-    this.settings = settings || this.settings;
-    this.paymentMethods = paymentMethods;
+    this.paymentMethods = widgetSettingsData.paymentMethods;
+    this.updateSettings(widgetSettingsData.settings);
   }
 
   @action
   public async saveToServer() {
-    this.isLoading = true;
+    this.toggleIsLoading(true);
     await WidgetService.getInstance().SaveSettings(this.settings);
-    this.isLoading = false;
+    this.toggleIsLoading(false);
+  }
+
+  @action
+  private toggleIsLoading(isLoading: boolean) {
+    this.isLoading = isLoading;
+  }
+
+  @action
+  private updateSettings(settings: IWidgetSettings) {
+    this.settings = settings;
   }
 }
 

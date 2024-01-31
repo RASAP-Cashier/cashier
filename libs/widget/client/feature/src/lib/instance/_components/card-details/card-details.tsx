@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Card, TextField, Grid } from '@mui/material';
+import { Box, Card, Grid, TextField } from '@mui/material';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import { BlockTitle } from '../block-title';
 import { useTranslation } from 'react-i18next';
@@ -18,14 +18,15 @@ export const CardDetails = observer(() => {
       ...cardInfo,
       [key]: value.target.value,
     });
-  }, [cardInfo]);
+  }, []);
 
   return (
     <Card>
       <Box className={classes.container}>
         <Box className={classes.titleContainer}>
           <BlockTitle titleKey={t('widget.cardDetailsTitle')}/>
-          <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/>
+          <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/> <CreditCardOutlinedIcon/>
+          <CreditCardOutlinedIcon/>
         </Box>
         <Grid container>
           <Grid item xs={12} className={classes.longBlock}>
@@ -39,7 +40,8 @@ export const CardDetails = observer(() => {
           </Grid>
           <Grid item xs={6} className={classes.shortBlockLeft} pr={1}>
             <TextField
-              value={cardInfo.date?.toString()} // TODO доавить маску на дату + формат для вывода
+              value={cardInfo.date?.toString() || ''} // TODO доавить маску на дату + формат для вывода
+              onChange={(value) => handleChange('date', value)}
               required
               fullWidth
               placeholder={t('MM / YYYY')}
@@ -48,6 +50,7 @@ export const CardDetails = observer(() => {
           <Grid item xs={6} className={classes.shortBlockRight} pl={1}>
             <TextField
               value={cardInfo.CVC} // TODO доавить маску на CVC
+              onChange={(value) => handleChange('CVC', value)}
               required
               fullWidth
               placeholder={t('CVC')}
@@ -56,6 +59,7 @@ export const CardDetails = observer(() => {
           <Grid item xs={12}>
             <TextField
               value={cardInfo.cardHolderName}
+              onChange={(value) => handleChange('cardHolderName', value)}
               required
               fullWidth
               placeholder={t('Cardholder Name')}

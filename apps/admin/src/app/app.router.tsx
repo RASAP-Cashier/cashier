@@ -1,81 +1,76 @@
 import { lazy, Suspense } from 'react';
 import { Navigate } from 'react-router-dom';
 import { RouteObject } from 'react-router';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { BaseLayout, SidebarLayout, SuspenseLoader } from '@cashier/components';
 import { SignInPage, SignUpPage } from '@cashier/auth/client/feature';
 import { AuthClientRoutes } from '@cashier/auth/client/logic';
 
-const Loader = (Component) => (props) =>
-  (
-    <Suspense fallback={<SuspenseLoader />}>
-      <Component {...props} />
-    </Suspense>
-  );
-
-// Pages
-
-// Dashboards
+const Loader = Component => props =>
+  <Suspense fallback={<SuspenseLoader/>}>
+    <Component {...props} />
+  </Suspense>;
 
 const Crypto = Loader(
   lazy(
-    () =>
-      import(
-        '../../../../libs/components/src/lib/_new/content/dashboards/Crypto'
-      )
-  )
+    () => import(
+      '@cashier/components'
+      ).then(result => ({ default: result.DashboardCrypto })),
+  ),
 );
-
-// Applications
 
 const Messenger = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/applications/Messenger'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.ApplicationsMessenger })),
+  ),
 );
+
 const Transactions = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/applications/Transactions'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.ApplicationsTransactions })),
+  ),
 );
+
 const Users = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/applications/Users/list'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Users })),
+  ),
 );
+
 const UserProfile = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/applications/Users/profile'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.ManagementUserProfile })),
+  ),
 );
+
 const UserSettings = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/applications/Users/settings'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.ManagementUserSettings })),
+  ),
 );
+
 const WidgetBuilder = Loader(
-  lazy(async () => {
-    const lib = await import(
-      '../../../../libs/widget-builder/client/feature/src/lib/widget-builder.page'
-    );
-    return {
-      default: lib.WidgetBuilderPage,
-    };
-  })
+  lazy(
+    () =>
+      import(
+        '@cashier/widget-builder/client/feature'
+        ).then(result => ({ default: result.WidgetBuilderPage })),
+  ),
 );
 
 // Components
@@ -84,108 +79,117 @@ const Buttons = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Buttons'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Buttons })),
+  ),
 );
+
 const Modals = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Modals'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Modals })),
+  ),
 );
+
 const Accordions = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Accordions'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Accordions })),
+  ),
 );
+
 const Tabs = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Tabs'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.TabsDemo })),
+  ),
 );
+
 const Badges = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Badges'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Badges })),
+  ),
 );
+
 const Tooltips = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Tooltips'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Tooltips })),
+  ),
 );
+
 const Avatars = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Avatars'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Avatars })),
+  ),
 );
+
 const Cards = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Cards'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Cards })),
+  ),
 );
+
 const Forms = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Components/Forms'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Forms })),
+  ),
 );
-
-// Status
 
 const Status404 = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Status/Status404'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Status404 })),
+  ),
 );
+
 const Status500 = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Status/Status500'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.Status500 })),
+  ),
 );
+
 const StatusComingSoon = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Status/ComingSoon'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.StatusComingSoon })),
+  ),
 );
+
 const StatusMaintenance = Loader(
   lazy(
     () =>
       import(
-        '../../../../libs/components/src/lib/_new/content/pages/Status/Maintenance'
-      )
-  )
+        '@cashier/components'
+        ).then(result => ({ default: result.StatusMaintenance })),
+  ),
 );
 
 const defaultAuthenticatedRoute = 'transactions/widget-builder';
@@ -193,19 +197,19 @@ const defaultAuthenticatedRoute = 'transactions/widget-builder';
 export const appRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <BaseLayout />,
+    element: <BaseLayout/>,
     children: [
       {
         path: '/',
-        element: <Navigate to={defaultAuthenticatedRoute} replace />,
+        element: <Navigate to={defaultAuthenticatedRoute} replace/>,
       },
       {
         path: AuthClientRoutes.SignIn,
-        element: <SignInPage />,
+        element: <SignInPage/>,
       },
       {
         path: AuthClientRoutes.SignUp,
-        element: <SignUpPage />,
+        element: <SignUpPage/>,
       },
       {
         path: 'technical',
@@ -215,74 +219,74 @@ export const appRoutes: RouteObject[] = [
             children: [
               {
                 path: '',
-                element: <Navigate to="404" replace />,
+                element: <Navigate to="404" replace/>,
               },
               {
                 path: '404',
-                element: <Status404 />,
+                element: <Status404/>,
               },
               {
                 path: '500',
-                element: <Status500 />,
+                element: <Status500/>,
               },
               {
                 path: 'maintenance',
-                element: <StatusMaintenance />,
+                element: <StatusMaintenance/>,
               },
               {
                 path: 'coming-soon',
-                element: <StatusComingSoon />,
+                element: <StatusComingSoon/>,
               },
             ],
           },
           {
             path: 'dashboards',
-            element: <SidebarLayout />,
+            element: <SidebarLayout/>,
             children: [
               {
                 path: '',
-                element: <Navigate to="crypto" replace />,
+                element: <Navigate to="crypto" replace/>,
               },
               {
                 path: 'crypto',
-                element: <Crypto />,
+                element: <Crypto/>,
               },
               {
                 path: 'messenger',
-                element: <Messenger />,
+                element: <Messenger/>,
               },
             ],
           },
           {
             path: 'management',
-            element: <SidebarLayout />,
+            element: <SidebarLayout/>,
             children: [
               {
                 path: '',
-                element: <Navigate to="transactions" replace />,
+                element: <Navigate to="transactions" replace/>,
               },
               {
                 path: 'transactions',
-                element: <Transactions />,
+                element: <Transactions/>,
               },
               {
                 path: 'users',
-                element: <Users />,
+                element: <Users/>,
               },
               {
                 path: 'profile',
                 children: [
                   {
                     path: '',
-                    element: <Navigate to="details" replace />,
+                    element: <Navigate to="details" replace/>,
                   },
                   {
                     path: 'details',
-                    element: <UserProfile />,
+                    element: <UserProfile/>,
                   },
                   {
                     path: 'settings',
-                    element: <UserSettings />,
+                    element: <UserSettings/>,
                   },
                 ],
               },
@@ -290,47 +294,47 @@ export const appRoutes: RouteObject[] = [
           },
           {
             path: 'components',
-            element: <SidebarLayout />,
+            element: <SidebarLayout/>,
             children: [
               {
                 path: '',
-                element: <Navigate to="buttons" replace />,
+                element: <Navigate to="buttons" replace/>,
               },
               {
                 path: 'buttons',
-                element: <Buttons />,
+                element: <Buttons/>,
               },
               {
                 path: 'modals',
-                element: <Modals />,
+                element: <Modals/>,
               },
               {
                 path: 'accordions',
-                element: <Accordions />,
+                element: <Accordions/>,
               },
               {
                 path: 'tabs',
-                element: <Tabs />,
+                element: <Tabs/>,
               },
               {
                 path: 'badges',
-                element: <Badges />,
+                element: <Badges/>,
               },
               {
                 path: 'tooltips',
-                element: <Tooltips />,
+                element: <Tooltips/>,
               },
               {
                 path: 'avatars',
-                element: <Avatars />,
+                element: <Avatars/>,
               },
               {
                 path: 'cards',
-                element: <Cards />,
+                element: <Cards/>,
               },
               {
                 path: 'forms',
-                element: <Forms />,
+                element: <Forms/>,
               },
             ],
           },
@@ -338,17 +342,17 @@ export const appRoutes: RouteObject[] = [
       },
       {
         path: 'transactions',
-        element: <SidebarLayout />,
+        element: <SidebarLayout/>,
         children: [
           {
             path: 'widget-builder',
-            element: <WidgetBuilder />,
+            element: <WidgetBuilder/>,
           },
         ],
       },
       {
         path: '*',
-        element: <Status404 />,
+        element: <Status404/>,
       },
     ],
   },

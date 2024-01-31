@@ -1,12 +1,12 @@
-import React from 'react';
-import { makeObservable, observable, reaction } from 'mobx';
+import * as React from 'react';
+import { action, makeObservable, observable, reaction } from 'mobx';
 import { defaultLanguage } from '../i18n.const';
-import { Language } from '../i18n.interface';
 import { getI18next } from '../i18n-init';
+import { Language } from '../i18n.interface';
 
 class I18nStore {
   @observable
-  public lang: Language = defaultLanguage;
+  public lang = defaultLanguage;
 
   constructor() {
     makeObservable(this);
@@ -18,6 +18,11 @@ class I18nStore {
         i18n.changeLanguage(locale);
       },
     );
+  }
+
+  @action
+  public updateLanguage(lang: Language) {
+    this.lang = lang;
   }
 }
 

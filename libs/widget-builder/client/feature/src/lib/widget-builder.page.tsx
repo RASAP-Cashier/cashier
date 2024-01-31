@@ -7,11 +7,23 @@ import { WidgetColorMode } from '@cashier/widget/cs';
 import { WidgetBuilderHeader, WidgetBuilderMenu } from './_components';
 import { withClasses } from './widget-builder.page.css';
 import { Language } from '@cashier/i18n';
+import { getQueryStringFromObject } from '@cashier/utils';
 
 export function WidgetBuilderPage() {
-  const { url: widgetUrl } = getWidgetConfig();
+  const { url } = getWidgetConfig();
   const [previewMode, setPreviewMode] = useState<boolean>(false);
   const classes = withClasses();
+  const merchantInfo = {
+    userId: '1',
+    currency: 'USD',
+    amount: 234,
+    tax: 1,
+    vat: 5,
+    lang: Language.en,
+    colorMode: WidgetColorMode.Light,
+  };
+
+  const widgetUrl = `${url}${getQueryStringFromObject(merchantInfo)}`;
 
   return (
     <Grid container direction={'row'} className={classes.container}>
@@ -23,7 +35,7 @@ export function WidgetBuilderPage() {
       </Grid>
       <Grid item xs={12} className={classes.widgetWrapper}>
         <Grid item xs={3} className={classes.menuColumn}>
-          <WidgetBuilderMenu />
+          <WidgetBuilderMenu/>
         </Grid>
         <Grid
           container
@@ -32,19 +44,7 @@ export function WidgetBuilderPage() {
           direction={'column'}
           className={classes.widgetColumn}
         >
-          {!previewMode && (
-            <WidgetInstance
-              userId={'1'}
-              merchantInfo={{
-                currency: 'USD',
-                amount: 1500,
-                tax: 10,
-                vat: 15,
-                lang: Language.en,
-                colorMode: WidgetColorMode.Light,
-              }}
-            />
-          )}
+          {!previewMode && <WidgetInstance merchantInfo={merchantInfo}/>}
           {previewMode && (
             <iframe src={widgetUrl} width="100%" height="600" frameBorder="0">
               Browser not compatible.

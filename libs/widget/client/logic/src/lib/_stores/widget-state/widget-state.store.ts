@@ -1,26 +1,30 @@
 import React from 'react';
 import { action, makeObservable, observable, toJS } from 'mobx';
-import {
-  IBillingInfo,
-  ICardInfo,
-  IWidgetStateStore,
-} from './widget-state.interface';
+import { IBillingInfo, ICardInfo, IWidgetStateStore } from './widget-state.interface';
 import { WidgetService } from '../../widget.service';
 import { IMerchantInfo, WidgetColorMode } from '@cashier/widget/cs';
 import { Language } from '@cashier/i18n';
+import { isEqual } from 'lodash';
 
 class WidgetStateStore implements IWidgetStateStore {
   @observable
   public isLoading = false;
 
   @observable
-  public billingInfo: IBillingInfo = {};
+  public billingInfo: IBillingInfo = {
+    address: '', city: '', country: '', phoneNumber: '', postCode: '', state: '', street: '',
+  };
 
   @observable
-  public cardInfo: ICardInfo = {};
+  public cardInfo: ICardInfo = {
+    CVC: '',
+    cardHolderName: '',
+    cardNumber: '',
+  };
 
   @observable
   public merchantInfo: IMerchantInfo = {
+    userId: '',
     amount: 0,
     currency: '',
     tax: 0,
@@ -35,28 +39,39 @@ class WidgetStateStore implements IWidgetStateStore {
 
   @action
   public updateMerchantInfo(merchantInfo: IMerchantInfo) {
-    this.merchantInfo = merchantInfo;
+    if (!isEqual(merchantInfo, this.merchantInfo)) {
+      this.merchantInfo = merchantInfo;
+    }
   }
 
   @action
   public updateCardInfo(cardInfo: ICardInfo) {
-    this.cardInfo = cardInfo;
+    if (!isEqual(cardInfo, this.cardInfo)) {
+      this.cardInfo = cardInfo;
+    }
   }
 
   @action
   public updateBillingInfo(billingInfo: IBillingInfo) {
-    this.billingInfo = billingInfo;
+    if (!isEqual(billingInfo, this.billingInfo)) {
+      this.billingInfo = billingInfo;
+    }
   }
 
   @action
   public async pay() {
-    this.isLoading = true;
+    this.toggleIsLoading(true);
     await WidgetService.getInstance().Pay({
       billingInfo: toJS(this.billingInfo),
       cardInfo: toJS(this.cardInfo),
       merchantInfo: toJS(this.merchantInfo),
     });
-    this.isLoading = false;
+    this.toggleIsLoading(false);
+  }
+
+  @action
+  private toggleIsLoading(isLoading: boolean) {
+    this.isLoading = isLoading;
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button, ListItem } from '@mui/material';
 import { NavLink as RouterLink } from 'react-router-dom';
-import { SidebarContext } from '../../../../contexts/SidebarContext';
+import { SidebarContext } from '../../../../contexts';
 import '@cashier/theme';
 import { useTranslation } from 'react-i18next';
 import { ILocalization } from '@cashier/i18n';
@@ -17,18 +17,16 @@ export const SidebarMenuItem = (props: {
   const [t] = useTranslation();
   const { route, icon, textKey } = props;
 
-  return (
-    <ListItem component="div">
-      <Button
-        disableRipple
-        component={RouterLink as any}
-        onClick={closeSidebar}
-        to={route}
-        startIcon={icon}
-      >
-        {t(textKey as any)}
-      </Button>
-    </ListItem>
-  );
+  return <ListItem component="div">
+    <Button
+      disableRipple
+      component={RouterLink as any}
+      onClick={closeSidebar}
+      to={route}
+      startIcon={icon}
+    >
+      {t(textKey as never as any) as React.ReactNode}
+    </Button>
+  </ListItem>;
 };
 
