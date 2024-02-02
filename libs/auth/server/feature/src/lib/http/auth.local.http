@@ -1,28 +1,18 @@
 ### Send SIGNUP request
-POST http://localhost:3000/auth/signup
+POST http://localhost:3000/auth/sign-up
 Content-Type: application/json
 
 {
-  "firstName": "dramwork",
-  "lastName": "dramwork",
+  "userName": "dramwork2",
+  "password": "dramwork2",
+  "email": "dramwork2@gmail.com"
+}
+
+### Send SIGNIN request
+POST http://localhost:3000/auth/sign-in
+Content-Type: application/json
+
+{
   "password": "dramwork",
   "email": "dramwork5@gmail.com"
-}
-
-### Send LOGIN request
-http://localhost:3000/auth/login
-Content-Type: application/json
-
-{
-  "email": "alexP@releaseasap.com",
-  "password": "test1234"
-}
-
-### Send LOGIN request
-http://localhost:3000/auth/login
-Content-Type: application/json
-
-{
-  "email": "alexP@releaseasap.com",
-  "password": "test1234"
 }

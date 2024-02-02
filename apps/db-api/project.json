@@ -1,0 +1,71 @@
+{
+  "name": "db-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/db-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/db-api",
+        "main": "apps/db-api/src/main.ts",
+        "tsConfig": "apps/db-api/tsconfig.app.json",
+        "assets": [
+          "apps/db-api/src/assets"
+        ],
+        "webpackConfig": "apps/db-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc -p apps/db-api/tsconfig.app.json --watch --noEmit"
+          }
+        ]
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "db-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "db-api:build:development"
+        },
+        "production": {
+          "buildTarget": "db-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/db-api/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

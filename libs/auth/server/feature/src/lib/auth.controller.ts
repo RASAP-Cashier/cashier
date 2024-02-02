@@ -6,18 +6,19 @@ import { AuthRoutes } from '@cashier/auth/cs';
 
 @Controller()
 export class AuthController {
-  constructor(private readonly authenticationService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post(AuthRoutes.SignIn)
   async signIn(@Body() authDto: AuthDto): Promise<ITokenData> {
-    return this.authenticationService.login(authDto);
+    return this.authService.signIn(authDto);
   }
 
   @Public()
   @Post(AuthRoutes.SignUp)
   async signUp(@Body() createUserDto: CreateUserDto): Promise<ITokenData> {
-    return this.authenticationService.register(createUserDto);
+    console.log('auth controller signUp');
+    return this.authService.signUp(createUserDto);
   }
 }

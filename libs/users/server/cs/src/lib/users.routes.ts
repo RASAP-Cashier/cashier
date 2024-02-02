@@ -1,7 +1,8 @@
 const baseRoute = '/users';
 
 export const UsersRoutes = {
-  Get: `${baseRoute}/:id`,
-  Delete: `${baseRoute}/:id`,
+  Get: `${baseRoute}`,
+  GetByEmail: `${baseRoute}/by-email`,
+  Delete: `${baseRoute}`,
   Create: `${baseRoute}`,
 };

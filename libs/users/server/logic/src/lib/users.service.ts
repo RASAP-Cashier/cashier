@@ -1,42 +1,56 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { Merchant } from '@cashier/db/server/logic';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>
+    @InjectRepository(Merchant)
+    private usersRepository: Repository<Merchant>,
   ) {}
 
+  private static toPublicUser(user: Merchant): any {
+    return {
+      ...user,
+      password: '',
+    };
+  }
+
   create(createUserDto: CreateUserDto) {
-    return this.usersRepository.save(
-      this.usersRepository.create(createUserDto)
-    );
+    const entity = this.usersRepository.create(createUserDto);
+    entity.isActive = true;
+
+    return this.usersRepository.save(entity);
   }
 
   findOneByEmail(email: string) {
-    const user = this.usersRepository.findOneBy({ email });
-    return user;
+    return this.usersRepository.findOneBy({ email });
   }
 
-  findOneById = async (id: number) => {
+  findOneById = async(userId: number) => {
     return this.usersRepository
-      .findOneByOrFail({ id })
+      .findOneByOrFail({ userId })
       .catch(() => {
-        throw new BadRequestException("Can't find user");
+        throw new BadRequestException('Can\'t find user');
       })
-      .then((user) => this.toPublicUser(user));
+      .then((user) => UsersService.toPublicUser(user as Merchant));
   };
+
+  async update(userId: number, dto: UpdateUserDto) {
+    const merchant = await this.usersRepository.findOneBy({ userId });
+
+    if (merchant) {
+      merchant.email = dto.email as string;
+      merchant.username = dto.userName as string;
+      merchant.password = dto.password as string;
+
+      return this.usersRepository.save(merchant);
+    }
+  }
 
   remove(id: number) {
     return `This action removes a #${id} user`;
-  }
-
-  private toPublicUser(user: User): any {
-    delete user.password;
-    return user;
   }
 }

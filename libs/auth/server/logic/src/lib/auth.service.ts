@@ -6,58 +6,95 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUserDto, UsersService } from '@cashier/users/server/logic';
+import { CreateUserDto, UserDto } from '@cashier/users/server/logic';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AuthDto } from './dto';
 import { ITokenData } from './auth.interface';
+import { HttpService } from '@nestjs/axios';
+import { UsersRoutes } from '@cashier/users/server/cs';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService
+    private readonly httpService: HttpService,
+    private readonly jwtService: JwtService,
   ) {}
 
-  public async register(@Body() registrationData: CreateUserDto) {
-    const isEmail = await this.usersService.findOneByEmail(
-      registrationData.email
-    );
-    if (isEmail) {
+  public async signUp(@Body() dto: CreateUserDto) {
+    console.log('AuthService signUp', dto.email);
+    const user = await this.findByEmail(dto.email);
+    if (user) {
+      console.log('user exist');
       throw new UnauthorizedException('This email is already in use');
     }
-    const hashedPassword = await bcrypt.hash(registrationData.password, 10);
+
+    const hashedPassword = await bcrypt.hash(dto.password, 10);
+
+    console.log('hashedPassword 1', hashedPassword);
     try {
-      const createdUser = await this.usersService.create({
-        ...registrationData,
+      const createdUser = await this.httpService.axiosRef.post<UserDto>(`${process.env.DB_API_URL}${UsersRoutes.Create}`, {
+        ...dto,
         password: hashedPassword,
       });
-      createdUser.password = undefined;
 
-      const token = await this.getToken(createdUser.id, createdUser.email);
-      return token;
-    } catch (error) {
+      console.log('hashedPassword 2', createdUser.data);
+
+      return await this.getToken(createdUser.data.id, createdUser.data.email);
+    }
+    catch (error) {
       throw new HttpException(
         'Something went wrong',
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
-  public async login(@Body() dto: AuthDto) {
-    const user = await this.usersService.findOneByEmail(dto.email);
-    if (!user) throw new ForbiddenException('Access Denied');
+  public async signIn(@Body() dto: AuthDto) {
+    console.log(dto.email);
+    const user = await this.findByEmail(dto.email);
+    if (!user) {
+      throw new ForbiddenException('Access Denied. Email not exists.');
+    }
 
-    if (!user.isActive) throw new ForbiddenException('User is inactive');
+    if (!user.isActive) {
+      throw new ForbiddenException('User is inactive');
+    }
 
     const passwordMatch = await bcrypt.compare(dto.password, user.password);
-    if (!passwordMatch) throw new UnauthorizedException('Access Denied');
+    if (!passwordMatch) {
+      throw new UnauthorizedException('Access Denied. Password mismatch.');
+    }
 
-    const tokens = await this.getToken(user.id, user.email);
-    return tokens;
+    return await this.getToken(user.id, user.email);
   }
 
-  private async getToken(userId: number, email: string): Promise<ITokenData> {
+  async validateToken(token: string) {
+    return await this.jwtService.verifyAsync(token);
+  }
+
+  public async findByEmail(email: string) {
+    console.log('AuthService findByEmail', email);
+    let response;
+
+    try {
+      response =
+        await this.httpService.axiosRef.post<UserDto>(`${process.env.DB_API_URL}${UsersRoutes.GetByEmail}`, {
+          email,
+        });
+    }
+    catch (err) {
+      console.log('AuthService findByEmail error');
+    }
+
+    if (response?.data) {
+      return response.data as UserDto;
+    }
+
+    return undefined;
+  }
+
+  private async getToken(userId: string, email: string): Promise<ITokenData> {
     const [at] = await Promise.all([
       this.jwtService.signAsync(
         {
@@ -67,25 +104,12 @@ export class AuthService {
         {
           secret: process.env.JWT_SECRET,
           expiresIn: '1d',
-        }
+        },
       ),
     ]);
 
     return {
       access_token: at,
     };
-  }
-
-  async validateToken(token: string) {
-    const isValid = await this.jwtService.verifyAsync(token);
-    return isValid;
-  }
-
-  public async findByEmail(email: string) {
-    const user = await this.usersService.findOneByEmail(email);
-    if (user) {
-      return user;
-    }
-    return null;
   }
 }

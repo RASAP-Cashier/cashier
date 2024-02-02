@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from '@nestjs/common';
 import { Public } from '@cashier/common/server/logic';
 import { WidgetService } from '../../../logic/src/lib/widget.service';
 import {
@@ -25,7 +18,7 @@ export class WidgetController {
   @Public()
   @Get(WidgetRoutes.Settings)
   async getSettings(
-    @Body() params: IGetWidgetSettingsParams
+    @Query() params: IGetWidgetSettingsParams,
   ): Promise<IGetWidgetSettingsResponse> {
     const settings = await this.widgetService.getSettings(params);
     const paymentMethods = await this.widgetService.getPaymentMethods(params);
@@ -39,15 +32,15 @@ export class WidgetController {
   @Public()
   @Post(WidgetRoutes.Settings)
   async saveSettings(
-    @Body() params: ISaveWidgetSettingsParams
-  ): Promise<ISaveWidgetSettingsResponse> {
+    @Body() params: ISaveWidgetSettingsParams,
+  ) {
     return this.widgetService.saveSettings(params);
   }
 
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post(WidgetRoutes.Pay)
-  async pay(@Body() params: IWidgetPayParams): Promise<IWidgetPayResponse> {
+  async pay(@Body() params: IWidgetPayParams) {
     return this.widgetService.pay(params);
   }
 }

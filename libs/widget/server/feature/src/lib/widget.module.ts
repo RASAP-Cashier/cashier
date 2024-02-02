@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { WidgetService } from '../../../logic/src/lib/widget.service';
+import { WidgetService } from '@cashier/widget/server/logic';
 import { WidgetController } from './widget.controller';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [],
+  imports: [HttpModule],
   controllers: [WidgetController],
   providers: [WidgetService],
 })

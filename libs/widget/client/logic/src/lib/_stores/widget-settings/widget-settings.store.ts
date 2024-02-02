@@ -12,6 +12,9 @@ import { IWidgetSettingsStore } from './widget-settings.store.interface';
 
 class WidgetSettingsStore implements IWidgetSettingsStore {
   @observable
+  public userId = '1';
+
+  @observable
   public paymentMethods: IPaymentMethod[] = [];
 
   @observable
@@ -47,6 +50,7 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
 
   @action
   public async loadFromServer(userId: string) {
+    this.userId = userId;
     this.toggleIsLoading(true);
     const widgetSettingsData = await WidgetService.getInstance().LoadSettings({
       userId,
@@ -60,7 +64,10 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
   @action
   public async saveToServer() {
     this.toggleIsLoading(true);
-    await WidgetService.getInstance().SaveSettings(this.settings);
+    await WidgetService.getInstance().SaveSettings({
+      userId: this.userId,
+      settings: this.settings,
+    });
     this.toggleIsLoading(false);
   }
 

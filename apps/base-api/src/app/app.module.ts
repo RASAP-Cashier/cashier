@@ -1,16 +1,9 @@
 import { Module } from '@nestjs/common';
 import { WidgetModule } from '@cashier/widget/server/feature';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@cashier/auth/server/feature';
-import { UsersModule } from '@cashier/users/server/feature';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
-import {
-  AtGuard,
-  HttpExceptionFilter,
-  PostgresConfigService,
-  RolesGuard,
-} from '@cashier/common/server/logic';
+import { AtGuard, HttpExceptionFilter, RolesGuard } from '@cashier/common/server/logic';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
@@ -18,18 +11,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRootAsync({
-      useClass: PostgresConfigService,
-      inject: [PostgresConfigService],
-    }),
     ClientsModule.registerAsync([
       {
         name: 'STRIPE',
         useFactory: () => ({
           transport: Transport.RMQ,
           options: {
-            urls: [''], // process.env.STRIPE_URL
-            queue: process.env.STRIPE_QUEUE,
+            urls: [process.env.STRIPE_URL as string],
+            queue: process.env.STRIPE_QUEUE as string,
             queueOptions: {
               durable: false,
             },
@@ -51,7 +40,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       },
     ]),
     AuthModule,
-    UsersModule,
     WidgetModule,
   ],
   providers: [

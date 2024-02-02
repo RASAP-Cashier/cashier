@@ -12,41 +12,85 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "typeRoots": [
+      "types/types.d.ts"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@cashier/auth/client/feature": ["libs/auth/client/feature/src/index.ts"],
-      "@cashier/auth/client/logic": ["libs/auth/client/logic/src/index.ts"],
-      "@cashier/auth/cs": ["libs/auth/cs/src/index.ts"],
-      "@cashier/auth/server/feature": ["libs/auth/server/feature/src/index.ts"],
-      "@cashier/auth/server/logic": ["libs/auth/server/logic/src/index.ts"],
-      "@cashier/common/server/logic": ["libs/common/server/logic/src/index.ts"],
-      "@cashier/components": ["libs/components/src/index.ts"],
-      "@cashier/context": ["libs/context/src/index.ts"],
-      "@cashier/i18n": ["libs/i18n/src/index.ts"],
-      "@cashier/theme": ["libs/theme/src/index.ts"],
+      "@cashier/auth/client/feature": [
+        "libs/auth/client/feature/src/index.ts"
+      ],
+      "@cashier/auth/client/logic": [
+        "libs/auth/client/logic/src/index.ts"
+      ],
+      "@cashier/auth/cs": [
+        "libs/auth/cs/src/index.ts"
+      ],
+      "@cashier/auth/server/feature": [
+        "libs/auth/server/feature/src/index.ts"
+      ],
+      "@cashier/auth/server/logic": [
+        "libs/auth/server/logic/src/index.ts"
+      ],
+      "@cashier/common/server/logic": [
+        "libs/common/server/logic/src/index.ts"
+      ],
+      "@cashier/components": [
+        "libs/components/src/index.ts"
+      ],
+      "@cashier/context": [
+        "libs/context/src/index.ts"
+      ],
+      "@cashier/i18n": [
+        "libs/i18n/src/index.ts"
+      ],
+      "@cashier/theme": [
+        "libs/theme/src/index.ts"
+      ],
+      "@cashier/users/server/cs": [
+        "libs/users/server/cs/src/index.ts"
+      ],
       "@cashier/users/server/feature": [
         "libs/users/server/feature/src/index.ts"
       ],
-      "@cashier/users/server/logic": ["libs/users/server/logic/src/index.ts"],
-      "@cashier/utils": ["libs/utils/src/index.ts"],
+      "@cashier/users/server/logic": [
+        "libs/users/server/logic/src/index.ts"
+      ],
+      "@cashier/utils": [
+        "libs/utils/src/index.ts"
+      ],
       "@cashier/widget-builder/client/feature": [
         "libs/widget-builder/client/feature/src/index.ts"
       ],
       "@cashier/widget/client/feature": [
         "libs/widget/client/feature/src/index.ts"
       ],
-      "@cashier/widget/client/logic": ["libs/widget/client/logic/src/index.ts"],
-      "@cashier/widget/cs": ["libs/widget/cs/src/index.ts"],
+      "@cashier/widget/client/logic": [
+        "libs/widget/client/logic/src/index.ts"
+      ],
+      "@cashier/widget/cs": [
+        "libs/widget/cs/src/index.ts"
+      ],
       "@cashier/widget/server/feature": [
         "libs/widget/server/feature/src/index.ts"
       ],
-      "@cashier/widget/server/logic": ["libs/widget/server/logic/src/index.ts"],
-      "@cashier/users/server/cs": ["libs/users/server/cs/src/index.ts"]
+      "@cashier/widget/server/logic": [
+        "libs/widget/server/logic/src/index.ts"
+      ],
+      "@cashier/db/server/logic": [
+        "libs/db/server/logic/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

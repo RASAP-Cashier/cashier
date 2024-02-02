@@ -18,6 +18,13 @@ export class UsersController {
     return this.usersService.findOneById(+id);
   }
 
+  @Post(UsersRoutes.GetByEmail)
+  @Roles(Role.Admin)
+  findOneByEmail(@Body('email') email: string) {
+    console.log(email);
+    return this.usersService.findOneByEmail(email);
+  }
+
   @Delete(UsersRoutes.Delete)
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
