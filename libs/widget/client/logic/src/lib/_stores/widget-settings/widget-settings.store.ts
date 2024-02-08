@@ -1,5 +1,5 @@
 import React from 'react';
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable, toJS } from 'mobx';
 import { WidgetService } from '../../widget.service';
 import {
   DefaultWidgetSettings,
@@ -65,8 +65,9 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
   public async saveToServer() {
     this.toggleIsLoading(true);
     await WidgetService.getInstance().SaveSettings({
+      widgetId: 3,
       userId: this.userId,
-      settings: this.settings,
+      settings: toJS(this.settings),
     });
     this.toggleIsLoading(false);
   }

@@ -27,8 +27,7 @@ export class WidgetService {
     let widgetSettings;
     try {
       widgetSettings =
-        await this.httpService.axiosRef.get<WidgetSettingDto>(`${process.env.DB_API_URL}${WidgetSettingsRoutes.GetByUserId}/${params.userId}`);
-      console.log(widgetSettings.data);
+        await this.httpService.axiosRef.get<WidgetSettingDto>(`${process.env.DB_API_URL}/${WidgetSettingsRoutes.GetByUserId}/${params.userId}`);
     }
     catch (err) {
       console.log(`Get widget settings error: params (${params}), response (${JSON.stringify(err)})`);
@@ -38,12 +37,12 @@ export class WidgetService {
       return DefaultWidgetSettings;
     }
 
-    return widgetSettings.data.configuration as IWidgetSettings;
+    return JSON.parse(widgetSettings.data.configuration) as IWidgetSettings;
   }
 
   public async getPaymentMethods(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    params: IGetWidgetSettingsParams,
+    _params: IGetWidgetSettingsParams,
   ): Promise<IPaymentMethod[]> {
     // TODO implement - get data from DB
     return Promise.resolve([StripePaymentMethod, CheckoutPaymentMethod]);
@@ -52,7 +51,9 @@ export class WidgetService {
   public async saveSettings(
     params: ISaveWidgetSettingsParams,
   ): Promise<ISaveWidgetSettingsResponse> {
-    const response = await this.httpService.axiosRef.post<CreateWidgetSettingDto>(`${process.env.DB_API_URL}/${WidgetSettingsRoutes.Create}`, {
+    console.log('saveSettings service');
+    const response = await this.httpService.axiosRef.patch<CreateWidgetSettingDto>(`${process.env.DB_API_URL}/${WidgetSettingsRoutes.Update}`, {
+      widgetId: params.widgetId,
       userId: params.userId,
       configuration: params.settings,
     });
@@ -65,7 +66,7 @@ export class WidgetService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async pay(params: IWidgetPayParams): Promise<IWidgetPayResponse> {
+  public async pay(_params: IWidgetPayParams): Promise<IWidgetPayResponse> {
     // TODO implement
     return Promise.resolve({});
   }

@@ -23,7 +23,8 @@ export type IGetWidgetSettingsResponse = {
 };
 
 export type ISaveWidgetSettingsParams = {
-  userId: string;
+  widgetId: number;
+  userId: number;
   settings: IWidgetSettings;
 };
 

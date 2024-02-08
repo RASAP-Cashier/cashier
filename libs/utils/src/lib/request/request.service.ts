@@ -16,7 +16,7 @@ class RequestServiceInner {
   }
 
   public post<T, D>(url: string, data?: D, config?: any) {
-    return this.axiosInstance.post<T, any, D>(url, config);
+    return this.axiosInstance.post<T, any, D>(url, data, config);
   }
 
   public get<T>(url: string, config?: any) {

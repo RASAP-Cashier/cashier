@@ -9,39 +9,40 @@ class AuthServiceInner {
     RequestService.getInstance()
       .getAxiosInstance()
       .interceptors.request.use(
-        (config) => {
-          if (this.getToken()) {
-            config.headers = config.headers || {};
-            config.headers.Authorization = `Bearer ${this.getToken()}`;
-          }
-          return config;
-        },
-        (error) => {
-          return Promise.reject(error);
+      (config) => {
+        if (this.getToken()) {
+          config.headers = config.headers || {};
+          config.headers.Authorization = `Bearer ${this.getToken()}`;
         }
-      );
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
 
     RequestService.getInstance()
       .getAxiosInstance()
       .interceptors.response.use(
-        (response) => {
-          console.log(response, 'REsponse');
-          if (response.status !== 200) {
-            //error
-            return Promise.reject(response.data.message);
-          } else {
-            return response;
-          }
-        },
-        (error) => {
-          console.log('Debug', error?.response?.data?.statusCode);
-          if (error?.response?.data?.statusCode === 401) {
-            this.removeToken();
-            window.location.href = `/${AuthClientRoutes.SignIn}`;
-          }
-          return Promise.reject('error');
+      (response) => {
+        console.log(response, 'REsponse');
+        if (response.status !== 200 && response.status !== 201) {
+          //error
+          return Promise.reject(response.data.message);
         }
-      );
+        else {
+          return response;
+        }
+      },
+      (error) => {
+        console.log('Debug', error?.response?.data?.statusCode);
+        if (error?.response?.data?.statusCode === 401) {
+          this.removeToken();
+          window.location.href = `/${AuthClientRoutes.SignIn}`;
+        }
+        return Promise.reject('error');
+      },
+    );
   }
 
   private getToken() {

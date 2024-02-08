@@ -1,38 +1,40 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { WidgetSettingsService } from './widget-settings.service';
-import { CreateWidgetSettingDto } from './dto/create-widget-setting.dto';
 import { UpdateWidgetSettingDto } from './dto/update-widget-setting.dto';
+import { WidgetSettingsRoutes } from '@cashier/widget/cs';
+import { CreateWidgetSettingDto } from '@cashier/db/server/logic';
 
-@Controller('widget-settings')
+@Controller()
 export class WidgetSettingsController {
   constructor(private readonly widgetSettingsService: WidgetSettingsService) {}
 
-  @Post()
+  @Post(WidgetSettingsRoutes.Create)
   create(@Body() createWidgetSettingDto: CreateWidgetSettingDto) {
     return this.widgetSettingsService.create(createWidgetSettingDto);
   }
 
-  @Get()
+  @Get(WidgetSettingsRoutes.GetAll)
   findAll() {
     return this.widgetSettingsService.findAll();
   }
 
-  @Get('by-user-id/:userId')
+  @Get(`${WidgetSettingsRoutes.GetByUserId}/:userId`)
   findOneByUserId(@Param('userId') id: string) {
-    return this.widgetSettingsService.findOneByUserId(+id);
+    return this.widgetSettingsService.findByUserId(+id);
   }
 
-  @Get(':id')
+  @Get(`${WidgetSettingsRoutes.Get}/:id`)
   findOne(@Param('id') id: string) {
     return this.widgetSettingsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWidgetSettingDto: UpdateWidgetSettingDto) {
-    return this.widgetSettingsService.update(+id, updateWidgetSettingDto);
+  @Patch(WidgetSettingsRoutes.Update)
+  update(@Body() dto: UpdateWidgetSettingDto) {
+    console.log('WidgetSettingsController update');
+    return this.widgetSettingsService.update(dto);
   }
 
-  @Delete(':id')
+  @Delete(WidgetSettingsRoutes.Delete)
   remove(@Param('id') id: string) {
     return this.widgetSettingsService.remove(+id);
   }

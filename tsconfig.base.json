@@ -17,7 +17,8 @@
       "dom"
     ],
     "typeRoots": [
-      "types/types.d.ts"
+      "types",
+      "node_modules/@types"
     ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
@@ -47,6 +48,9 @@
       ],
       "@cashier/context": [
         "libs/context/src/index.ts"
+      ],
+      "@cashier/db/server/logic": [
+        "libs/db/server/logic/src/index.ts"
       ],
       "@cashier/i18n": [
         "libs/i18n/src/index.ts"
@@ -83,9 +87,6 @@
       ],
       "@cashier/widget/server/logic": [
         "libs/widget/server/logic/src/index.ts"
-      ],
-      "@cashier/db/server/logic": [
-        "libs/db/server/logic/src/index.ts"
       ]
     }
   },

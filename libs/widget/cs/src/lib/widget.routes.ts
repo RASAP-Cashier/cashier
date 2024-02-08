@@ -5,11 +5,13 @@ export const WidgetRoutes = {
   Pay: `${baseUrl}/pay`,
 };
 
-const baseRoute = '/widget-settings';
+const baseRoute = 'widget-settings';
 
 export const WidgetSettingsRoutes = {
-  Get: `${baseRoute}/:id`,
+  GetAll: `${baseRoute}/all`,
+  Get: `${baseRoute}`,
   GetByUserId: `${baseRoute}/by-user-id`,
-  Delete: `${baseRoute}/:id`,
+  Delete: `${baseRoute}`,
+  Update: `${baseRoute}`,
   Create: `${baseRoute}`,
 };

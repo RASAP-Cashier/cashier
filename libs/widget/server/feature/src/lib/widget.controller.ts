@@ -5,9 +5,7 @@ import {
   IGetWidgetSettingsParams,
   IGetWidgetSettingsResponse,
   ISaveWidgetSettingsParams,
-  ISaveWidgetSettingsResponse,
   IWidgetPayParams,
-  IWidgetPayResponse,
   WidgetRoutes,
 } from '@cashier/widget/cs';
 
@@ -16,7 +14,7 @@ export class WidgetController {
   constructor(private readonly widgetService: WidgetService) {}
 
   @Public()
-  @Get(WidgetRoutes.Settings)
+  @Get(`${WidgetRoutes.Settings}/:userId`)
   async getSettings(
     @Query() params: IGetWidgetSettingsParams,
   ): Promise<IGetWidgetSettingsResponse> {

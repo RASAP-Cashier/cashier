@@ -11,9 +11,8 @@ import {
 
 class WidgetServiceInner {
   public async LoadSettings(params: IGetWidgetSettingsParams): Promise<IGetWidgetSettingsResponse> {
-    const response = await RequestService.getInstance().get<IGetWidgetSettingsResponse>(WidgetRoutes.Settings, {
-      params,
-    });
+    const response = await RequestService.getInstance()
+      .get<IGetWidgetSettingsResponse>(`${WidgetRoutes.Settings}/${params.userId}`);
 
     return response.data;
   }

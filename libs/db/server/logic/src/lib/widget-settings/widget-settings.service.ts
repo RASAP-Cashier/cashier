@@ -1,62 +1,97 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateWidgetSettingDto } from './dto/create-widget-setting.dto';
 import { UpdateWidgetSettingDto } from './dto/update-widget-setting.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { MerchantWidgetConfiguration } from './entities/MerchantWidgetConfiguration';
+import { NotFoundException } from '@nestjs/common/exceptions/not-found.exception';
+import { Repository } from 'typeorm';
+import { Merchant } from './entities/Merchant';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class WidgetSettingsService {
   constructor(
     @InjectRepository(MerchantWidgetConfiguration)
-    private widgetSettingsRepository: Repository<MerchantWidgetConfiguration>,
+    private readonly widgetSettingsRepository: Repository<MerchantWidgetConfiguration>,
+    @InjectRepository(Merchant)
+    private readonly usersRepository: Repository<Merchant>,
   ) {}
 
-  create(createWidgetSettingDto: CreateWidgetSettingDto) {
-    return this.widgetSettingsRepository.save(
-      this.widgetSettingsRepository.create(createWidgetSettingDto),
+  async create(dto: CreateWidgetSettingDto) {
+    // TODO implement validation if exists
+
+    await this.widgetSettingsRepository.save(
+      this.widgetSettingsRepository.create({
+        configuration: dto.configuration,
+        merchant: {
+          userId: dto.userId,
+        },
+      }),
     );
+
+    return this.findByUserId(dto.userId);
   }
 
   findAll() {
     return this.widgetSettingsRepository.find();
   }
 
-  findOne(widgetId: number): Promise<MerchantWidgetConfiguration | null> {
-    console.log('widgetId');
+  public async findOne(widgetId: number) {
     try {
       return this.widgetSettingsRepository
         .findOneBy({ widgetId });
     }
     catch (err) {
-      console.log(err);
-      return Promise.resolve(null);
-      // if (err instanceof EntityNotFoundError) {
-      //   console.log(`WidgetSetting didn"t find, params (widgetId: ${widgetId})`);
-      //   return Promise.resolve();
-      // }
-      //
-      // throw new BadRequestException('Can\'t find user');
+      throw new BadRequestException('Can\'t widget settings');
     }
   }
 
-  async findOneByUserId(userId: number) {
-    console.log('findOneByUserId');
-    // TODO implement
-    return this.findOne(userId);
+  private async findOneByWidgetIdAndUserId(widgetId: number, userId) {
+    try {
+      return await this.widgetSettingsRepository.findOne({
+        where: {
+          widgetId,
+          merchant: {
+            userId,
+          },
+        },
+      });
+    }
+    catch (err) {
+      throw new BadRequestException('Can\'t widget settings');
+    }
   }
 
-  update(widgetId: number, updateWidgetSettingDto: UpdateWidgetSettingDto) {
-    // TODO implement like for users
-    return this.widgetSettingsRepository.save(
-      {
-        widgetId,
-        ...updateWidgetSettingDto,
-      },
-    );
+  public async findByUserId(userId: number): Promise<MerchantWidgetConfiguration[]> {
+    const merchant = await this.usersRepository.findOne({
+      where: { userId },
+      relations: ['merchantWidgetConfigurations'],
+    });
+
+    if (merchant) {
+      return merchant.merchantWidgetConfigurations;
+    }
+
+    return [];
   }
 
-  async remove(widgetId: number) {
+  public async update(dto: UpdateWidgetSettingDto) {
+    const widgetSettings = await this.findOneByWidgetIdAndUserId(dto.widgetId, dto.userId);
+
+    if (widgetSettings) {
+      widgetSettings.configuration = dto.configuration;
+
+      await this.widgetSettingsRepository.save(widgetSettings);
+
+      return await this.findOneByWidgetIdAndUserId(dto.widgetId, dto.userId);
+    }
+    else {
+      throw new NotFoundException(
+        'User not found.',
+      );
+    }
+  }
+
+  public async remove(widgetId: number) {
     const entities = await this.findOne(widgetId);
     if (entities) {
       await this.widgetSettingsRepository.remove(entities);

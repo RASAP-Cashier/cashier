@@ -23,7 +23,9 @@ import { Permissions } from './entities/Permissions';
     ]),
   ],
   controllers: [WidgetSettingsController],
-  providers: [WidgetSettingsService],
-  exports: [WidgetSettingsService, TypeOrmModule],
+  providers: [
+    WidgetSettingsService,
+  ],
+  exports: [WidgetSettingsService],
 })
 export class WidgetSettingsModule {}

@@ -4,13 +4,13 @@ import * as React from 'react';
 import { withClasses } from './widget-builder-header.css';
 import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
-import { useWidgetStateStore } from '@cashier/widget/client/logic';
+import { useWidgetSettingsStore } from '@cashier/widget/client/logic';
 
 export const WidgetBuilderHeader = (props) => {
   const { previewMode, setPreviewMode } = props;
   const classes = withClasses();
   const [t] = useTranslation();
-  const widgetStateStore = useWidgetStateStore();
+  const widgetSettingsStore = useWidgetSettingsStore();
 
   return (
     <Grid container className={classes.container}>
@@ -21,7 +21,7 @@ export const WidgetBuilderHeader = (props) => {
         <Typography variant="h5" component="h5" pr={5}>
           Reset
         </Typography>
-        <Button variant="outlined" onClick={() => widgetStateStore.pay()}>
+        <Button variant="outlined" onClick={() => widgetSettingsStore.saveToServer()}>
           <Typography variant="h5" component="h5" pr={5}>
             Save
           </Typography>
@@ -31,7 +31,9 @@ export const WidgetBuilderHeader = (props) => {
           onChange={() => setPreviewMode(!previewMode)}
         />
         <Typography variant="h5" component="h5">
-          {previewMode ? t('Preview Mode') : t('Edit Mode')}
+          {previewMode
+            ? t('Preview Mode')
+            : t('Edit Mode')}
         </Typography>
       </Grid>
     </Grid>
