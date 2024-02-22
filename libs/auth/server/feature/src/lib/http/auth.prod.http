@@ -1,16 +1,15 @@
 ### Send SIGNUP request
-POST http://base-api.asapcashier-dev.com/auth/signup
+POST https://base-api.asapcashier-dev.com/auth/sign-up
 Content-Type: application/json
 
 {
-  "firstName": "dramwork",
-  "lastName": "dramwork",
-  "password": "dramwork",
-  "email": "dramwork5@gmail.com"
+  "userName": "dramwork2",
+  "password": "dramwork2",
+  "email": "dramwork7@gmail.com"
 }
 
 ### Send LOGIN request
-http://base-api.asapcashier-dev.com/auth/login
+POST https://base-api.asapcashier-dev.com/auth/sign-in
 Content-Type: application/json
 
 {
@@ -19,7 +18,7 @@ Content-Type: application/json
 }
 
 ### Send LOGIN request
-http://base-api.asapcashier-dev.com/auth/login
+POST https://base-api.asapcashier-dev.com/auth/sign-in
 Content-Type: application/json
 
 {

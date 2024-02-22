@@ -22,36 +22,34 @@ export class AuthService {
   ) {}
 
   public async signUp(@Body() dto: CreateUserDto) {
-    console.log('AuthService signUp', dto.email);
     const user = await this.findByEmail(dto.email);
     if (user) {
-      console.log('user exist');
       throw new UnauthorizedException('This email is already in use');
     }
 
     const hashedPassword = await bcrypt.hash(dto.password, 10);
 
-    console.log('hashedPassword 1', hashedPassword);
     try {
       const createdUser = await this.httpService.axiosRef.post<UserDto>(`${process.env.DB_API_URL}${UsersRoutes.Create}`, {
         ...dto,
         password: hashedPassword,
       });
 
-      console.log('hashedPassword 2', createdUser.data);
-
       return await this.getToken(createdUser.data.id, createdUser.data.email);
     }
     catch (error) {
+      console.log(error);
       throw new HttpException(
         'Something went wrong',
         HttpStatus.INTERNAL_SERVER_ERROR,
+        {
+          cause: error,
+        },
       );
     }
   }
 
   public async signIn(@Body() dto: AuthDto) {
-    console.log(dto.email);
     const user = await this.findByEmail(dto.email);
     if (!user) {
       throw new ForbiddenException('Access Denied. Email not exists.');
