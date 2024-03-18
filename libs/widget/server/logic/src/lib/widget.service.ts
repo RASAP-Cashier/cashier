@@ -13,31 +13,45 @@ import {
   WidgetSettingsRoutes,
 } from '@cashier/widget/cs';
 import { HttpService } from '@nestjs/axios';
-import { CreateWidgetSettingDto, WidgetSettingDto } from '@cashier/db/server/logic';
+import {
+  CreateWidgetSettingDto,
+  WidgetSettingDto,
+} from '@cashier/db/server/logic';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class WidgetService {
   constructor(
     private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
   ) {}
 
   public async getSettings(
     params: IGetWidgetSettingsParams,
-  ) {
-    let widgetSettings;
+  ): Promise<WidgetSettingDto> {
+    let widgetSettingsResponse;
     try {
-      widgetSettings =
-        await this.httpService.axiosRef.get<WidgetSettingDto>(`${process.env.DB_API_URL}/${WidgetSettingsRoutes.GetByUserId}/${params.userId}`);
-    }
-    catch (err) {
-      console.log(`Get widget settings error: params (${params}), response (${JSON.stringify(err)})`);
+      const url = `${this.configService.get<{ DB_API_URL: string }>('DB_API_URL')}/${WidgetSettingsRoutes.GetByUserId}/${params.userId}`;
+      console.log('getSettings service', url);
+      widgetSettingsResponse =
+        await this.httpService.axiosRef.get<WidgetSettingDto[]>(url);
+      console.log('getSettings service', widgetSettingsResponse);
+    } catch (err) {
+      console.log(
+        `Get widget settings error: params (${params}), response (${JSON.stringify(err)})`,
+      );
     }
 
-    if (!widgetSettings?.data) {
-      return DefaultWidgetSettings;
+    if (!widgetSettingsResponse?.data?.length) {
+      return {
+        widgetId: undefined,
+        configuration: DefaultWidgetSettings,
+      };
     }
 
-    return JSON.parse(widgetSettings.data.configuration) as IWidgetSettings;
+    console.log('widgetSettingsResponseData', widgetSettingsResponse.data);
+
+    return widgetSettingsResponse.data[0];
   }
 
   public async getPaymentMethods(
@@ -51,12 +65,13 @@ export class WidgetService {
   public async saveSettings(
     params: ISaveWidgetSettingsParams,
   ): Promise<ISaveWidgetSettingsResponse> {
-    console.log('saveSettings service');
-    const response = await this.httpService.axiosRef.patch<CreateWidgetSettingDto>(`${process.env.DB_API_URL}/${WidgetSettingsRoutes.Update}`, {
-      widgetId: params.widgetId,
-      userId: params.userId,
-      configuration: params.settings,
-    });
+    const url = `${this.configService.get<{ DB_API_URL: string }>('DB_API_URL')}/${WidgetSettingsRoutes.Update}`;
+    const response =
+      await this.httpService.axiosRef.patch<CreateWidgetSettingDto>(url, {
+        widgetId: params.widgetId,
+        userId: params.userId,
+        configuration: params.settings,
+      });
     if (!response) {
       // TODO implement error
       return Promise.resolve({});

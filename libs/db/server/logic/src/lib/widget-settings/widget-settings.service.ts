@@ -37,15 +37,13 @@ export class WidgetSettingsService {
 
   public async findOne(widgetId: number) {
     try {
-      return this.widgetSettingsRepository
-        .findOneBy({ widgetId });
-    }
-    catch (err) {
-      throw new BadRequestException('Can\'t widget settings');
+      return this.widgetSettingsRepository.findOneBy({ widgetId });
+    } catch (err) {
+      throw new BadRequestException("Can't widget settings");
     }
   }
 
-  private async findOneByWidgetIdAndUserId(widgetId: number, userId) {
+  private async findOneByWidgetIdAndUserId(widgetId: number, userId: number) {
     try {
       return await this.widgetSettingsRepository.findOne({
         where: {
@@ -55,13 +53,14 @@ export class WidgetSettingsService {
           },
         },
       });
-    }
-    catch (err) {
-      throw new BadRequestException('Can\'t widget settings');
+    } catch (err) {
+      throw new BadRequestException("Can't widget settings");
     }
   }
 
-  public async findByUserId(userId: number): Promise<MerchantWidgetConfiguration[]> {
+  public async findByUserId(
+    userId: number,
+  ): Promise<MerchantWidgetConfiguration[]> {
     const merchant = await this.usersRepository.findOne({
       where: { userId },
       relations: ['merchantWidgetConfigurations'],
@@ -75,7 +74,10 @@ export class WidgetSettingsService {
   }
 
   public async update(dto: UpdateWidgetSettingDto) {
-    const widgetSettings = await this.findOneByWidgetIdAndUserId(dto.widgetId, dto.userId);
+    const widgetSettings = await this.findOneByWidgetIdAndUserId(
+      dto.widgetId,
+      dto.userId,
+    );
 
     if (widgetSettings) {
       widgetSettings.configuration = dto.configuration;
@@ -83,10 +85,9 @@ export class WidgetSettingsService {
       await this.widgetSettingsRepository.save(widgetSettings);
 
       return await this.findOneByWidgetIdAndUserId(dto.widgetId, dto.userId);
-    }
-    else {
+    } else {
       throw new NotFoundException(
-        'User not found.',
+        `User not found. (widgetId: ${dto.widgetId}, userId: ${dto.userId})`,
       );
     }
   }

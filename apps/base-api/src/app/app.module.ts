@@ -1,42 +1,51 @@
 import { Module } from '@nestjs/common';
 import { WidgetModule } from '@cashier/widget/server/feature';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from '@cashier/auth/server/feature';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
-import { AtGuard, HttpExceptionFilter, RolesGuard } from '@cashier/common/server/logic';
+import {
+  AtGuard,
+  HttpExceptionFilter,
+  RolesGuard,
+} from '@cashier/common/server/logic';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      expandVariables: true,
     }),
     ClientsModule.registerAsync([
       {
         name: 'STRIPE',
-        useFactory: () => ({
+        imports: [ConfigModule],
+        useFactory: async (configService: ConfigService) => ({
           transport: Transport.RMQ,
           options: {
-            urls: [process.env.STRIPE_URL as string],
-            queue: process.env.STRIPE_QUEUE as string,
+            urls: [configService.get('STRIPE_URL') as string],
+            queue: configService.get('STRIPE_QUEUE') as string,
             queueOptions: {
               durable: false,
             },
           },
         }),
+        inject: [ConfigService],
       },
       {
         name: 'CHECKOUT',
-        useFactory: () => ({
+        imports: [ConfigModule],
+        useFactory: async (configService: ConfigService) => ({
           transport: Transport.RMQ,
           options: {
-            urls: [process.env.CHECKOUT_URL as string],
-            queue: process.env.CHECKOUT_QUEUE as string,
+            urls: [configService.get('CHECKOUT_URL') as string],
+            queue: configService.get('CHECKOUT_QUEUE') as string,
             queueOptions: {
               durable: false,
             },
           },
         }),
+        inject: [ConfigService],
       },
     ]),
     AuthModule,

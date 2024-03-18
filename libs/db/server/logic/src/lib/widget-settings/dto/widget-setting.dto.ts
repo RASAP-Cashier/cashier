@@ -5,7 +5,6 @@ export class WidgetSettingDto {
   @IsNotEmpty()
   configuration: IWidgetSettings;
 
-  @IsNotEmpty()
   @IsNumber()
-  userId: number;
+  widgetId?: number;
 }

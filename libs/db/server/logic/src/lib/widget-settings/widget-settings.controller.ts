@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { WidgetSettingsService } from './widget-settings.service';
 import { UpdateWidgetSettingDto } from './dto/update-widget-setting.dto';
 import { WidgetSettingsRoutes } from '@cashier/widget/cs';
@@ -10,6 +18,7 @@ export class WidgetSettingsController {
 
   @Post(WidgetSettingsRoutes.Create)
   create(@Body() createWidgetSettingDto: CreateWidgetSettingDto) {
+    console.log('WidgetSettingsController Create');
     return this.widgetSettingsService.create(createWidgetSettingDto);
   }
 

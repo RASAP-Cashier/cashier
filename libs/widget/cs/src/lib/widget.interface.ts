@@ -18,6 +18,8 @@ export type IGetWidgetSettingsParams = {
 };
 
 export type IGetWidgetSettingsResponse = {
+  userId: string;
+  widgetId?: number;
   settings: IWidgetSettings;
   paymentMethods: IPaymentMethod[];
 };

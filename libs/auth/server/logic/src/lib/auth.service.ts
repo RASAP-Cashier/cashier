@@ -13,12 +13,14 @@ import { AuthDto } from './dto';
 import { ITokenData } from './auth.interface';
 import { HttpService } from '@nestjs/axios';
 import { UsersRoutes } from '@cashier/users/server/cs';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly httpService: HttpService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   public async signUp(@Body() dto: CreateUserDto) {
@@ -30,14 +32,16 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(dto.password, 10);
 
     try {
-      const createdUser = await this.httpService.axiosRef.post<UserDto>(`${process.env.DB_API_URL}${UsersRoutes.Create}`, {
-        ...dto,
-        password: hashedPassword,
-      });
+      const createdUser = await this.httpService.axiosRef.post<UserDto>(
+        `${this.configService.get('DB_API_URL')}${UsersRoutes.Create}`,
+        {
+          ...dto,
+          password: hashedPassword,
+        },
+      );
 
       return await this.getToken(createdUser.data.id, createdUser.data.email);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       throw new HttpException(
         'Something went wrong',
@@ -76,12 +80,13 @@ export class AuthService {
     let response;
 
     try {
-      response =
-        await this.httpService.axiosRef.post<UserDto>(`${process.env.DB_API_URL}${UsersRoutes.GetByEmail}`, {
+      response = await this.httpService.axiosRef.post<UserDto>(
+        `${this.configService.get('DB_API_URL')}${UsersRoutes.GetByEmail}`,
+        {
           email,
-        });
-    }
-    catch (err) {
+        },
+      );
+    } catch (err) {
       console.log('AuthService findByEmail error');
     }
 
@@ -100,7 +105,7 @@ export class AuthService {
           email,
         },
         {
-          secret: process.env.JWT_SECRET,
+          secret: this.configService.get('JWT_SECRET'),
           expiresIn: '1d',
         },
       ),

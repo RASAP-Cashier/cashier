@@ -5,9 +5,13 @@ import { PostgresConfigService, WidgetSettingsModule } from '@cashier/db/server/
 import { UsersModule } from '@cashier/users/server/feature';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from '@cashier/common/server/logic';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRootAsync({
       useClass: PostgresConfigService,
       inject: [PostgresConfigService],

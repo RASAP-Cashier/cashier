@@ -15,6 +15,9 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
   public userId = '1';
 
   @observable
+  public widgetId;
+
+  @observable
   public paymentMethods: IPaymentMethod[] = [];
 
   @observable
@@ -57,6 +60,7 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
     });
     this.toggleIsLoading(false);
 
+    this.widgetId = widgetSettingsData.widgetId;
     this.paymentMethods = widgetSettingsData.paymentMethods;
     this.updateSettings(widgetSettingsData.settings);
   }
@@ -65,8 +69,8 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
   public async saveToServer() {
     this.toggleIsLoading(true);
     await WidgetService.getInstance().SaveSettings({
-      widgetId: 3,
-      userId: this.userId,
+      widgetId: this.widgetId,
+      userId: parseInt(this.userId),
       settings: toJS(this.settings),
     });
     this.toggleIsLoading(false);

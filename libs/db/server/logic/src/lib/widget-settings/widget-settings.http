@@ -5,3 +5,19 @@ Accept: application/json
 ### GET request with parameter
 GET http://localhost:3001/users/1
 Accept: application/json
+
+### Send POST request with json body
+PATCH http://localhost:3001/widget-settings
+Content-Type: application/json
+
+{
+  "widgetId": 28,
+  "userId": 1,
+  "settings": {
+    "paymentMethodsViewType": "Minimal",
+    "layout": "Single",
+    "buttonText": "PAY",
+    "colorModeStyles": { "dark": ["Object"], "light": ["Object"] }
+  }
+}
+
