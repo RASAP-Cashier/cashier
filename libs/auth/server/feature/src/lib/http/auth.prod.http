@@ -13,8 +13,8 @@ POST https://base-api.asapcashier-dev.com/auth/sign-in
 Content-Type: application/json
 
 {
-  "email": "alexP@releaseasap.com",
-  "password": "test1234"
+  "email": "f32wwal@tes.com",
+  "password": "test123456"
 }
 
 ### Send LOGIN request

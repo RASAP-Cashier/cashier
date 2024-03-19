@@ -15,6 +15,7 @@ import {
 import { HttpService } from '@nestjs/axios';
 import {
   CreateWidgetSettingDto,
+  UpdateWidgetSettingDto,
   WidgetSettingDto,
 } from '@cashier/db/server/logic';
 import { ConfigService } from '@nestjs/config';
@@ -65,17 +66,17 @@ export class WidgetService {
   ): Promise<ISaveWidgetSettingsResponse> {
     const url = `${this.configService.get<{ DB_API_URL: string }>('DB_API_URL')}/${WidgetSettingsRoutes.Update}`;
     const data = {
-      widgetId: params.widgetId,
       userId: params.userId,
+      widgetId: params.widgetId,
       configuration: params.settings,
     };
 
     Logger.log(`DB_API url: ${url}, params: `, data);
 
     const response =
-      await this.httpService.axiosRef.patch<CreateWidgetSettingDto>(url, data);
+      await this.httpService.axiosRef.patch<UpdateWidgetSettingDto>(url, data);
 
-    Logger.log(`DB_API url: ${url}, params: `, response.data);
+    Logger.log(`DB_API url: ${url}, result: `, response.data);
 
     if (!response) {
       // TODO implement error

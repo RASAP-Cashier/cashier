@@ -39,12 +39,17 @@ export class WidgetSettingsController {
   }
 
   @Patch(WidgetSettingsRoutes.Update)
-  updateOrInsert(@Body() dto: UpdateWidgetSettingDto) {
+  async updateOrInsert(@Body() dto: UpdateWidgetSettingDto) {
     Logger.log(`${WidgetSettingsRoutes.Update}, dto:`, dto);
-    if (!dto.widgetId) {
-      return this.widgetSettingsService.create(dto);
-    } else {
+
+    const response = await this.widgetSettingsService.findByUserId(dto.userId);
+
+    if (response?.length) {
+      Logger.log(`${WidgetSettingsRoutes.Update}, UPDATE response:`, response);
       return this.widgetSettingsService.update(dto);
+    } else {
+      Logger.log(`${WidgetSettingsRoutes.Update}, CREATE response:`, response);
+      return this.widgetSettingsService.create(dto);
     }
   }
 
