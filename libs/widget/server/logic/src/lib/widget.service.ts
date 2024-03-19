@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {
   CheckoutPaymentMethod,
   DefaultWidgetSettings,
@@ -32,10 +32,8 @@ export class WidgetService {
     let widgetSettingsResponse;
     try {
       const url = `${this.configService.get<{ DB_API_URL: string }>('DB_API_URL')}/${WidgetSettingsRoutes.GetByUserId}/${params.userId}`;
-      console.log('getSettings service', url);
       widgetSettingsResponse =
         await this.httpService.axiosRef.get<WidgetSettingDto[]>(url);
-      console.log('getSettings service', widgetSettingsResponse);
     } catch (err) {
       console.log(
         `Get widget settings error: params (${params}), response (${JSON.stringify(err)})`,
@@ -66,12 +64,19 @@ export class WidgetService {
     params: ISaveWidgetSettingsParams,
   ): Promise<ISaveWidgetSettingsResponse> {
     const url = `${this.configService.get<{ DB_API_URL: string }>('DB_API_URL')}/${WidgetSettingsRoutes.Update}`;
+    const data = {
+      widgetId: params.widgetId,
+      userId: params.userId,
+      configuration: params.settings,
+    };
+
+    Logger.log(`DB_API url: ${url}, params: `, data);
+
     const response =
-      await this.httpService.axiosRef.patch<CreateWidgetSettingDto>(url, {
-        widgetId: params.widgetId,
-        userId: params.userId,
-        configuration: params.settings,
-      });
+      await this.httpService.axiosRef.patch<CreateWidgetSettingDto>(url, data);
+
+    Logger.log(`DB_API url: ${url}, params: `, response.data);
+
     if (!response) {
       // TODO implement error
       return Promise.resolve({});

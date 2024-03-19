@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   Patch,
   Post,
@@ -38,9 +39,13 @@ export class WidgetSettingsController {
   }
 
   @Patch(WidgetSettingsRoutes.Update)
-  update(@Body() dto: UpdateWidgetSettingDto) {
-    console.log('WidgetSettingsController update');
-    return this.widgetSettingsService.update(dto);
+  updateOrInsert(@Body() dto: UpdateWidgetSettingDto) {
+    Logger.log(`${WidgetSettingsRoutes.Update}, dto:`, dto);
+    if (!dto.widgetId) {
+      return this.widgetSettingsService.create(dto);
+    } else {
+      return this.widgetSettingsService.update(dto);
+    }
   }
 
   @Delete(WidgetSettingsRoutes.Delete)

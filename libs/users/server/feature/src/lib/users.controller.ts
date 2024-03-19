@@ -21,7 +21,6 @@ export class UsersController {
   @Post(UsersRoutes.GetByEmail)
   @Roles(Role.Admin)
   findOneByEmail(@Body('email') email: string) {
-    console.log(email);
     return this.usersService.findOneByEmail(email);
   }
 

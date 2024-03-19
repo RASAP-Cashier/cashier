@@ -12,7 +12,6 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
   public createTypeOrmOptions(
     _connectionName?: string,
   ): Promise<TypeOrmModuleOptions> | TypeOrmModuleOptions {
-    console.log(JSON.stringify(process.env));
     return {
       type: 'postgres',
       host: this.configService.get('DATABASE_HOST'),

@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Logger,
   Post,
   Query,
 } from '@nestjs/common';
@@ -26,23 +27,31 @@ export class WidgetController {
   async getSettings(
     @Query() params: IGetWidgetSettingsParams,
   ): Promise<IGetWidgetSettingsResponse> {
-    console.log('getSettings', params);
+    Logger.log(`"${WidgetRoutes.Settings}", params:`, params);
+
     const settings = await this.widgetService.getSettings(params);
     const paymentMethods = await this.widgetService.getPaymentMethods(params);
 
-    return {
+    const result = {
       userId: params.userId,
       widgetId: settings.widgetId,
       paymentMethods,
       settings: settings.configuration,
     };
+
+    Logger.log(`"${WidgetRoutes.Settings}", result:`, result);
+
+    return result;
   }
 
   @Public()
   @Post(WidgetRoutes.Settings)
   async saveSettings(@Body() params: ISaveWidgetSettingsParams) {
-    console.log('saveSettings 1', params);
-    return this.widgetService.saveSettings(params);
+    Logger.log(`"${WidgetRoutes.Settings}", params:`, params);
+    const result = await this.widgetService.saveSettings(params);
+    Logger.log(`"${WidgetRoutes.Settings}", result:`, result);
+
+    return result;
   }
 
   @Public()
