@@ -17,13 +17,28 @@
         "main": "apps/base-api/src/main.ts",
         "tsConfig": "apps/base-api/tsconfig.app.json",
         "assets": [
-          "apps/base-api/src/assets"
+          "apps/base-api/src/assets",
+          {
+            "glob": ".env.build",
+            "input": "./",
+            "output": "./"
+          }
         ],
         "webpackConfig": "apps/base-api/webpack.config.js"
       },
       "configurations": {
         "development": {},
         "production": {}
+      }
+    },
+    "renameEnvFile": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "mv dist/apps/base-api/.env.build dist/apps/base-api/.env"
+          }
+        ]
       }
     },
     "tsc": {

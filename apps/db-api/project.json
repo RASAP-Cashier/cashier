@@ -17,13 +17,28 @@
         "main": "apps/db-api/src/main.ts",
         "tsConfig": "apps/db-api/tsconfig.app.json",
         "assets": [
-          "apps/db-api/src/assets"
+          "apps/db-api/src/assets",
+          {
+            "glob": ".env.build",
+            "input": "./",
+            "output": "./"
+          }
         ],
         "webpackConfig": "apps/db-api/webpack.config.js"
       },
       "configurations": {
         "development": {},
         "production": {}
+      }
+    },
+    "renameEnvFile": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "mv dist/apps/db-api/.env.build dist/apps/db-api/.env"
+          }
+        ]
       }
     },
     "tsc": {
