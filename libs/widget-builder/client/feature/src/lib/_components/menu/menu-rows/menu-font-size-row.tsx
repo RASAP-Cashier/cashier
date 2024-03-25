@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { ChangeEvent } from 'react';
-import {
-  useWidgetSettingsStore,
-  useWidgetStateStore,
-} from '@cashier/widget/client/logic';
+import { useWidgetSettingsStore } from '@cashier/widget/client/logic';
 import { WidgetFontSize } from '@cashier/widget/cs';
 import { observer } from 'mobx-react';
 import { MenuItemRow } from './item';
@@ -12,7 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { EnumValues } from 'enum-values';
 
 export const MenuFontSizeRow = observer(() => {
-  const widgetStateStore = useWidgetStateStore();
   const widgetSettingsStore = useWidgetSettingsStore();
 
   const handleChange = React.useCallback(
@@ -21,10 +17,10 @@ export const MenuFontSizeRow = observer(() => {
       widgetSettingsStore.updateStylesSettings(
         'fontSize',
         newValue,
-        widgetStateStore.merchantInfo.colorMode
+        widgetSettingsStore.settings.colorMode,
       );
     },
-    [widgetStateStore.merchantInfo.colorMode]
+    [widgetSettingsStore.settings.colorMode],
   );
 
   return (
@@ -34,7 +30,7 @@ export const MenuFontSizeRow = observer(() => {
         <TextField
           select
           value={
-            widgetSettingsStore.styles(widgetStateStore.merchantInfo.colorMode)
+            widgetSettingsStore.styles(widgetSettingsStore.settings.colorMode)
               .fontSize
           }
           onChange={handleChange}

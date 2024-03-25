@@ -12,6 +12,7 @@ import { IPaymentMethod, PaymentMethod } from './widget.interface';
 export const DefaultWidgetSettings: IWidgetSettings = {
   paymentMethodsViewType: WidgetPaymentMethodsViewType.Minimal,
   layout: WidgetLayout.Single,
+  colorMode: WidgetColorMode.Light,
   companyLogo: undefined,
   buttonText: 'PAY',
 

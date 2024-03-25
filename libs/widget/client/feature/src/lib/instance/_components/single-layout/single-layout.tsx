@@ -2,20 +2,16 @@ import * as React from 'react';
 import { Card, Grid } from '@mui/material';
 import { ISingleLayoutProps } from './single-layout.interface';
 import { withClasses } from './single-layout.css';
-import {
-  useWidgetSettingsStore,
-  useWidgetStateStore,
-} from '@cashier/widget/client/logic';
+import { useWidgetSettingsStore } from '@cashier/widget/client/logic';
 import { observer } from 'mobx-react';
 
 export const SingleLayout = observer((props: ISingleLayoutProps) => {
   const { leftColumnComponent, rightColumnComponent } = props;
   const classes = withClasses();
 
-  const widgetStateStore = useWidgetStateStore();
   const widgetSettingsStore = useWidgetSettingsStore();
   const { font, fontSize, backgroundColor, textColor } =
-    widgetSettingsStore.styles(widgetStateStore.merchantInfo.colorMode);
+    widgetSettingsStore.styles(widgetSettingsStore.settings.colorMode);
 
   return (
     <Card

@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import { useWidgetSettingsStore, useWidgetStateStore } from '@cashier/widget/client/logic';
+import {
+  useWidgetSettingsStore,
+  useWidgetStateStore,
+} from '@cashier/widget/client/logic';
 import { IWidgetInstanceProps } from './widget-instance.interface';
 import { SeparateLayout } from './_components/separate-layout';
 import { SingleLayout } from './_components/single-layout';
@@ -35,7 +38,7 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
     lineColor,
     buttonBackgroundColor,
     buttonTextColor,
-  } = widgetSettingsStore.styles(widgetStateStore.merchantInfo.colorMode);
+  } = widgetSettingsStore.styles(widgetSettingsStore.settings.colorMode);
 
   if (widgetSettingsStore.isLoading) {
     return <Box className={classes.container}>{'...LOADING'}</Box>;
@@ -43,60 +46,58 @@ export const WidgetInstance = observer((props: IWidgetInstanceProps) => {
 
   return (
     <Box className={classes.container}>
-      {widgetSettingsStore.settings.layout === WidgetLayout.Separate
-        ? (
-          <SeparateLayout
-            step1Component={
-              <>
-                <PaymentMethodsList/>
-              </>
-            }
-            step2LeftColumnComponent={
-              <>
-                <CardDetails/>
-                <BillingInfo
-                  cornerRadius={cornerRadius}
-                  fieldColor={fieldColor}
-                  lineColor={lineColor}
-                />
-              </>
-            }
-            step2RightColumnComponent={
-              <>
-                <Summary
-                  buttonText={widgetSettingsStore.settings.buttonText}
-                  buttonBackgroundColor={buttonBackgroundColor}
-                  buttonTextColor={buttonTextColor}
-                />
-              </>
-            }
-          />
-        )
-        : (
-          <SingleLayout
-            leftColumnComponent={
-              <>
-                <PaymentMethodsSlider/>
-                <CardDetails/>
-                <BillingInfo
-                  cornerRadius={cornerRadius}
-                  fieldColor={fieldColor}
-                  lineColor={lineColor}
-                />
-              </>
-            }
-            rightColumnComponent={
-              <>
-                <Summary
-                  buttonText={widgetSettingsStore.settings.buttonText}
-                  buttonTextColor={buttonTextColor}
-                  buttonBackgroundColor={buttonBackgroundColor}
-                  companyLogo={widgetSettingsStore.settings.companyLogo}
-                />
-              </>
-            }
-          />
-        )}
+      {widgetSettingsStore.settings.layout === WidgetLayout.Separate ? (
+        <SeparateLayout
+          step1Component={
+            <>
+              <PaymentMethodsList />
+            </>
+          }
+          step2LeftColumnComponent={
+            <>
+              <CardDetails />
+              <BillingInfo
+                cornerRadius={cornerRadius}
+                fieldColor={fieldColor}
+                lineColor={lineColor}
+              />
+            </>
+          }
+          step2RightColumnComponent={
+            <>
+              <Summary
+                buttonText={widgetSettingsStore.settings.buttonText}
+                buttonBackgroundColor={buttonBackgroundColor}
+                buttonTextColor={buttonTextColor}
+              />
+            </>
+          }
+        />
+      ) : (
+        <SingleLayout
+          leftColumnComponent={
+            <>
+              <PaymentMethodsSlider />
+              <CardDetails />
+              <BillingInfo
+                cornerRadius={cornerRadius}
+                fieldColor={fieldColor}
+                lineColor={lineColor}
+              />
+            </>
+          }
+          rightColumnComponent={
+            <>
+              <Summary
+                buttonText={widgetSettingsStore.settings.buttonText}
+                buttonTextColor={buttonTextColor}
+                buttonBackgroundColor={buttonBackgroundColor}
+                companyLogo={widgetSettingsStore.settings.companyLogo}
+              />
+            </>
+          }
+        />
+      )}
     </Box>
   );
 });

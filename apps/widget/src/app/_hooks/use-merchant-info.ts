@@ -1,5 +1,5 @@
 import { Language } from '@cashier/i18n';
-import { IMerchantInfo, WidgetColorMode } from '@cashier/widget/cs';
+import { IMerchantInfo } from '@cashier/widget/cs';
 import { getQueryParam } from '@cashier/utils';
 
 export const useMerchantInfo = (): IMerchantInfo => {
@@ -9,7 +9,8 @@ export const useMerchantInfo = (): IMerchantInfo => {
   const tax = parseInt(getQueryParam('tax')) || 10;
   const vat = parseInt(getQueryParam('vat')) || 15;
   const lang = (getQueryParam('lang') || Language.en) as Language;
-  const colorMode = (getQueryParam('colorMode') || WidgetColorMode.Light) as WidgetColorMode;
+  // TODO maybe we should send colorMode in query-string
+  // const colorMode = (getQueryParam('colorMode') || WidgetColorMode.Light) as WidgetColorMode;
 
   // TODO implement validation
 
@@ -20,6 +21,5 @@ export const useMerchantInfo = (): IMerchantInfo => {
     tax,
     vat,
     lang,
-    colorMode,
   };
 };

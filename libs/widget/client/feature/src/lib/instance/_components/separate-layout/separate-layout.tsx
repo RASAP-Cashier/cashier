@@ -6,10 +6,7 @@ import { ISteps } from './stepper/horizontal-stepper.interface';
 import { SingleLayout } from '../single-layout';
 import { Box, Card } from '@mui/material';
 import { withClasses } from './separate-layout.css';
-import {
-  useWidgetSettingsStore,
-  useWidgetStateStore,
-} from '@cashier/widget/client/logic';
+import { useWidgetSettingsStore } from '@cashier/widget/client/logic';
 import { observer } from 'mobx-react';
 
 export const SeparateLayout = observer((props: ISeparateLayoutProps) => {
@@ -21,10 +18,9 @@ export const SeparateLayout = observer((props: ISeparateLayoutProps) => {
   const [t] = useTranslation();
   const classes = withClasses();
 
-  const widgetStateStore = useWidgetStateStore();
   const widgetSettingsStore = useWidgetSettingsStore();
   const { font, fontSize, backgroundColor, textColor } =
-    widgetSettingsStore.styles(widgetStateStore.merchantInfo.colorMode);
+    widgetSettingsStore.styles(widgetSettingsStore.settings.colorMode);
 
   const steps: ISteps = {
     0: {

@@ -31,7 +31,7 @@ class WidgetSettingsStore implements IWidgetSettingsStore {
   }
 
   public styles(colorMode: WidgetColorMode) {
-    return this.settings.colorModeStyles[colorMode];
+    return this.settings.colorModeStyles[colorMode || WidgetColorMode.Light];
   }
 
   @action

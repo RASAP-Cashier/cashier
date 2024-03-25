@@ -6,7 +6,7 @@
     "start:admin": "yarn nx serve admin | yarn nx tsc admin",
     "start:widget": "yarn nx serve widget | yarn nx tsc widget",
     "start:base-api": "yarn nx serve base-api",
-    "start:db": "yarn nx serve db-api",
+    "start:db-api": "yarn nx serve db-api",
     "build:admin:prod": "yarn nx build admin production",
     "build:widget:prod": "yarn nx build widget production",
     "build:base-api:prod": "yarn nx build base-api production && yarn nx renameEnvFile base-api",

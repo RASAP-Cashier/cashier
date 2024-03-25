@@ -1,8 +1,12 @@
 import React from 'react';
 import { action, makeObservable, observable, toJS } from 'mobx';
-import { IBillingInfo, ICardInfo, IWidgetStateStore } from './widget-state.interface';
+import {
+  IBillingInfo,
+  ICardInfo,
+  IWidgetStateStore,
+} from './widget-state.interface';
 import { WidgetService } from '../../widget.service';
-import { IMerchantInfo, WidgetColorMode } from '@cashier/widget/cs';
+import { IMerchantInfo } from '@cashier/widget/cs';
 import { Language } from '@cashier/i18n';
 import { isEqual } from 'lodash';
 
@@ -12,7 +16,13 @@ class WidgetStateStore implements IWidgetStateStore {
 
   @observable
   public billingInfo: IBillingInfo = {
-    address: '', city: '', country: '', phoneNumber: '', postCode: '', state: '', street: '',
+    address: '',
+    city: '',
+    country: '',
+    phoneNumber: '',
+    postCode: '',
+    state: '',
+    street: '',
   };
 
   @observable
@@ -29,7 +39,6 @@ class WidgetStateStore implements IWidgetStateStore {
     currency: '',
     tax: 0,
     vat: 0,
-    colorMode: WidgetColorMode.Light,
     lang: Language.en,
   };
 

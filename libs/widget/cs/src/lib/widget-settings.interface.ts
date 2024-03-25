@@ -55,6 +55,7 @@ export type ICurrency = string;
 export interface IWidgetSettings {
   paymentMethodsViewType: WidgetPaymentMethodsViewType;
   layout: WidgetLayout;
+  colorMode: WidgetColorMode;
   companyLogo?: string;
   buttonText: string;
 
@@ -71,5 +72,4 @@ export type IMerchantInfo = {
   tax: number;
   vat: number;
   lang: Language;
-  colorMode: WidgetColorMode;
 };
