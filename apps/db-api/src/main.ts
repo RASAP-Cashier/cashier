@@ -13,13 +13,14 @@ async function bootstrap() {
 
   const globalPrefix = '';
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3001;
+  const port = process.env.PORT || 3005;
   await app.listen(port);
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
   );
 
-  Logger.log('!!!!!!! ENV VARIABLES !!!!!!!', {
+  Logger.log('!!!!!!! ENV VARIABLES, DB-API !!!!!!!', {
+    BASE_API_OLD_URL: process.env.BASE_API_OLD_URL,
     BASE_API_URL: process.env.BASE_API_URL,
     DB_API_URL: process.env.DB_API_URL,
     WIDGET_URL: process.env.WIDGET_URL,
@@ -29,10 +30,6 @@ async function bootstrap() {
     DATABASE_PORT: process.env.DATABASE_PORT,
     DATABASE_USER: process.env.DATABASE_USER,
     JWT_SECRET: process.env.JWT_SECRET,
-    STRIPE_QUEUE: process.env.STRIPE_QUEUE,
-    STRIPE_URL: process.env.STRIPE_URL,
-    CHECKOUT_QUEUE: process.env.CHECKOUT_QUEUE,
-    CHECKOUT_URL: process.env.CHECKOUT_URL,
   });
 }
 

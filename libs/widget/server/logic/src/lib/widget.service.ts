@@ -14,7 +14,6 @@ import {
 } from '@cashier/widget/cs';
 import { HttpService } from '@nestjs/axios';
 import {
-  CreateWidgetSettingDto,
   UpdateWidgetSettingDto,
   WidgetSettingDto,
 } from '@cashier/db/server/logic';
@@ -32,7 +31,9 @@ export class WidgetService {
   ): Promise<WidgetSettingDto> {
     let widgetSettingsResponse;
     try {
-      const url = `${this.configService.get<{ DB_API_URL: string }>('DB_API_URL')}/${WidgetSettingsRoutes.GetByUserId}/${params.userId}`;
+      const url = `${this.configService.get<{
+        DB_API_URL: string;
+      }>('DB_API_URL')}/${WidgetSettingsRoutes.GetByUserId}/${params.userId}`;
       widgetSettingsResponse =
         await this.httpService.axiosRef.get<WidgetSettingDto[]>(url);
     } catch (err) {
@@ -87,8 +88,31 @@ export class WidgetService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async pay(_params: IWidgetPayParams): Promise<IWidgetPayResponse> {
-    // TODO implement
-    return Promise.resolve({});
+  public async pay(params: IWidgetPayParams): Promise<IWidgetPayResponse> {
+    // TODO: params validation, fix params interface
+    const url = `${this.configService.get<{ BASE_API_OLD_URL: string }>('BASE_API_OLD_URL')}/${params.paymentMethod}`;
+
+    const { currency, amount, cardNumber, month, year } = params;
+    const data = {
+      currency,
+      amount,
+      cardNumber,
+      month,
+      year,
+    };
+
+    Logger.log(`pay url: ${url}, params: `, data);
+
+    const response =
+      await this.httpService.axiosRef.post<UpdateWidgetSettingDto>(url, data);
+
+    Logger.log(`pay url: ${url}, result: `, response.data);
+
+    if (!response) {
+      // TODO implement error
+      return Promise.resolve({});
+    }
+
+    return Promise.resolve(response.data);
   }
 }

@@ -35,7 +35,12 @@ export type ISaveWidgetSettingsResponse = {
 };
 
 export type IWidgetPayParams = {
-  // TOD
+  paymentMethod: PaymentMethod;
+  currency: string;
+  amount: number;
+  cardNumber: string;
+  month: number;
+  year: number;
 };
 
 export type IWidgetPayResponse = {

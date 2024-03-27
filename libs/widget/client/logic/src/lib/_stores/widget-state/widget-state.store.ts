@@ -6,7 +6,7 @@ import {
   IWidgetStateStore,
 } from './widget-state.interface';
 import { WidgetService } from '../../widget.service';
-import { IMerchantInfo } from '@cashier/widget/cs';
+import { IMerchantInfo, PaymentMethod } from '@cashier/widget/cs';
 import { Language } from '@cashier/i18n';
 import { isEqual } from 'lodash';
 
@@ -71,9 +71,12 @@ class WidgetStateStore implements IWidgetStateStore {
   public async pay() {
     this.toggleIsLoading(true);
     await WidgetService.getInstance().Pay({
-      billingInfo: toJS(this.billingInfo),
-      cardInfo: toJS(this.cardInfo),
-      merchantInfo: toJS(this.merchantInfo),
+      paymentMethod: PaymentMethod.Checkout,
+      month: toJS(this.cardInfo).date?.getMonth() || 12,
+      year: toJS(this.cardInfo).date?.getFullYear() || 2025,
+      cardNumber: toJS(this.cardInfo).cardNumber || '4242424242424242',
+      currency: toJS(this.merchantInfo).currency,
+      amount: toJS(this.merchantInfo).amount,
     });
     this.toggleIsLoading(false);
   }

@@ -58,6 +58,7 @@ export class WidgetController {
   @HttpCode(HttpStatus.OK)
   @Post(WidgetRoutes.Pay)
   async pay(@Body() params: IWidgetPayParams) {
+    Logger.debug(`BASE-API, widget/pay, params: ${params}`);
     return this.widgetService.pay(params);
   }
 }

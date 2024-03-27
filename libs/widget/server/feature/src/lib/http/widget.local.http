@@ -1,5 +1,5 @@
 ### Send Save Widget Settings request
-POST http://localhost:3000/widget/settings
+POST http://localhost:3004/widget/settings
 Content-Type: application/json
 
 {
@@ -38,11 +38,29 @@ Content-Type: application/json
 }
 
 ### Send Get Widget Settings request
-GET http://localhost:3000/widget/settings?userId=1
+GET http://localhost:3004/widget/settings?userId=1
 
 ### Send Pay request
-POST http://localhost:3000/widget/pay
+POST http://localhost:3004/widget/pay
 Content-Type: application/json
 
 {
+  "paymentMethod": "checkout",
+  "currency": "EUR",
+  "amount": 123,
+  "cardNumber": 4242424242424242,
+  "month": 12,
+  "year": 2025
+}
+
+### Send Pay request
+POST http://localhost:3000/checkout
+Content-Type: application/json
+
+{
+  "currency": "EUR",
+  "amount": 123,
+  "cardNumber": 4242424242424242,
+  "month": 12,
+  "year": 2025
 }
