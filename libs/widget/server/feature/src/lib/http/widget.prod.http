@@ -13,4 +13,22 @@ POST http://base-api.asapcashier-dev.com/widget/pay
 Content-Type: application/json
 
 {
+  "paymentMethod": "checkout",
+  "currency": "EUR",
+  "amount": 123,
+  "cardNumber": 4242424242424242,
+  "month": 12,
+  "year": 2025
+}
+
+### Send Pay request
+POST http://base-api.asapcashier-dev.com/checkout
+Content-Type: application/json
+
+{
+  "currency": "EUR",
+  "amount": 123,
+  "cardNumber": 4242424242424242,
+  "month": 12,
+  "year": 2025
 }
